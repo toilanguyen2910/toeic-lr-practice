@@ -131,6 +131,8 @@ export async function runVerifyCore() {
         await page.clearLocalStorage()
         await page.goto(`${url}#/`)
         await page.waitFor(sel('home'), 20000)
+        // Chờ hết transition màu của thanh nav (140ms) để ảnh không chụp giữa lúc chuyển tab.
+        await new Promise((r) => setTimeout(r, 300))
         await screenshot('home', 'e2e')
         await page.click(sel('home-start-mock'))
         await page.waitFor(sel('session'), 20000)
@@ -197,4 +199,5 @@ if (isMain) {
       process.exit(1)
     })
 }
+
 

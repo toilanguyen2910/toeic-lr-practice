@@ -199,12 +199,12 @@ Lead đã từng tìm ra lỗi Part 1.
   trước quầy cà phê".
 - **Trạng thái:** **Còn mở** — chờ `ui` sửa 2 dòng `aria-label`.
 
-### 4.6. [NHỎ — MỚI, 22:35] Ảnh `01-home.png` trong README bị chụp giữa lúc chuyển tab
+### 4.6. [ĐÃ ĐÓNG một phần — 22:47] Ảnh `01-home.png` từng bị chụp giữa lúc chuyển tab
 
 - **Mức độ:** nhỏ nhưng **ảnh hưởng ấn tượng đầu tiên**, vì đây là ảnh duy nhất hiển thị
   ngay trên đầu `README.md` — tức là ảnh công khai trên GitHub.
-- **Hiện tượng:** trong `01-home.png`, tab **"Lịch sử"** vẫn còn một vệt nền xanh nhạt
-  trong khi trang đang ở `#/` (tab đúng phải là "Trang chủ").
+- **Hiện tượng (bản cũ):** trong `01-home.png`, tab **"Lịch sử"** vẫn còn một vệt nền xanh
+  nhạt trong khi trang đang ở `#/` (tab đúng phải là "Trang chủ").
 - **Bằng chứng đo được:** tôi cắt vùng nav từ chính file PNG (phóng 4×) và thấy **hai** pill
   cùng có nền: "Trang chủ" (nhạt dần) và "Lịch sử" (đậm dần). Lấy mẫu pixel nền:
   - `nav-home` → `rgb(252,253,254)` (đang nhạt dần từ `rgb(231,239,250)`)
@@ -212,7 +212,7 @@ Lead đã từng tìm ra lỗi Part 1.
   - 3 tab còn lại → `rgb(255,255,255)` (trắng)
 - **Nguyên nhân (đã chứng minh bằng thực nghiệm):** `.nav__link` có
   `transition: background-color 140ms ease` (`src/styles/base.css:88-99`).
-  `verify-core.mjs` gọi `page.waitFor(sel('home'))` rồi `screenshot('01-home')` **ngay lập
+  `verify-core.mjs` gọi `page.waitFor(sel('home'))` rồi `screenshot(...)` **ngay lập
   tức** — không chờ transition kết thúc. Tôi tái hiện đúng luồng và đo `getComputedStyle`:
   ```
   NGAY sau khi #/ hiện (giống verify-core): [{"t":"history","bg":"rgb(231, 239, 250)"}]
@@ -221,13 +221,20 @@ Lead đã từng tìm ra lỗi Part 1.
   Tức là tại thời điểm chụp, tab active **vẫn còn là "Lịch sử"**.
 - **Đây KHÔNG phải lỗi của app:** `aria-current` đúng hoàn toàn — tôi kiểm ở cả `#/` và
   `#/history`, mỗi lần chỉ đúng 1 tab có `aria-current="page"`.
-- **Cách tái hiện:** `node scripts/verify-core.mjs` rồi mở `docs/screenshots/01-home.png`
-  (script này ghi đè `01-home.png` của `screenshots.mjs`).
-- **Hướng sửa (KHÔNG phải QA làm — `verify-core.mjs` là của Lead):** thêm
-  `await new Promise(r => setTimeout(r, 250))` trước `screenshot('01-home')` trong
-  `verify-core.mjs`, **hoặc** đơn giản là chạy `node scripts/screenshots.mjs` sau cùng để
-  `01-home.png` được sinh lại bởi script có chờ ổn định.
-- **Trạng thái:** **Còn mở.**
+- **Cách tái hiện bản cũ:** chạy `node scripts/verify-core.mjs` (bản trước 22:40) rồi mở
+  `docs/screenshots/01-home.png`.
+- **TÌNH HÌNH MỚI (22:47):** Lead đã sửa `cdp.mjs` + `verify-core.mjs` lúc **22:40**, tách
+  ảnh E2E sang thư mục riêng `docs/screenshots/e2e/` (3 file `home.png`, `history.png`,
+  `result.png`) nên **không còn ghi đè** 10 ảnh chính thức. Tuy nhiên bản `e2e/home.png`
+  **vẫn còn lỗi y hệt** (tôi đã cắt nav và xác nhận), vì lỗi nằm ở việc **thiếu thời gian
+  chờ trước khi chụp**, không phải ở đường dẫn.
+  `01-home.png` chính thức đã được tôi sinh lại bằng `node scripts/screenshots.mjs` lúc
+  22:47 (script này có `sleep(400)` trước khi chụp) → **đã sạch**: cắt nav xác nhận chỉ
+  "Trang chủ" có nền `rgb(231,239,250)`, 4 tab còn lại trắng.
+- **Trạng thái:** **Ảnh chính thức: ĐÃ SỬA XONG.** Ảnh phụ `e2e/home.png`: **còn lỗi**
+  (không hiển thị trên README, mức ưu tiên thấp). Muốn dứt điểm thì thêm
+  `await new Promise(r => setTimeout(r, 250))` trước `screenshot(...)` trong
+  `verify-core.mjs`.
 
 ### 4.7. Điều **không** phải lỗi (đã kiểm và thấy đúng)
 - App **không sập** khi `localStorage` bị làm hỏng: QA ghi `"{day-khong-phai-json"` vào
@@ -301,5 +308,86 @@ phải chép từ người khác.
 | Setting có thật sự đổi hành vi không? | **Có.** Bật → có feedback; tắt → không có feedback (đo bằng đếm DOM) |
 | Nộp bài khi còn câu trống có đếm đúng không? | **Có.** Trả lời 1/85 → trống = 84, và 0+1+84 = 85 |
 | Có lỗi console không? | **Không.** 7/7 route sạch cả `window.onerror` lẫn CDP |
-| Có gì cần quyết định? | Đồng hồ thi thử **57:00** thay vì 120:00 (mục 4.4); 4 warning `oxlint` (mục 4.2) |
+| Có gì cần quyết định? | Đồng hồ thi thử **57:00** (mục 4.4, cố ý); 2 `aria-label` SVG sai mô tả (mục 4.5); ảnh bìa README chụp giữa lúc chuyển tab (mục 4.6) |
+
+---
+
+## 8. VÒNG XÁC MINH ĐỘC LẬP CUỐI — 22:24–22:40 ngày 14/11/2026
+
+Chạy lại **toàn bộ** trên trạng thái repo sau khi Lead tích hợp (bật `strict`, sửa Part 1–4,
+dọn asset, viết lại README). Đây là chốt chặn trước khi đẩy lên GitHub công khai.
+Mọi kết quả dưới đây do QA tự chạy lại, **không tái sử dụng** số của lần trước.
+
+| Lệnh | Dòng tổng kết nguyên văn | Exit |
+|---|---|---|
+| `npx tsc -b --force` | (không in dòng nào — sạch hoàn toàn) | 0 |
+| `npx oxlint` | `Found 0 warnings and 0 errors.` — `Finished in 19ms on 56 files` | 0 |
+| `npx vitest run` | `Test Files  7 passed (7)` / `Tests  195 passed (195)` | 0 |
+| `node scripts/verify-core.mjs` | `Xác minh E2E trên Chrome: 50 passed, 0 failed` | 0 |
+| `node scripts/verify-ui.mjs` | `Xác minh giao diện trên Chrome (QA độc lập): 28 passed, 0 failed` | 0 |
+| `npx vite build` | `✓ 54 modules transformed` / `✓ built in 142ms` | 0 |
+| `node scripts/screenshots.mjs` | `10/10 ảnh chụp thành công trong 8227ms` | 0 |
+
+**Kích thước bản production:** `dist/index.html` 0.79 kB · CSS 25.36 kB (gzip 5.30 kB) ·
+JS 369.26 kB (gzip 111.15 kB).
+
+### Đối chiếu README với thực tế
+
+| README nói | Thực tế đo được | Kết luận |
+|---|---|---|
+| "195 unit test" | 195 passed / 7 file | **KHỚP** |
+| "50 kiểm thử E2E" | 50 passed, 0 failed | **KHỚP** |
+| "28 kiểm thử giao diện" | 28 passed, 0 failed | **KHỚP** |
+| "85 câu" | Đếm trong `part1..part7.ts`: 8+12+12+9+20+8+16 = 85 | **KHỚP** |
+| Bảng số câu từng part (8/12/12/9/20/8/16) | Khớp từng part | **KHỚP** |
+| "A=23 (27%), B=22 (26%), C=22 (26%), D=18 (21%)" | Đếm thật: A=23, B=22, C=22, D=18 | **KHỚP** |
+| Ảnh `docs/screenshots/01-home.png` | Tồn tại thật, 57 818 byte, PNG hợp lệ | **KHỚP** |
+| `npm run verify:core` / `verify:ui` / `shots` | Có đủ trong `package.json`, trỏ đúng file | **KHỚP** |
+| "TypeScript (strict)" | `tsconfig.app.json:4` có `"strict": true` (+ `noUncheckedIndexedAccess`) | **KHỚP** |
+| "Part 2 có 3 lựa chọn, part khác 4" | P2: 36/12 = 3; P1,P3–P7 đều 4 | **KHỚP** |
+| "Lưu 100 phiên gần nhất" | `storage.ts:17` `HISTORY_LIMIT = 100` | **KHỚP** |
+| "Thời lượng thi thử `min(59:59, max(60s, số câu × 36s))`" | `session.ts:140` `Math.min(MOCK_DEFAULT_MAX_SECONDS, Math.max(60, scaled))`, `SECONDS_PER_QUESTION = 36` | **KHỚP** |
+| "hết giờ tự nộp" | `SessionPage.tsx:193` useEffect khi `timedOut` → nộp | **KHỚP** |
+| "Phím `1`–`4` chọn A–D, `←` `→` chuyển câu" | `SessionPage.tsx:232–245` xử lý cả 3 loại | **KHỚP** |
+| "Không thư viện UI, không thư viện router" | dependencies chỉ có `react`, `react-dom` | **KHỚP** |
+| "85 câu tự viết, không lấy từ đề ETS" | Không thấy tên nguồn thương mại nào (1 match "ETS" là chữ "g**ets**" trong part3) | **KHỚP** |
+| Đường dẫn file trong mục Kiến trúc (19 mục) | Tất cả tồn tại | **KHỚP** |
+
+**Kết luận mục README: KHỚP.** Không tìm thấy con số nào trong README sai so với thực tế.
+
+### Ảnh chụp và file rác
+
+- `docs/screenshots/` có **10 file PNG chính thức**, tất cả hợp lệ (magic bytes `89 50 4E 47`), đều > 0 byte.
+- **Đủ 10/10 ảnh đúng tên README**: `01-home`, `02-practice-select`, `03-session-practice`,
+  `04-session-mock`, `05-result`, `06-review`, `07-history`, `08-settings`, `09-home-mobile`,
+  `10-session-mobile`.
+- **3 ảnh E2E phụ** nằm tách riêng trong `docs/screenshots/e2e/`: `home.png` (57 853 B),
+  `history.png` (43 498 B), `result.png` (67 257 B) — do Lead tách ra lúc 22:40 để
+  `verify-core.mjs` **không ghi đè** 10 ảnh chính thức nữa. Tất cả là PNG thật, 1440×960.
+  Đây là cách tổ chức tốt; không có ảnh thừa lẫn trong thư mục chính.
+- Đã mở 3 ảnh bất kỳ để kiểm tra nội dung thật: `01-home.png`, `05-result.png`,
+  `10-session-mobile.png` — đều thấy giao diện thật, không trắng trơn. Ngoài ra đã cắt
+  vùng nav của `01-home.png` và phóng 4× để kiểm tab active (xem mục 4.6).
+
+### Kiểm tra file rác
+
+| Hạng mục | Kết quả |
+|---|---|
+| File bắt đầu bằng `_` trong `src/` | **Không có** (các file `_audit`/`_probe`/`_risk` của lần trước đã được dọn) |
+| `*.bak`, `*.tmp`, `*.orig`, `*.swp`, `*.log`, `*~` | **Không có** |
+| File test tạm / probe còn sót | **Không có** |
+| File test thật | 7 file, khớp 195 test: `answerKey` 3, `content` 41, `index` 7, `scoring` 40, `session` 48, `storage` 36, `time` 20 |
+| Test nằm ngoài `src/` | **Không có** (`npx vitest list` xác nhận) |
+| `.gitignore` che `node_modules` | **Có** |
+| `.gitignore` che `dist` | **Có** (kèm `dist-ssr`, `*.local`, log, `.vscode/*`, `.idea`) |
+
+### `docs/legacy-expense-app/` có gây lỗi build không?
+
+- Nằm ở `docs/legacy-expense-app/`, **KHÔNG** nằm trong `src/`. Không có file `legacy|expense`
+  nào trong `src/`.
+- `tsconfig.app.json` có `"include": ["src"]` → `tsc` **không** biên dịch `docs/`.
+- File test cũ đã được đổi đuôi thành `expenses.test.ts.txt` → không khớp glob test của
+  Vitest; `npx vitest list` xác nhận **không** có test nào ngoài `src/`.
+- `vite build` chỉ đi từ `index.html` → không chạm `docs/`.
+- **Kết luận: an toàn, không gây lỗi build.**
 

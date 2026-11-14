@@ -240,7 +240,7 @@ Một bước chỉ được coi là xong khi **tất cả** điều sau đúng,
 
 ## 10. Việc tiếp theo sau khi bản này xong
 
-- [ ] Bật `"strict": true` trong `tsconfig.app.json` và sửa hết lỗi phát sinh
+- [x] Bật `"strict": true` trong `tsconfig.app.json` và sửa hết lỗi phát sinh
 - [ ] Thêm âm thanh thật (thu bằng giọng đọc TTS hoặc tự thu) cho Part 1–4
 - [ ] Chế độ "ôn câu sai" — lặp lại các câu đã làm sai ở các phiên trước
 - [ ] Biểu đồ tiến bộ theo tuần (điểm, độ chính xác từng part)

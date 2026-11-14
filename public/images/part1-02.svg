@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người đàn ông đang sửa xe đạp">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="330" width="640" height="90" fill="#dde5ef"/>
+  <!-- tường gạch -->
+  <g fill="none" stroke="#c9d3e0" stroke-width="3">
+    <line x1="0" y1="70" x2="640" y2="70"/>
+    <line x1="0" y1="130" x2="640" y2="130"/>
+    <line x1="0" y1="190" x2="640" y2="190"/>
+    <line x1="0" y1="250" x2="640" y2="250"/>
+  </g>
+  <!-- xe đạp -->
+  <circle cx="470" cy="286" r="56" fill="none" stroke="#1c4b87" stroke-width="7"/>
+  <circle cx="588" cy="286" r="56" fill="none" stroke="#1c4b87" stroke-width="7"/>
+  <path d="M470 286l40-70h56l22 70" fill="none" stroke="#1c4b87" stroke-width="7" stroke-linejoin="round"/>
+  <line x1="510" y1="216" x2="470" y2="286" stroke="#1c4b87" stroke-width="7"/>
+  <path d="M556 208h34" stroke="#1c4b87" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="470" cy="286" r="8" fill="#1c4b87"/>
+  <!-- người đàn ông -->
+  <circle cx="300" cy="150" r="30" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M270 150a30 30 0 0 1 60 0v-16a30 30 0 0 0-60 0z" fill="#39424f"/>
+  <path d="M272 320v-88a30 30 0 0 1 60 0v88z" fill="#176038"/>
+  <path d="M324 250l60 30" stroke="#176038" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="390" cy="284" r="10" fill="#f6dfc9" stroke="#1c4b87" stroke-width="4"/>
+  <path d="M280 330l-10 56" stroke="#39424f" stroke-width="13" stroke-linecap="round"/>
+  <path d="M310 330l14 56" stroke="#39424f" stroke-width="13" stroke-linecap="round"/>
+  <!-- hộp dụng cụ -->
+  <rect x="380" y="300" width="72" height="34" rx="5" fill="#982a21" stroke="#7a1f18" stroke-width="4"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

@@ -1,0 +1,242 @@
+/* ============================================================================
+   TRANG CHỦ + CHỌN PART
+   ========================================================================= */
+
+/* ── Trang chủ ───────────────────────────────────────────────────────────── */
+.home-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.home-hero h1 {
+  max-width: 20ch;
+}
+
+.home-hero__lead {
+  max-width: 60ch;
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+}
+
+.home-hero__actions {
+  margin-top: 8px;
+}
+
+.home-resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 16px 18px;
+  border: 1px solid #c3d6ee;
+  border-radius: var(--radius);
+  background: var(--primary-soft);
+}
+
+.home-resume__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-resume__text strong {
+  font-size: 1rem;
+}
+
+.home-resume__text span {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+/* ── Thẻ thống kê ────────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card__label {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.stat-card__value {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  font-weight: 780;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card__foot {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ── Danh sách phiên gần đây ─────────────────────────────────────────────── */
+.home-recent {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-recent__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.9375rem;
+}
+
+.home-recent__parts {
+  font-weight: 600;
+}
+
+.home-recent__score {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.home-recent__meta {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Chọn part ───────────────────────────────────────────────────────────── */
+.part-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+}
+
+.part-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+}
+
+.part-card:hover {
+  border-color: var(--primary);
+}
+
+.part-card[data-checked='true'] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.part-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.part-card__name {
+  font-size: 1.125rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.part-card__check {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface);
+  color: transparent;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.part-card__check.is-on {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-ink);
+}
+
+.part-card__note {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.part-card__meta {
+  margin-top: auto;
+  padding-top: 6px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* ── Khối cấu hình bài luyện ─────────────────────────────────────────────── */
+.practice-setup {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  align-items: start;
+}
+
+.practice-setup__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.practice-setup__line {
+  font-size: 1.125rem;
+}
+
+.practice-setup__line strong {
+  color: var(--primary);
+  font-size: 1.3125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.practice-setup > .btn-row {
+  grid-column: 1 / -1;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .practice-setup {
+    grid-template-columns: 1fr;
+  }
+
+  .field {
+    max-width: none;
+  }
+
+  .home-recent__score {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,56 @@
+/* ============================================================================
+   BIẾN THIẾT KẾ — một bảng màu tối giản, tương phản đủ AA.
+   Không gradient, không hiệu ứng màu mè. Đúng/sai dựa trên BIỂU TƯỢNG + màu
+   để người mù màu vẫn phân biệt được.
+   ========================================================================= */
+
+html:root {
+  /* `src/index.css` đặt `color-scheme: light dark`; ta ép chế độ sáng để form
+     control và nền luôn khớp bảng màu bên dưới (trước đây bị trình duyệt tối
+     ưu tiên theo hệ điều hành). */
+  color-scheme: light;
+
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --surface-3: #eef2f8;
+
+  --ink: #14181f;
+  --ink-2: #39424f;
+  --muted: #5b6472;
+
+  --line: #d9dfe8;
+  --line-strong: #b7c1cf;
+
+  --primary: #1c4b87;
+  --primary-hover: #163c6d;
+  --primary-soft: #e7effa;
+  --primary-ink: #ffffff;
+
+  --ok: #176038;
+  --ok-soft: #e4f2ea;
+  --ok-line: #7fb699;
+
+  --bad: #982a21;
+  --bad-soft: #fbeae8;
+  --bad-line: #d9a49e;
+
+  --flag: #7a5200;
+  --flag-soft: #fcf2d9;
+
+  --focus: #0b5fd0;
+  --focus-ring: 0 0 0 3px rgba(11, 95, 208, 0.35);
+
+  --radius-lg: 16px;
+  --radius: 12px;
+  --radius-sm: 9px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.05);
+  --shadow-md: 0 10px 28px rgba(16, 24, 40, 0.09);
+
+  --maxw: 1080px;
+  --gutter: clamp(16px, 4vw, 32px);
+
+  --font: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', Consolas, monospace;
+}

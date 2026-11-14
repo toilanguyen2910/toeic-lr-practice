@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Hình minh hoạ tạm cho Part 1">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="336" width="640" height="84" fill="#dde5ef"/>
+  <rect x="96" y="88" width="448" height="212" rx="10" fill="#ffffff" stroke="#b7c1cf" stroke-width="5" stroke-dasharray="14 10"/>
+  <circle cx="320" cy="168" r="34" fill="none" stroke="#8f9bab" stroke-width="6"/>
+  <path d="M180 266l56-58 44 42 40-36 60 52z" fill="#c9d3e0" stroke="#8f9bab" stroke-width="5" stroke-linejoin="round"/>
+  <text x="320" y="322" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="19" font-weight="600" fill="#5b6472">Hình minh hoạ cho Part 1</text>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Ảnh thay thế — chưa có nội dung thật</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: ba người ngồi họp quanh bàn">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="340" width="640" height="80" fill="#dde5ef"/>
+  <!-- bảng trắng -->
+  <rect x="70" y="56" width="230" height="150" rx="6" fill="#ffffff" stroke="#8f9bab" stroke-width="5"/>
+  <line x1="96" y1="96" x2="256" y2="96" stroke="#b7c1cf" stroke-width="6" stroke-linecap="round"/>
+  <line x1="96" y1="128" x2="230" y2="128" stroke="#b7c1cf" stroke-width="6" stroke-linecap="round"/>
+  <line x1="96" y1="160" x2="246" y2="160" stroke="#b7c1cf" stroke-width="6" stroke-linecap="round"/>
+  <!-- bàn họp -->
+  <ellipse cx="330" cy="322" rx="250" ry="52" fill="#c9d3e0" stroke="#8f9bab" stroke-width="5"/>
+  <!-- người 1 -->
+  <circle cx="200" cy="200" r="26" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M174 268a26 26 0 0 1 52 0z" fill="#1c4b87"/>
+  <!-- người 2 -->
+  <circle cx="330" cy="182" r="26" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M304 250a26 26 0 0 1 52 0z" fill="#176038"/>
+  <!-- người 3 -->
+  <circle cx="460" cy="200" r="26" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M434 268a26 26 0 0 1 52 0z" fill="#982a21"/>
+  <!-- giấy tờ trên bàn -->
+  <rect x="286" y="300" width="54" height="34" rx="3" fill="#ffffff" stroke="#8f9bab" stroke-width="3"/>
+  <rect x="392" y="306" width="46" height="30" rx="3" fill="#ffffff" stroke="#8f9bab" stroke-width="3"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

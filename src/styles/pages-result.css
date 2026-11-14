@@ -1,0 +1,202 @@
+/* ============================================================================
+   MÀN HÌNH KẾT QUẢ — điểm tổng, điểm từng phần, bảng theo part, nhãn kỹ năng.
+   ========================================================================= */
+
+.score-hero {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(260px, 1.1fr) 1fr;
+  align-items: stretch;
+}
+
+.score-hero__main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  border-color: #c3d6ee;
+  background: var(--primary-soft);
+}
+
+.score-hero__label {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 650;
+}
+
+.score-hero__total {
+  font-size: clamp(2.6rem, 1.8rem + 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-hero__scale {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.score-hero__note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.score-sections {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+
+.score-section__label {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 650;
+}
+
+.score-section__value {
+  font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.3rem);
+  font-weight: 780;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-section__scale {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* ── Lưới thống kê kết quả ───────────────────────────────────────────────── */
+.result-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+}
+
+.stat-card__value--ok {
+  color: var(--ok);
+}
+
+.stat-card__value--bad {
+  color: var(--bad);
+}
+
+/* ── Bảng ────────────────────────────────────────────────────────────────── */
+.table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 0.9875rem;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th:first-child,
+.table td:first-child {
+  text-align: left;
+}
+
+.table thead th {
+  border-bottom: 2px solid var(--line-strong);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.table tbody th {
+  font-weight: 650;
+}
+
+/* ── Danh sách nhãn kỹ năng ──────────────────────────────────────────────── */
+.tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-list__row {
+  display: grid;
+  gap: 6px 12px;
+  grid-template-columns: minmax(120px, 1fr) minmax(80px, 2fr) auto;
+  align-items: center;
+}
+
+.tag-list__name {
+  font-size: 0.9375rem;
+  font-weight: 650;
+}
+
+.tag-list__meter {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-3);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.tag-list__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+.tag-list__value {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .score-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .score-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .tag-list__row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .tag-list__meter {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 8px;
+    font-size: 0.9375rem;
+  }
+}

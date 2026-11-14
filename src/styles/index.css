@@ -1,0 +1,16 @@
+/* ============================================================================
+   ĐIỂM GHÉP CSS CỦA GIAO DIỆN.
+   
+   `src/main.tsx` chỉ import `src/index.css` (tệp nền của dự án), nên toàn bộ
+   giao diện được nạp từ `src/App.tsx` qua tệp này. Thứ tự import quan trọng:
+   biến → nền tảng → khung → thành phần → từng màn hình.
+   ========================================================================= */
+
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './pages-home.css';
+@import './pages-session.css';
+@import './pages-result.css';
+@import './pages-misc.css';

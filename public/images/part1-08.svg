@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: hai người đang xếp hàng tại quầy cà phê">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="338" width="640" height="82" fill="#dde5ef"/>
+  <!-- quầy cà phê -->
+  <rect x="356" y="200" width="250" height="140" rx="8" fill="#c9d3e0" stroke="#8f9bab" stroke-width="5"/>
+  <rect x="356" y="200" width="250" height="30" rx="8" fill="#b5854a" stroke="#7a5525" stroke-width="4"/>
+  <!-- máy pha cà phê -->
+  <rect x="420" y="120" width="118" height="80" rx="6" fill="#ffffff" stroke="#1c4b87" stroke-width="5"/>
+  <rect x="444" y="142" width="70" height="34" rx="4" fill="#e7effa"/>
+  <circle cx="540" cy="150" r="8" fill="#982a21"/>
+  <!-- cốc -->
+  <path d="M392 176h30v22h-30z" fill="#ffffff" stroke="#8f9bab" stroke-width="4"/>
+  <!-- người 1 -->
+  <circle cx="180" cy="164" r="30" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M150 164a30 30 0 0 1 60 0v-18a30 30 0 0 0-60 0z" fill="#5b6472"/>
+  <path d="M154 340v-102a26 26 0 0 1 52 0v102z" fill="#176038"/>
+  <!-- người 2 -->
+  <circle cx="286" cy="184" r="28" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M258 184a28 28 0 0 1 56 0v-16a28 28 0 0 0-56 0z" fill="#39424f"/>
+  <path d="M262 340v-92a24 24 0 0 1 48 0v92z" fill="#982a21"/>
+  <!-- sàn gạch -->
+  <g stroke="#c9d3e0" stroke-width="2" fill="none">
+    <line x1="0" y1="378" x2="640" y2="378"/>
+  </g>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

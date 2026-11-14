@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người đàn ông đang viết bảng trong phòng họp">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="342" width="640" height="78" fill="#dde5ef"/>
+  <!-- bảng trắng lớn -->
+  <rect x="150" y="60" width="360" height="210" rx="6" fill="#ffffff" stroke="#8f9bab" stroke-width="6"/>
+  <line x1="182" y1="108" x2="420" y2="108" stroke="#1c4b87" stroke-width="7" stroke-linecap="round"/>
+  <line x1="182" y1="148" x2="376" y2="148" stroke="#b7c1cf" stroke-width="7" stroke-linecap="round"/>
+  <line x1="182" y1="188" x2="440" y2="188" stroke="#b7c1cf" stroke-width="7" stroke-linecap="round"/>
+  <polyline points="196,232 236,214 268,236 310,200 348,226" fill="none" stroke="#176038" stroke-width="6" stroke-linejoin="round"/>
+  <!-- chân bảng -->
+  <line x1="230" y1="270" x2="230" y2="342" stroke="#8f9bab" stroke-width="8"/>
+  <line x1="430" y1="270" x2="430" y2="342" stroke="#8f9bab" stroke-width="8"/>
+  <!-- người đàn ông -->
+  <circle cx="112" cy="150" r="30" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M82 150a30 30 0 0 1 60 0v-18a30 30 0 0 0-60 0z" fill="#39424f"/>
+  <path d="M86 288v-82a26 26 0 0 1 52 0v82z" fill="#1c4b87"/>
+  <path d="M136 214l46-26" stroke="#1c4b87" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="186" cy="186" r="9" fill="#f6dfc9" stroke="#1c4b87" stroke-width="4"/>
+  <rect x="186" y="176" width="26" height="8" rx="4" fill="#14181f" transform="rotate(-28 199 180)"/>
+  <path d="M92 288l-6 54" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M126 288l8 54" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người đàn ông đang chất thùng hàng lên xe tải">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="336" width="640" height="84" fill="#dde5ef"/>
+  <!-- toà nhà kho -->
+  <rect x="40" y="96" width="200" height="150" rx="5" fill="#ffffff" stroke="#8f9bab" stroke-width="5"/>
+  <rect x="96" y="176" width="70" height="70" fill="#c9d3e0" stroke="#8f9bab" stroke-width="4"/>
+  <!-- xe tải -->
+  <rect x="320" y="176" width="210" height="120" rx="8" fill="#ffffff" stroke="#1c4b87" stroke-width="6"/>
+  <path d="M530 296v-70h56l28 44v26z" fill="#1c4b87"/>
+  <circle cx="380" cy="316" r="26" fill="#39424f" stroke="#14181f" stroke-width="5"/>
+  <circle cx="560" cy="316" r="26" fill="#39424f" stroke="#14181f" stroke-width="5"/>
+  <rect x="548" y="238" width="34" height="28" rx="3" fill="#dfeaf7"/>
+  <!-- người đàn ông bê thùng -->
+  <circle cx="290" cy="140" r="28" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M262 140a28 28 0 0 1 56 0v-16a28 28 0 0 0-56 0z" fill="#39424f"/>
+  <path d="M268 244v-66a22 22 0 0 1 44 0v66z" fill="#176038"/>
+  <rect x="250" y="238" width="82" height="56" rx="5" fill="#b5854a" stroke="#7a5525" stroke-width="5"/>
+  <line x1="250" y1="262" x2="332" y2="262" stroke="#7a5525" stroke-width="5"/>
+  <path d="M256 244l-10 22" stroke="#176038" stroke-width="11" stroke-linecap="round"/>
+  <path d="M326 244l10 22" stroke="#176038" stroke-width="11" stroke-linecap="round"/>
+  <path d="M276 296l-6 40" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M306 296l8 40" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

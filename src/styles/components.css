@@ -1,0 +1,304 @@
+/* ============================================================================
+   THÀNH PHẦN CƠ BẢN — thẻ, nút, ô nhập, nhãn trạng thái.
+   ========================================================================= */
+
+.card {
+  padding: clamp(18px, 2.6vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.card--flat {
+  box-shadow: none;
+  background: var(--surface-2);
+}
+
+.card--muted {
+  background: var(--surface-3);
+  border-color: var(--line-strong);
+  box-shadow: none;
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.card__hint {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ── Nút ─────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--line-strong);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-ink);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--primary);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--primary-soft);
+  border-color: transparent;
+}
+
+.btn--danger {
+  background: var(--bad-soft);
+  border-color: var(--bad-line);
+  color: var(--bad);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: #f6dcd9;
+}
+
+.btn--lg {
+  min-height: 54px;
+  padding: 14px 24px;
+  font-size: 1.0625rem;
+  border-radius: var(--radius);
+}
+
+.btn--sm {
+  min-height: 38px;
+  padding: 6px 12px;
+  font-size: 0.9375rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-row--stretch > .btn {
+  flex: 1 1 200px;
+}
+
+/* ── Ô nhập ──────────────────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 320px;
+}
+
+.field__label {
+  font-size: 0.9375rem;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.field__hint {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.input:focus-visible {
+  border-color: var(--focus);
+}
+
+/* ── Công tắc (switch) ───────────────────────────────────────────────────── */
+.switch-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.switch-row:last-of-type {
+  border-bottom: 0;
+}
+
+.switch-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.switch-row__text strong {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.switch-row__text span {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 60px;
+  height: 34px;
+  margin-top: 2px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-3);
+  cursor: pointer;
+}
+
+.switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.switch[aria-checked='true'] {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.switch[aria-checked='true'] .switch__knob {
+  left: 29px;
+  border-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .switch__knob {
+    transition: left 140ms ease;
+  }
+}
+
+/* ── Nhãn trạng thái ─────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.badge--ok {
+  background: var(--ok-soft);
+  border-color: var(--ok-line);
+  color: var(--ok);
+}
+
+.badge--bad {
+  background: var(--bad-soft);
+  border-color: var(--bad-line);
+  color: var(--bad);
+}
+
+.badge--flag {
+  background: var(--flag-soft);
+  border-color: #e0c37a;
+  color: var(--flag);
+}
+
+.badge--info {
+  background: var(--primary-soft);
+  border-color: #c3d6ee;
+  color: var(--primary);
+}
+
+/* ── Trạng thái rỗng ─────────────────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(32px, 6vw, 56px) 24px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.empty-state__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  color: var(--muted);
+  font-size: 1.4rem;
+}
+
+.empty-state h3 {
+  font-size: 1.125rem;
+}
+
+.empty-state p {
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: 0.9875rem;
+}

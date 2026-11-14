@@ -1,0 +1,198 @@
+import { describe, expect, it } from 'vitest'
+import {
+  CATEGORY_LABELS,
+  ValidationError,
+  createExpense,
+  formatVND,
+  inRange,
+  isCategory,
+  isValidISODate,
+  monthOf,
+  monthRange,
+  newId,
+  removeExpense,
+  sortByDateDesc,
+  total,
+  totalsByCategory,
+  type Expense,
+} from './expenses'
+
+const mk = (over: Partial<Expense> = {}): Expense => ({
+  id: 'a',
+  amount: 1000,
+  category: 'food',
+  note: '',
+  date: '2026-03-10',
+  ...over,
+})
+
+describe('isValidISODate', () => {
+  it('accepts real dates', () => {
+    expect(isValidISODate('2026-03-10')).toBe(true)
+    expect(isValidISODate('2024-02-29')).toBe(true) // leap year
+  })
+
+  it('rejects malformed or impossible dates', () => {
+    expect(isValidISODate('2026-3-10')).toBe(false)
+    expect(isValidISODate('10/03/2026')).toBe(false)
+    expect(isValidISODate('2026-13-01')).toBe(false)
+    expect(isValidISODate('2026-02-31')).toBe(false)
+    expect(isValidISODate('2025-02-29')).toBe(false) // not a leap year
+    expect(isValidISODate('')).toBe(false)
+  })
+})
+
+describe('isCategory', () => {
+  it('recognises known categories only', () => {
+    expect(isCategory('food')).toBe(true)
+    expect(isCategory('other')).toBe(true)
+    expect(isCategory('nope')).toBe(false)
+    expect(isCategory(null)).toBe(false)
+    expect(isCategory(42)).toBe(false)
+  })
+})
+
+describe('createExpense', () => {
+  it('normalises valid input', () => {
+    const e = createExpense({
+      amount: '25000',
+      category: 'food',
+      note: '  Phở  ',
+      date: '2026-03-10',
+    })
+    expect(e.amount).toBe(25000)
+    expect(e.category).toBe('food')
+    expect(e.note).toBe('Phở')
+    expect(e.date).toBe('2026-03-10')
+    expect(e.id.length).toBeGreaterThan(0)
+  })
+
+  it('throws for non-positive / non-integer amounts', () => {
+    const base = { category: 'food', date: '2026-03-10' }
+    expect(() => createExpense({ ...base, amount: 0 })).toThrow(ValidationError)
+    expect(() => createExpense({ ...base, amount: -5 })).toThrow(ValidationError)
+    expect(() => createExpense({ ...base, amount: 1.5 })).toThrow(ValidationError)
+    expect(() => createExpense({ ...base, amount: 'abc' })).toThrow(ValidationError)
+    expect(() => createExpense({ ...base, amount: Infinity })).toThrow(ValidationError)
+  })
+
+  it('throws for an unknown category', () => {
+    expect(() =>
+      createExpense({ amount: 100, category: 'gambling', date: '2026-03-10' }),
+    ).toThrow(ValidationError)
+  })
+
+  it('throws for an invalid date', () => {
+    expect(() =>
+      createExpense({ amount: 100, category: 'food', date: '2026-02-31' }),
+    ).toThrow(ValidationError)
+  })
+
+  it('throws when the note is too long', () => {
+    expect(() =>
+      createExpense({
+        amount: 100,
+        category: 'food',
+        date: '2026-03-10',
+        note: 'x'.repeat(201),
+      }),
+    ).toThrow(ValidationError)
+  })
+})
+
+describe('total / totalsByCategory', () => {
+  it('sums amounts', () => {
+    expect(total([])).toBe(0)
+    expect(total([mk({ amount: 500 }), mk({ amount: 1500 })])).toBe(2000)
+  })
+
+  it('groups by category, sorted by descending total', () => {
+    const rows = totalsByCategory([
+      mk({ id: '1', category: 'food', amount: 300 }),
+      mk({ id: '2', category: 'fun', amount: 900 }),
+      mk({ id: '3', category: 'food', amount: 200 }),
+    ])
+    expect(rows.map((r) => r.category)).toEqual(['fun', 'food'])
+    expect(rows[0]).toMatchObject({ category: 'fun', total: 900, count: 1 })
+    expect(rows[1]).toMatchObject({ category: 'food', total: 500, count: 2 })
+    expect(rows[1].share).toBeCloseTo(500 / 1400, 10)
+  })
+
+  it('returns an empty list for no expenses', () => {
+    expect(totalsByCategory([])).toEqual([])
+  })
+
+  it('keeps every category label defined', () => {
+    for (const label of Object.values(CATEGORY_LABELS)) {
+      expect(label.length).toBeGreaterThan(0)
+    }
+  })
+})
+
+describe('inRange', () => {
+  it('is inclusive on both ends', () => {
+    const items = [
+      mk({ id: '1', date: '2026-02-28' }),
+      mk({ id: '2', date: '2026-03-01' }),
+      mk({ id: '3', date: '2026-03-31' }),
+      mk({ id: '4', date: '2026-04-01' }),
+    ]
+    const got = inRange(items, '2026-03-01', '2026-03-31')
+    expect(got.map((e) => e.id)).toEqual(['2', '3'])
+  })
+})
+
+describe('monthRange / monthOf', () => {
+  it('returns the first and last day of the month', () => {
+    expect(monthRange('2026-03')).toEqual({ from: '2026-03-01', to: '2026-03-31' })
+    expect(monthRange('2026-02')).toEqual({ from: '2026-02-01', to: '2026-02-28' })
+    expect(monthRange('2024-02')).toEqual({ from: '2024-02-01', to: '2024-02-29' })
+    expect(monthRange('2026-12')).toEqual({ from: '2026-12-01', to: '2026-12-31' })
+  })
+
+  it('rejects bad months', () => {
+    expect(() => monthRange('2026-13')).toThrow(ValidationError)
+    expect(() => monthRange('26-03')).toThrow(ValidationError)
+  })
+
+  it('extracts the month from a date', () => {
+    expect(monthOf('2026-03-10')).toBe('2026-03')
+  })
+})
+
+describe('formatVND', () => {
+  it('groups thousands with dots', () => {
+    expect(formatVND(0)).toBe('0 ₫')
+    expect(formatVND(999)).toBe('999 ₫')
+    expect(formatVND(1000)).toBe('1.000 ₫')
+    expect(formatVND(1234567)).toBe('1.234.567 ₫')
+  })
+
+  it('handles negatives and truncates fractions', () => {
+    expect(formatVND(-1234)).toBe('-1.234 ₫')
+    expect(formatVND(1500.9)).toBe('1.500 ₫')
+  })
+})
+
+describe('removeExpense / sortByDateDesc / newId', () => {
+  it('removes by id without mutating the input', () => {
+    const items = [mk({ id: '1' }), mk({ id: '2' })]
+    const out = removeExpense(items, '1')
+    expect(out.map((e) => e.id)).toEqual(['2'])
+    expect(items).toHaveLength(2)
+  })
+
+  it('sorts newest first and breaks ties by id descending', () => {
+    const items = [
+      mk({ id: 'a', date: '2026-03-01' }),
+      mk({ id: 'c', date: '2026-03-05' }),
+      mk({ id: 'b', date: '2026-03-01' }),
+    ]
+    expect(sortByDateDesc(items).map((e) => e.id)).toEqual(['c', 'b', 'a'])
+  })
+
+  it('generates unique ids', () => {
+    const ids = new Set(Array.from({ length: 500 }, () => newId()))
+    expect(ids.size).toBe(500)
+  })
+})

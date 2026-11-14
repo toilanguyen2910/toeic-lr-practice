@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người phụ nữ đang tưới cây trong văn phòng">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="340" width="640" height="80" fill="#dde5ef"/>
+  <!-- cửa sổ lớn -->
+  <rect x="356" y="60" width="240" height="180" rx="6" fill="#dfeaf7" stroke="#8f9bab" stroke-width="5"/>
+  <line x1="476" y1="60" x2="476" y2="240" stroke="#8f9bab" stroke-width="5"/>
+  <line x1="356" y1="150" x2="596" y2="150" stroke="#8f9bab" stroke-width="5"/>
+  <!-- chậu cây lớn -->
+  <path d="M170 300h120l-14 52h-92z" fill="#b5854a" stroke="#7a5525" stroke-width="5"/>
+  <path d="M230 300v-96" stroke="#176038" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="196" cy="238" rx="34" ry="20" fill="#2f7a4f" transform="rotate(-22 196 238)"/>
+  <ellipse cx="264" cy="224" rx="34" ry="20" fill="#2f7a4f" transform="rotate(22 264 224)"/>
+  <ellipse cx="230" cy="196" rx="26" ry="17" fill="#176038"/>
+  <!-- người phụ nữ -->
+  <circle cx="382" cy="152" r="30" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M352 152a30 30 0 0 1 60 0v-18a30 30 0 0 0-60 0z" fill="#5b6472"/>
+  <path d="M356 276v-72a26 26 0 0 1 52 0v72z" fill="#982a21"/>
+  <path d="M356 220l-52 26" stroke="#982a21" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="300" cy="248" r="9" fill="#f6dfc9" stroke="#1c4b87" stroke-width="4"/>
+  <path d="M362 276l-8 64" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M396 276l8 64" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
+  <!-- bình tưới -->
+  <path d="M282 240h40v34h-40z" fill="#1c4b87"/>
+  <path d="M282 226h20v14h-20z" fill="#1c4b87"/>
+  <path d="M282 244l-24-14" stroke="#1c4b87" stroke-width="7" stroke-linecap="round"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

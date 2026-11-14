@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người phụ nữ đang nghe điện thoại tại quầy lễ tân">
+  <rect width="640" height="420" fill="#eef2f8"/>
+  <rect x="0" y="336" width="640" height="84" fill="#dde5ef"/>
+  <!-- quầy -->
+  <rect x="150" y="288" width="380" height="48" rx="6" fill="#c9d3e0" stroke="#8f9bab" stroke-width="5"/>
+  <rect x="230" y="336" width="220" height="12" fill="#8f9bab"/>
+  <!-- kệ sau -->
+  <rect x="404" y="86" width="170" height="150" rx="5" fill="#ffffff" stroke="#8f9bab" stroke-width="4"/>
+  <line x1="404" y1="136" x2="574" y2="136" stroke="#8f9bab" stroke-width="4"/>
+  <line x1="404" y1="186" x2="574" y2="186" stroke="#8f9bab" stroke-width="4"/>
+  <rect x="424" y="102" width="16" height="30" fill="#1c4b87"/>
+  <rect x="452" y="102" width="16" height="30" fill="#176038"/>
+  <rect x="480" y="102" width="16" height="30" fill="#982a21"/>
+  <!-- người phụ nữ -->
+  <circle cx="268" cy="160" r="32" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
+  <path d="M236 160a32 32 0 0 1 64 0v-18a32 32 0 0 0-64 0z" fill="#5b6472"/>
+  <path d="M240 288v-70a28 28 0 0 1 56 0v70z" fill="#1c4b87"/>
+  <!-- điện thoại trên tay -->
+  <path d="M300 214l30-24" stroke="#1c4b87" stroke-width="12" stroke-linecap="round"/>
+  <rect x="322" y="168" width="18" height="30" rx="4" fill="#14181f" transform="rotate(24 331 183)"/>
+  <circle cx="322" cy="212" r="9" fill="#f6dfc9" stroke="#1c4b87" stroke-width="4"/>
+  <!-- tay kia đặt trên quầy -->
+  <path d="M250 250l-24 44" stroke="#1c4b87" stroke-width="12" stroke-linecap="round"/>
+  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+</svg>

@@ -126,6 +126,27 @@ await withBrowser(
     console.log(`Thư mục ảnh: ${OUT_DIR}\n`)
 
     await page.setViewport(1440, 960)
+
+    // Cố định đồng hồ trong lúc chụp ảnh tài liệu.
+    // Lý do: đề được xáo theo mốc thời gian tạo phiên, nên mỗi lần chạy sẽ ra một bộ
+    // câu khác nhau và ảnh trong README thay đổi liên tục. Cố định thời điểm giúp
+    // ảnh lặp lại được. CHỈ áp dụng cho script chụp ảnh — verify-core/verify-ui vẫn
+    // chạy với đồng hồ thật để kiểm đúng hành vi thực tế.
+    await page.send('Page.addScriptToEvaluateOnNewDocument', {
+      source: `(() => {
+        const FIXED = 1763200800000; // 2026-11-15 09:00:00 +07:00
+        const RealDate = Date;
+        class FrozenDate extends RealDate {
+          constructor(...args) {
+            if (args.length === 0) super(FIXED);
+            else super(...args);
+          }
+          static now() { return FIXED; }
+        }
+        window.Date = FrozenDate;
+      })();`,
+    })
+
     await page.goto(`${url}#/`)
     await page.clearLocalStorage()
 

@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ảnh do test E2E sinh ra khi chạy, không phải tài liệu.
+# Đề được xáo ngẫu nhiên nên các ảnh này đổi mỗi lần chạy; giữ chúng trong repo
+# sẽ khiến `git status` luôn bẩn. Ảnh tài liệu thật nằm ở docs/screenshots/*.png
+# và được cố định bằng đồng hồ đóng băng trong scripts/screenshots.mjs.
+docs/screenshots/e2e/

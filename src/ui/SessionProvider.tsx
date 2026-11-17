@@ -91,6 +91,14 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
       commit(submitted)
 
       const scored = scoreSession(bank, submitted)
+      // Số hiệu đề suy ra từ tiền tố id (`exam7-...`), xem docblock của `examSetId`.
+      const matched = /^exam(\d{1,2})-/.exec(submitted.id)
+      const finishedSetId = matched ? Number(matched[1]) : null
+      const setNumber =
+        finishedSetId != null && Number.isInteger(finishedSetId) && finishedSetId >= 1 && finishedSetId <= 20
+          ? finishedSetId
+          : null
+
       const entry: HistoryEntry = {
         id: submitted.id,
         mode: submitted.mode,
@@ -100,6 +108,7 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
         total: scored.total,
         estimateTotal: scored.estimate.total,
         elapsedSeconds: submitted.elapsedSeconds,
+        ...(setNumber != null ? { examSetId: setNumber } : {}),
       }
       pushHistory(entry)
 
@@ -109,6 +118,25 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
   )
 
   const reset = useCallback(() => commit(null), [commit])
+
+  /** Nạp thẳng một phiên đã dựng sẵn (dùng cho bộ 20 đề). */
+  const adopt = useCallback((next: Session) => commit(next), [commit])
+
+  /**
+   * Số hiệu đề đang làm, suy ra từ `session.id`.
+   *
+   * Vì sao nhét vào `session.id` thay vì thêm trường: `Session` là hợp đồng với
+   * engine và đã được chốt; thêm trường sẽ phải sửa `parseSession`, `storage` và
+   * toàn bộ test tương ứng chỉ để lưu một con số. Đặt tiền tố vào id là đủ và
+   * không phá vỡ gì: id dạng `exam7-...` nghĩa là đề 7.
+   */
+  const examSetId = useMemo(() => {
+    if (!session) return null
+    const match = /^exam(\d{1,2})-/.exec(session.id)
+    if (!match) return null
+    const id = Number(match[1])
+    return Number.isInteger(id) && id >= 1 && id <= 20 ? id : null
+  }, [session])
 
   const result = useMemo(() => {
     if (!session || session.status !== 'submitted') return null
@@ -126,8 +154,11 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
       syncElapsed,
       finish,
       reset,
+      adopt,
+      examSetId,
+      bank,
     }),
-    [session, result, availableParts, start, answer, flag, syncElapsed, finish, reset],
+    [session, result, availableParts, start, answer, flag, syncElapsed, finish, reset, adopt, examSetId, bank],
   )
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>

@@ -100,14 +100,22 @@ function resolveParts(bank: QuestionBank, requested: readonly Part[]): Part[] {
 /**
  * Chọn câu hỏi theo part rồi theo `countPerPart`.
  *
- * Lấy `countPerPart` câu ĐẦU TIÊN của mỗi part theo đúng thứ tự trong ngân hàng
- * (bỏ trống = lấy hết), sau đó mới xáo — nhờ vậy hai lần gọi cùng `seed` cho cùng
- * tập câu và cùng thứ tự.
+ * THỨ TỰ QUAN TRỌNG — đây từng là lỗi thật:
+ * - XÁO trước rồi mới CẮT. Nếu cắt trước rồi mới xáo, mọi lần gọi với cùng một
+ *   `countPerPart` sẽ luôn lấy đúng N câu ĐẦU TIÊN của mỗi part trong ngân hàng.
+ *   Hậu quả: 20 đề khác nhau vẫn chỉ dùng 200/425 câu, phần đuôi ngân hàng không
+ *   bao giờ xuất hiện. Người luyện làm 20 đề mà chỉ gặp nửa ngân hàng.
+ * - `random` phải được truyền vào để việc xáo vẫn TẤT ĐỊNH theo `seed`: cùng seed
+ *   cho cùng tập câu, cùng thứ tự.
+ *
+ * Với `countPerPart` bỏ trống thì lấy hết, không cần xáo ở bước này — bước xáo
+ * toàn cục sau đó vẫn đảm bảo thứ tự ngẫu nhiên nhưng tất định.
  */
 function selectQuestions(
   bank: QuestionBank,
   parts: readonly Part[],
   countPerPart: number | undefined,
+  random: () => number,
 ): Question[] {
   const limit =
     countPerPart === undefined || !Number.isFinite(countPerPart)
@@ -117,7 +125,11 @@ function selectQuestions(
   const selected: Question[] = []
   for (const part of parts) {
     const ofPart = bank.questions.filter((question) => question.part === part)
-    selected.push(...ofPart.slice(0, limit))
+    // Xáo TRƯỚC khi cắt — xem giải thích ở docblock. Dùng `random` của phiên nên
+    // vẫn tất định; trộn thêm `part` để mỗi part có dãy xáo độc lập, tránh việc
+    // các part cùng nhận chỉ số hoán vị giống nhau.
+    const shuffled = shuffle(ofPart, random)
+    selected.push(...shuffled.slice(0, limit))
   }
   return selected
 }
@@ -153,9 +165,13 @@ export function createSession(bank: QuestionBank, options: SessionOptions): Sess
     : Date.now()
 
   const parts = resolveParts(bank, options.parts)
-  const picked = selectQuestions(bank, parts, options.countPerPart)
   const seed = normalizeSeed(options.seed, createdAt)
-  const ordered = shuffle(picked, mulberry32(seed))
+
+  // Một nguồn ngẫu nhiên duy nhất cho cả bước chọn lẫn bước xáo cuối, để toàn bộ
+  // phiên là một hàm tất định của `seed`.
+  const random = mulberry32(seed)
+  const picked = selectQuestions(bank, parts, options.countPerPart, random)
+  const ordered = shuffle(picked, random)
   const questionIds = ordered.map((question) => question.id)
 
   const answers: Record<string, Letter | null> = {}

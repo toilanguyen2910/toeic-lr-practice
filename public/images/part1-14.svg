@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người phụ nữ đặt đĩa và ly lên bàn ăn đã trải khăn trắng">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+
+<rect x="46" y="56" width="148" height="118" rx="4" fill="#f7fbff" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="50" y="60" width="140" height="110" fill="url(#glass)"/>
+<line x1="120" y1="60" x2="120" y2="170" stroke="#b6c2d0" stroke-width="3"/>
+<line x1="50" y1="115" x2="190" y2="115" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="60" y="120" width="120" height="150" rx="4" fill="#e9eef5" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="0" y="300" width="640" height="120" fill="url(#floor)"/>
+
+<rect x="150" y="258" width="400" height="18" rx="4" fill="url(#wood)" stroke="#a97c47" stroke-width="2"/>
+<line x1="168" y1="276" x2="168" y2="338" stroke="#8d9bab" stroke-width="7" stroke-linecap="round"/>
+<line x1="532" y1="276" x2="532" y2="338" stroke="#8d9bab" stroke-width="7" stroke-linecap="round"/>
+<rect x="150" y="258" width="400" height="22" rx="3" fill="#f7fbff" stroke="#dbe4ef" stroke-width="2"/>
+<g fill="#ffffff" stroke="#8d9bab" stroke-width="2">
+  <circle cx="270" cy="252" r="24"/>
+  <circle cx="410" cy="252" r="24"/>
+</g>
+<g fill="none" stroke="#8d9bab" stroke-width="2">
+  <line x1="196" y1="236" x2="196" y2="258"/><line x1="204" y1="236" x2="204" y2="258"/>
+  <line x1="336" y1="236" x2="336" y2="258"/><line x1="344" y1="236" x2="344" y2="258"/>
+</g>
+<g fill="#dbeaf9" stroke="#8d9bab" stroke-width="2">
+  <path d="M236 224 h16 l-3 22 h-10 Z"/>
+  <path d="M376 224 h16 l-3 22 h-10 Z"/>
+</g>
+<g>
+    <ellipse cx="520" cy="386" rx="27.3" ry="6.300000000000001" fill="rgba(40,60,85,.13)"/>
+    <path d="M506.35 306.3 L504.25 377.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <path d="M533.65 306.3 L535.75 377.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <rect x="502.15" y="241.2" width="35.7" height="65.10000000000002" rx="10.5" fill="#b8443c"/>
+    <path d="M497.95 249.6 L466.45 285.3" stroke="#b8443c" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="466.45" cy="285.3" r="6.300000000000001" fill="#f2d3b6"/>
+    <path d="M542.05 249.6 L546.25 314.7" stroke="#b8443c" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="546.25" cy="314.7" r="6.300000000000001" fill="#f2d3b6"/>
+    <circle cx="520" cy="207.6" r="21" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M499 207.6 a21 21 0 0 1 42 0 q0 -17.849999999999998 -21 -18.900000000000002 q-21 0.05 -21 18.900000000000002 Z" fill="#33404f"/>
+  </g>
+<rect x="452" y="238" width="42" height="8" rx="3" fill="#ffffff" stroke="#8d9bab" stroke-width="2"/>
+</svg>

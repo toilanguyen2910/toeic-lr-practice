@@ -1,4 +1,5 @@
 import type { Question, Stimulus } from '../types'
+import { PART4B_QUESTIONS, PART4B_STIMULI } from './part4b'
 
 /**
  * PART 4 — Bài nói ngắn (3 nhóm × 3 câu = 9 câu).
@@ -7,7 +8,7 @@ import type { Question, Stimulus } from '../types'
  * và một đoạn quảng cáo/giới thiệu dịch vụ. Ba câu hỏi mỗi nhóm hỏi mục đích,
  * chi tiết, rồi suy luận.
  */
-export const PART4_STIMULI: Stimulus[] = [
+const PART4_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p4-0001',
     part: 4,
@@ -50,7 +51,7 @@ export const PART4_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART4_QUESTIONS: Question[] = [
+const PART4_BASE_QUESTIONS: Question[] = [
   // ---------- Nhóm 1: thông báo nội bộ về bãi đỗ xe ----------
   {
     id: 'p4-0001',
@@ -273,3 +274,6 @@ export const PART4_QUESTIONS: Question[] = [
       'Điều gì đúng về giờ đọc sách cho thiếu nhi? — Nó đã được chuyển sang chiều Chủ nhật.',
   },
 ]
+// ---- Nối phần mở rộng (p4-0010 … p4-0045) ----
+export const PART4_STIMULI: Stimulus[] = [...PART4_BASE_STIMULI, ...PART4B_STIMULI]
+export const PART4_QUESTIONS: Question[] = [...PART4_BASE_QUESTIONS, ...PART4B_QUESTIONS]

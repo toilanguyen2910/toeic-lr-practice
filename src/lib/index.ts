@@ -80,6 +80,16 @@ export {
 } from './storage'
 export { formatClock } from './time'
 
+export type { ExamSetDef, ExamSetMix } from './examSet'
+export {
+  buildExamSet,
+  countPerPartFor,
+  EXAM_SETS,
+  EXAM_SET_COUNT,
+  examSetSize,
+  findExamSet,
+} from './examSet'
+
 /**
  * Hiện thực đầy đủ của `EngineApi`.
  *

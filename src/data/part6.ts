@@ -1,4 +1,5 @@
 import type { Question, Stimulus } from '../types'
+import { PART6B_QUESTIONS, PART6B_STIMULI } from './part6b'
 
 /**
  * PART 6 — Điền từ vào đoạn văn (2 đoạn × 4 câu = 8 câu).
@@ -6,7 +7,7 @@ import type { Question, Stimulus } from '../types'
  * Mỗi stimulus có đúng một `passage` với bốn chỗ trống đánh số (1)–(4) ngay trong văn bản.
  * Câu hỏi thứ tư của đoạn 2 là dạng chèn câu (sentence insertion) — dạng câu có thật trong đề thi.
  */
-export const PART6_STIMULI: Stimulus[] = [
+const PART6_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p6-0001',
     part: 6,
@@ -61,7 +62,7 @@ export const PART6_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART6_QUESTIONS: Question[] = [
+const PART6_BASE_QUESTIONS: Question[] = [
   // ---------- Đoạn 1: thông báo chuyển văn phòng ----------
   {
     id: 'p6-0001',
@@ -99,16 +100,16 @@ export const PART6_QUESTIONS: Question[] = [
     choices: [
       { letter: 'A', text: 'by' },
       { letter: 'B', text: 'at' },
-      { letter: 'C', text: 'of' },
-      { letter: 'D', text: 'with' },
+      { letter: 'C', text: 'with' },
+      { letter: 'D', text: 'of' },
     ],
-    answer: 'D',
+    answer: 'C',
     explanation:
       'Cấu trúc "label something with something" — ghi nhãn cái gì BẰNG cái gì → "label every box with your ' +
-      'name and desk number" là đúng, nên D. ' +
+      'name and desk number" là đúng, nên C. ' +
       'A sai vì "by" dùng cho phương thức hoặc tác nhân (labelled by hand), không hợp ở đây. ' +
       'B sai vì "at" chỉ địa điểm hoặc thời điểm. ' +
-      'C sai vì "of" chỉ sở hữu hoặc thành phần, không tạo ra cụm đúng nghĩa.',
+      'D sai vì "of" chỉ sở hữu hoặc thành phần, không tạo ra cụm đúng nghĩa.',
     translation: 'Vui lòng ghi nhãn mỗi thùng bằng tên và số bàn làm việc của bạn.',
   },
   {
@@ -258,3 +259,6 @@ export const PART6_QUESTIONS: Question[] = [
       'Rất mong gặp bạn ở đó.',
   },
 ]
+// ---- Nối phần mở rộng (p6-0009 … p6-0040) ----
+export const PART6_STIMULI: Stimulus[] = [...PART6_BASE_STIMULI, ...PART6B_STIMULI]
+export const PART6_QUESTIONS: Question[] = [...PART6_BASE_QUESTIONS, ...PART6B_QUESTIONS]

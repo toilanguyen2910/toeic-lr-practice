@@ -85,6 +85,11 @@ export interface HistoryEntry {
   total: number
   estimateTotal: number
   elapsedSeconds: number
+  /**
+   * Số hiệu đề (1..20) nếu phiên này làm từ bộ đề, `undefined` nếu làm tự do.
+   * Nhờ trường này màn hình chọn đề hiển thị được "đã làm mấy lần, cao nhất bao nhiêu".
+   */
+  examSetId?: number
 }
 
 export interface Settings {

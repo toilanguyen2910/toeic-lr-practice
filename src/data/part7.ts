@@ -1,4 +1,6 @@
 import type { Question, Stimulus } from '../types'
+import { PART7B_QUESTIONS, PART7B_STIMULI } from './part7b'
+import { PART7C_QUESTIONS, PART7C_STIMULI } from './part7c'
 
 /**
  * PART 7 — Đọc hiểu (4 nhóm × 4 câu = 16 câu).
@@ -10,7 +12,7 @@ import type { Question, Stimulus } from '../types'
  *
  * Mỗi nhóm 4 câu theo cấu trúc: main topic → chi tiết → suy luận → câu hỏi tổng hợp.
  */
-export const PART7_STIMULI: Stimulus[] = [
+const PART7_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p7-0001',
     part: 7,
@@ -140,7 +142,7 @@ export const PART7_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART7_QUESTIONS: Question[] = [
+const PART7_BASE_QUESTIONS: Question[] = [
   // ---------- Nhóm 1: thông báo sửa ống nước ----------
   {
     id: 'p7-0001',
@@ -371,9 +373,9 @@ export const PART7_QUESTIONS: Question[] = [
     stimulusId: 'g-p7-0003',
     prompt: 'According to Ms. Diallo, what caused the increase in visitors?',
     choices: [
-      { letter: 'A', text: 'A grant from a local foundation' },
-      { letter: 'B', text: 'The longer weekend hours' },
-      { letter: 'C', text: 'Lower ticket prices' },
+      { letter: 'A', text: 'An annual grant from a local educational foundation' },
+      { letter: 'B', text: 'The longer weekend opening hours alone' },
+      { letter: 'C', text: 'Lower ticket prices for city residents' },
       { letter: 'D', text: 'A new children\u2019s wing and school partnerships' },
     ],
     answer: 'D',
@@ -532,4 +534,11 @@ export const PART7_QUESTIONS: Question[] = [
     translation:
       'Có thông tin gì về bộ phụ kiện lắp ráp mà bà Brooks đang chờ? — Sớm nhất phải đến ngày 14 tháng 11 mới có thể giao.',
   },
+]
+// ---- Nối phần mở rộng (p7-0017 … p7-0080) ----
+export const PART7_STIMULI: Stimulus[] = [...PART7_BASE_STIMULI, ...PART7B_STIMULI, ...PART7C_STIMULI]
+export const PART7_QUESTIONS: Question[] = [
+  ...PART7_BASE_QUESTIONS,
+  ...PART7B_QUESTIONS,
+  ...PART7C_QUESTIONS,
 ]

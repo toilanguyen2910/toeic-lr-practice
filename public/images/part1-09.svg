@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Hai người đàn ông mặc vest bắt tay nhau ở sảnh toà nhà văn phòng">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+
+<rect x="426" y="56" width="158" height="118" rx="4" fill="#f7fbff" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="430" y="60" width="150" height="110" fill="url(#glass)"/>
+<line x1="505" y1="60" x2="505" y2="170" stroke="#b6c2d0" stroke-width="3"/>
+<line x1="430" y1="115" x2="580" y2="115" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="40" y="150" width="120" height="150" rx="4" fill="#e6edf6" stroke="#b6c2d0" stroke-width="3"/>
+
+<rect x="48" y="160" width="104" height="60" rx="5" fill="#ffffff" stroke="#b6c2d0" stroke-width="4"/>
+<line x1="68" y1="186" x2="105.2" y2="186" stroke="#c9d6e4" stroke-width="6" stroke-linecap="round"/>
+<line x1="68" y1="210" x2="91.68" y2="210" stroke="#dbe4ef" stroke-width="6" stroke-linecap="round"/>
+<path d="M70 186 l12.48 -18 l12.48 14 l12.48 -26 l12.48 22"
+  stroke="#2f7d5c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<g>
+    <ellipse cx="238" cy="374" rx="26.52" ry="6.12" fill="rgba(40,60,85,.13)"/>
+    <path d="M224.74 296.52 L222.7 365.88" stroke="#33404f" stroke-width="11.22" stroke-linecap="round"/>
+    <path d="M251.26 296.52 L253.3 365.88" stroke="#33404f" stroke-width="11.22" stroke-linecap="round"/>
+    <rect x="220.66" y="233.28" width="34.68" height="63.23999999999998" rx="10.2" fill="#1c4b87"/>
+    <path d="M216.57999999999998 241.44 L212.49999999999997 304.68" stroke="#1c4b87" stroke-width="11.22" stroke-linecap="round" fill="none"/>
+      <circle cx="212.49999999999997" cy="304.68" r="6.12" fill="#f2d3b6"/>
+    <path d="M259.42 241.44 L290.02000000000004 276.12" stroke="#1c4b87" stroke-width="11.22" stroke-linecap="round" fill="none"/>
+      <circle cx="290.02000000000004" cy="276.12" r="6.12" fill="#f2d3b6"/>
+    <circle cx="238" cy="200.64" r="20.4" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M217.6 200.64 a20.4 20.4 0 0 1 40.8 0 q0 -17.34 -20.4 -18.36 q-20.4 0.05 -20.4 18.36 Z" fill="#33404f"/>
+  </g>
+<g>
+    <ellipse cx="326" cy="374" rx="26.52" ry="6.12" fill="rgba(40,60,85,.13)"/>
+    <path d="M312.74 296.52 L310.7 365.88" stroke="#33404f" stroke-width="11.22" stroke-linecap="round"/>
+    <path d="M339.26 296.52 L341.3 365.88" stroke="#33404f" stroke-width="11.22" stroke-linecap="round"/>
+    <rect x="308.66" y="233.28" width="34.68" height="63.23999999999998" rx="10.2" fill="#2f7d5c"/>
+    <path d="M304.58 241.44 L273.97999999999996 276.12" stroke="#2f7d5c" stroke-width="11.22" stroke-linecap="round" fill="none"/>
+      <circle cx="273.97999999999996" cy="276.12" r="6.12" fill="#f2d3b6"/>
+    <path d="M347.42 241.44 L351.5 304.68" stroke="#2f7d5c" stroke-width="11.22" stroke-linecap="round" fill="none"/>
+      <circle cx="351.5" cy="304.68" r="6.12" fill="#f2d3b6"/>
+    <circle cx="326" cy="200.64" r="20.4" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M305.6 200.64 a20.4 20.4 0 0 1 40.8 0 q0 -17.34 -20.4 -18.36 q-20.4 0.05 -20.4 18.36 Z" fill="#33404f"/>
+  </g>
+<g stroke="#f2d3b6" stroke-width="10" stroke-linecap="round"><line x1="276" y1="228" x2="300" y2="228"/></g>
+<ellipse cx="288" cy="226" rx="12" ry="9" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+</svg>

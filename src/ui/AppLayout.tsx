@@ -10,6 +10,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { route: ROUTES.home, testId: TID.navHome, label: 'Trang chủ' },
   { route: ROUTES.partSelect, testId: TID.navPractice, label: 'Luyện tập' },
+  { route: ROUTES.examSets, testId: TID.navExamSets, label: '20 đề' },
   { route: ROUTES.mock, testId: TID.navMock, label: 'Thi thử' },
   { route: ROUTES.history, testId: TID.navHistory, label: 'Lịch sử' },
   { route: ROUTES.settings, testId: TID.navSettings, label: 'Cài đặt' },
@@ -34,7 +35,8 @@ export function AppHeader({ route }: { route: string }) {
           {NAV_ITEMS.map((item) => {
             const isCurrent =
               route === item.route ||
-              (item.route === ROUTES.partSelect && route === ROUTES.practice)
+              (item.route === ROUTES.partSelect && route === ROUTES.practice) ||
+              (item.route === ROUTES.examSets && route.startsWith(`${ROUTES.examSets}/`))
 
             return (
               <a

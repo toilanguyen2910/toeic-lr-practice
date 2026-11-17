@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người phụ nữ đứng ở quầy thu ngân siêu thị, tay đưa thẻ về phía máy thanh toán">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+<g>
+  <rect x="330" y="150" width="250" height="60" rx="4" fill="#e3ebf4" stroke="#b6c2d0" stroke-width="3"/>
+  <rect x="340" y="90" width="230" height="56" rx="4" fill="#dbe6f1" stroke="#b6c2d0" stroke-width="3"/>
+  <rect x="352" y="102" width="46" height="32" rx="3" fill="#b8443c" opacity=".7"/>
+  <rect x="408" y="102" width="46" height="32" rx="3" fill="#2f7d5c" opacity=".7"/>
+  <rect x="464" y="102" width="46" height="32" rx="3" fill="#1c4b87" opacity=".7"/>
+    <rect x="520" y="102" width="40" height="32" rx="3" fill="#c99b60" opacity=".8"/>
+</g>
+
+<rect x="300" y="210" width="300" height="100" rx="4" fill="url(#wood)" stroke="#a97c47" stroke-width="3"/>
+<rect x="294" y="202" width="312" height="14" rx="4" fill="#8d9bab"/>
+<rect x="310" y="228" width="90" height="34" rx="3" fill="#e8eef6" opacity=".55"/>
+<rect x="430" y="186" width="66" height="30" rx="4" fill="#33404f"/>
+<rect x="438" y="192" width="50" height="16" rx="2" fill="#8fe3b8"/>
+<g>
+    <ellipse cx="180" cy="370" rx="27.3" ry="6.300000000000001" fill="rgba(40,60,85,.13)"/>
+    <path d="M166.35 290.3 L164.25 361.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <path d="M193.65 290.3 L195.75 361.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <rect x="162.15" y="225.2" width="35.7" height="65.10000000000002" rx="10.5" fill="#b8443c"/>
+    <path d="M157.95 233.6 L153.75 298.7" stroke="#b8443c" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="153.75" cy="298.7" r="6.300000000000001" fill="#f2d3b6"/>
+    <path d="M202.05 233.6 L233.55 269.3" stroke="#b8443c" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="233.55" cy="269.3" r="6.300000000000001" fill="#f2d3b6"/>
+    <circle cx="180" cy="191.6" r="21" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M159 191.6 a21 21 0 0 1 42 0 q0 -17.849999999999998 -21 -18.900000000000002 q-21 0.05 -21 18.900000000000002 Z" fill="#33404f"/>
+  </g>
+<rect x="228" y="238" width="26" height="38" rx="3" fill="#e8c96b" stroke="#c09f3e" stroke-width="2"/>
+<g stroke="#b9c6d6" stroke-width="2" opacity=".55"><line x1="0" y1="392" x2="640" y2="392"/><line x1="0" y1="340" x2="640" y2="340"/></g>
+</svg>

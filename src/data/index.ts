@@ -14,7 +14,7 @@ import { PART7_QUESTIONS, PART7_STIMULI } from './part7'
  * mảng `Question` của phần thi đó (kèm `Stimulus` nếu phần đó dùng ngữ liệu chung).
  * Tệp này chỉ làm một việc: gộp lại thành `QuestionBank` duy nhất.
  *
- * Tổng: 85 câu — P1: 8, P2: 12, P3: 12, P4: 9, P5: 20, P6: 8, P7: 16.
+ * Tổng: 425 câu — P1: 20, P2: 60, P3: 60, P4: 45, P5: 120, P6: 40, P7: 80.
  */
 export const FULL_BANK: QuestionBank = {
   version: 1,

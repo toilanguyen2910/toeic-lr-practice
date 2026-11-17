@@ -1,7 +1,10 @@
 import type { Question, Stimulus } from '../types'
+import { PART2B_QUESTIONS, PART2B_STIMULI } from './part2b'
+import { PART2C_QUESTIONS, PART2C_STIMULI } from './part2c'
+import { PART2D_QUESTIONS, PART2D_STIMULI } from './part2d'
 
 /**
- * PART 2 — Hỏi – đáp (12 câu, mỗi câu CHỈ 3 lựa chọn A/B/C).
+ * PART 2 — Hỏi – đáp (60 câu, mỗi câu CHỈ 3 lựa chọn A/B/C).
  *
  * `prompt` để rỗng theo hợp đồng; câu hỏi nằm trong `audioScript` của stimulus.
  * `choices` là 3 câu trả lời người học nghe được.
@@ -14,7 +17,7 @@ import type { Question, Stimulus } from '../types'
  * - lặp lại một từ trong câu hỏi mà không trả lời,
  * - bắt âm gần giống ("deadline" → "line", "price" → "prize").
  */
-export const PART2_STIMULI: Stimulus[] = [
+const PART2_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p2-0001',
     part: 2,
@@ -77,7 +80,7 @@ export const PART2_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART2_QUESTIONS: Question[] = [
+const PART2_BASE_QUESTIONS: Question[] = [
   {
     id: 'p2-0001',
     part: 2,
@@ -192,14 +195,14 @@ export const PART2_QUESTIONS: Question[] = [
     prompt: '',
     choices: [
       { letter: 'A', text: 'In the sales department.' },
-      { letter: 'B', text: 'The first Monday of next month.' },
-      { letter: 'C', text: 'She has three years of experience.' },
+      { letter: 'B', text: 'She has three years of experience.' },
+      { letter: 'C', text: 'The first Monday of next month.' },
     ],
-    answer: 'B',
+    answer: 'C',
     explanation:
-      '"When" hỏi thời điểm, nên B nêu mốc thời gian cụ thể là đúng. ' +
+      '"When" hỏi thời điểm, nên C nêu mốc thời gian cụ thể là đúng. ' +
       'A trả lời cho "Where" (làm ở bộ phận nào), nên sai. ' +
-      'C là thông tin về kinh nghiệm của ứng viên — có liên quan tới chủ đề tuyển dụng nhưng không trả lời "khi nào", nên sai.',
+      'B là thông tin về kinh nghiệm của ứng viên — có liên quan tới chủ đề tuyển dụng nhưng không trả lời "khi nào", nên sai.',
     translation: 'Khi nào trợ lý kinh doanh mới bắt đầu làm việc? — Thứ Hai đầu tiên của tháng sau.',
   },
   {
@@ -325,4 +328,18 @@ export const PART2_QUESTIONS: Question[] = [
       'B chỉ lặp lại từ "Monday" mà không cho biết hạn chót là ngày nào, nên sai.',
     translation: 'Hạn chót là thứ Hai tới, đúng không? — Thật ra họ đã dời lên thứ Sáu.',
   },
+]
+
+// ---- Nối phần mở rộng (p2-0013 … p2-0060) ----
+export const PART2_STIMULI: Stimulus[] = [
+  ...PART2_BASE_STIMULI,
+  ...PART2B_STIMULI,
+  ...PART2C_STIMULI,
+  ...PART2D_STIMULI,
+]
+export const PART2_QUESTIONS: Question[] = [
+  ...PART2_BASE_QUESTIONS,
+  ...PART2B_QUESTIONS,
+  ...PART2C_QUESTIONS,
+  ...PART2D_QUESTIONS,
 ]

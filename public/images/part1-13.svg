@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người đàn ông đứng bên tủ hồ sơ, tay đưa một tập tài liệu vào ngăn kéo đang mở">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+
+<rect x="426" y="56" width="168" height="128" rx="4" fill="#f7fbff" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="430" y="60" width="160" height="120" fill="url(#glass)"/>
+<line x1="510" y1="60" x2="510" y2="180" stroke="#b6c2d0" stroke-width="3"/>
+<line x1="430" y1="120" x2="590" y2="120" stroke="#b6c2d0" stroke-width="3"/>
+<g>
+  <rect x="130" y="120" width="170" height="230" rx="5" fill="#c9d4e1" stroke="#8d9bab" stroke-width="3"/>
+  <rect x="144" y="136" width="142" height="46" rx="3" fill="#dde6f0" stroke="#8d9bab" stroke-width="2"/>
+  <rect x="144" y="192" width="142" height="46" rx="3" fill="#dde6f0" stroke="#8d9bab" stroke-width="2"/>
+  <rect x="144" y="248" width="142" height="46" rx="3" fill="#dde6f0" stroke="#8d9bab" stroke-width="2"/>
+  <rect x="176" y="152" width="52" height="9" rx="4" fill="#8d9bab"/>
+  <rect x="176" y="208" width="52" height="9" rx="4" fill="#8d9bab"/>
+</g>
+<rect x="150" y="186" width="120" height="60" rx="3" fill="#eef3f9" stroke="#8d9bab" stroke-width="3"/>
+<g fill="#f2f6fb" stroke="#b6c2d0" stroke-width="1.5">
+  <rect x="158" y="194" width="104" height="12" rx="2"/>
+  <rect x="158" y="212" width="104" height="12" rx="2"/>
+  <rect x="158" y="230" width="86" height="10" rx="2"/>
+</g>
+<g>
+    <ellipse cx="390" cy="378" rx="27.560000000000002" ry="6.36" fill="rgba(40,60,85,.13)"/>
+    <path d="M376.22 297.56 L374.1 369.64" stroke="#33404f" stroke-width="11.66" stroke-linecap="round"/>
+    <path d="M403.78 297.56 L405.9 369.64" stroke="#33404f" stroke-width="11.66" stroke-linecap="round"/>
+    <rect x="371.98" y="231.84" width="36.04" height="65.72" rx="10.600000000000001" fill="#1c4b87"/>
+    <path d="M367.74 240.32 L335.94 276.36" stroke="#1c4b87" stroke-width="11.66" stroke-linecap="round" fill="none"/>
+      <circle cx="335.94" cy="276.36" r="6.36" fill="#f2d3b6"/>
+    <path d="M412.26 240.32 L416.5 306.03999999999996" stroke="#1c4b87" stroke-width="11.66" stroke-linecap="round" fill="none"/>
+      <circle cx="416.5" cy="306.03999999999996" r="6.36" fill="#f2d3b6"/>
+    <circle cx="390" cy="197.92" r="21.200000000000003" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M368.8 197.92 a21.200000000000003 21.200000000000003 0 0 1 42.400000000000006 0 q0 -18.020000000000003 -21.200000000000003 -19.080000000000002 q-21.200000000000003 0.05 -21.200000000000003 19.080000000000002 Z" fill="#33404f"/>
+  </g>
+<rect x="300" y="212" width="66" height="74" rx="3" fill="#f7fbff" stroke="#b6c2d0" stroke-width="2"/>
+</svg>

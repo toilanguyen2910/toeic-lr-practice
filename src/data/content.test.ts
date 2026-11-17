@@ -47,20 +47,23 @@ const ALL_QUESTIONS: Question[] = [
   ...PART7_QUESTIONS,
 ]
 
-/** Số câu mục tiêu của từng part theo chỉ tiêu 85 câu. */
+/** Số câu mục tiêu của từng part theo chỉ tiêu mở rộng 425 câu. */
 const TARGET_COUNTS: Record<Part, number> = {
-  1: 8,
-  2: 12,
-  3: 12,
-  4: 9,
-  5: 20,
-  6: 8,
-  7: 16,
+  1: 20,
+  2: 60,
+  3: 60,
+  4: 45,
+  5: 120,
+  6: 40,
+  7: 80,
 }
 
+/** Tổng số câu của ngân hàng sau khi mở rộng. */
+const TARGET_TOTAL = 425
+
 describe('số lượng câu và stimulus', () => {
-  it('có đủ 85 câu và đúng chỉ tiêu từng part', () => {
-    expect(ALL_QUESTIONS).toHaveLength(85)
+  it(`có đủ ${TARGET_TOTAL} câu và đúng chỉ tiêu từng part`, () => {
+    expect(ALL_QUESTIONS).toHaveLength(TARGET_TOTAL)
     for (const part of [1, 2, 3, 4, 5, 6, 7] as Part[]) {
       expect(PER_PART[part], `Part ${part}`).toHaveLength(TARGET_COUNTS[part])
     }
@@ -75,9 +78,9 @@ describe('số lượng câu và stimulus', () => {
   })
 
   it('ngân hàng ghép trong index.ts chứa đúng toàn bộ câu và stimulus', () => {
-    expect(FULL_BANK.questions).toHaveLength(85)
+    expect(FULL_BANK.questions).toHaveLength(TARGET_TOTAL)
     expect(FULL_BANK.stimuli).toHaveLength(ALL_STIMULI.length)
-    expect(new Set(FULL_BANK.questions.map((q) => q.id)).size).toBe(85)
+    expect(new Set(FULL_BANK.questions.map((q) => q.id)).size).toBe(TARGET_TOTAL)
   })
 })
 
@@ -143,12 +146,12 @@ describe('liên kết câu hỏi ↔ stimulus', () => {
   })
 
   it('Part 1 có imageUrl đúng dạng /images/part1-XX.svg', () => {
-    expect(PART1_STIMULI).toHaveLength(8)
+    expect(PART1_STIMULI).toHaveLength(20)
     for (const s of PART1_STIMULI) {
       expect(s.imageUrl, s.id).toMatch(/^\/images\/part1-\d{2}\.svg$/)
     }
     const urls = PART1_STIMULI.map((s) => s.imageUrl)
-    expect(new Set(urls).size, 'ảnh Part 1 bị dùng lại').toBe(8)
+    expect(new Set(urls).size, 'ảnh Part 1 bị dùng lại').toBe(20)
   })
 
   it('mỗi nhóm Part 3/4 có đúng 3 câu; Part 6/7 giữ đúng cấu trúc nhóm', () => {
@@ -164,9 +167,9 @@ describe('liên kết câu hỏi ↔ stimulus', () => {
     for (const [id, n] of countBy(PART3_QUESTIONS)) expect(n, `Part 3 ${id}`).toBe(3)
     for (const [id, n] of countBy(PART4_QUESTIONS)) expect(n, `Part 4 ${id}`).toBe(3)
     for (const [id, n] of countBy(PART6_QUESTIONS)) expect(n, `Part 6 ${id}`).toBe(4)
-    expect(countBy(PART3_QUESTIONS).size).toBe(4)
-    expect(countBy(PART4_QUESTIONS).size).toBe(3)
-    expect(countBy(PART6_QUESTIONS).size).toBe(2)
+    expect(countBy(PART3_QUESTIONS).size).toBe(20)
+    expect(countBy(PART4_QUESTIONS).size).toBe(15)
+    expect(countBy(PART6_QUESTIONS).size).toBe(10)
   })
 })
 

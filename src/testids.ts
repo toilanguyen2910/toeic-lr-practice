@@ -13,11 +13,25 @@ export const ROUTES = {
   partSelect: '#/practice',
   practice: '#/practice/session',
   mock: '#/mock',
+  examSets: '#/de',
   result: '#/result',
   review: '#/review',
   history: '#/history',
   settings: '#/settings',
 } as const
+
+/** Route kèm tham số đề: `#/de/7` là đề số 7. */
+export function examSetRoute(id: number): string {
+  return `${ROUTES.examSets}/${id}`
+}
+
+/** Đọc số hiệu đề từ hash; trả `null` nếu hash không phải dạng `#/de/<số>`. */
+export function parseExamSetRoute(hash: string): number | null {
+  const match = /^#\/de\/(\d{1,2})$/.exec(hash)
+  if (!match) return null
+  const id = Number(match[1])
+  return Number.isInteger(id) && id >= 1 && id <= 20 ? id : null
+}
 
 export const TID = {
   // Khung chung
@@ -28,6 +42,14 @@ export const TID = {
   navMock: 'nav-mock',
   navHistory: 'nav-history',
   navSettings: 'nav-settings',
+  navExamSets: 'nav-exam-sets',
+
+  // 20 đề thi thử
+  examSets: 'exam-sets',
+  examSetCard: (id: number) => `exam-set-${id}`,
+  examSetStart: 'exam-set-start',
+  examSetProgress: (id: number) => `exam-set-progress-${id}`,
+  homeStartExamSets: 'home-start-exam-sets',
 
   // Trang chủ
   home: 'home',

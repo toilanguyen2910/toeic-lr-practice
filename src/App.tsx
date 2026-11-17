@@ -1,9 +1,11 @@
 import './styles/index.css'
 import { FULL_BANK } from './data'
-import { ROUTES, TID } from './testids'
+import { ROUTES, TID, parseExamSetRoute } from './testids'
 import { useBankIndex } from './hooks/useBankIndex'
 import { useHashRoute } from './hooks/useHashRoute'
 import { AppFooter, AppHeader } from './ui/AppLayout'
+import { ExamSetRoute } from './ui/ExamSetRoute'
+import { ExamSetsPage } from './ui/ExamSetsPage'
 import { HistoryPage } from './ui/HistoryPage'
 import { HomePage } from './ui/HomePage'
 import { NotFoundPage } from './ui/NotFoundPage'
@@ -50,6 +52,13 @@ function App() {
 
 /** Bảng định tuyến — một `switch` duy nhất, route lấy từ `ROUTES`. */
 function AppRoutes({ route, index }: { route: string; index: BankIndex }) {
+  // `#/de/7` là route có tham số duy nhất, nên phải thử phân tích trước khi switch.
+  const examSetId = parseExamSetRoute(route)
+
+  if (examSetId != null) {
+    return <ExamSetRoute id={examSetId} index={index} />
+  }
+
   switch (route) {
     case ROUTES.home:
       return <HomePage />
@@ -59,6 +68,8 @@ function AppRoutes({ route, index }: { route: string; index: BankIndex }) {
       return <PracticeSessionRoute index={index} />
     case ROUTES.mock:
       return <MockRoute index={index} />
+    case ROUTES.examSets:
+      return <ExamSetsPage />
     case ROUTES.result:
       return <ResultPage />
     case ROUTES.review:

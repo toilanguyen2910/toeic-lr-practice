@@ -1,7 +1,8 @@
 import type { Question, Stimulus } from '../types'
+import { PART1B_QUESTIONS, PART1B_STIMULI } from './part1b'
 
 /**
- * PART 1 — Mô tả tranh (8 câu, mỗi câu một tranh riêng).
+ * PART 1 — Mô tả tranh (20 câu, mỗi câu một tranh riêng).
  *
  * Quy ước nội dung: `audioScript` đọc lần lượt 4 phương án (A)–(D); `choices` chép
  * lại đúng 4 câu đó. Ảnh tương ứng nằm ở `public/images/part1-XX.svg` do team UI vẽ.
@@ -33,7 +34,7 @@ import type { Question, Stimulus } from '../types'
  * hành động trong tranh; ba phương án còn lại mô tả hành động hoặc đồ vật KHÔNG được vẽ
  * trong bức ảnh đó. Không dùng chi tiết không có trong tranh để làm đáp án đúng.
  */
-export const PART1_STIMULI: Stimulus[] = [
+const PART1_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p1-0001',
     part: 1,
@@ -116,7 +117,7 @@ export const PART1_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART1_QUESTIONS: Question[] = [
+const PART1_BASE_QUESTIONS: Question[] = [
   {
     id: 'p1-0001',
     part: 1,
@@ -302,3 +303,7 @@ export const PART1_QUESTIONS: Question[] = [
     translation: 'Họ đang đứng ở quầy. (Đáp án D)',
   },
 ]
+
+// ---- Nối phần mở rộng (p1-0009 … p1-0020) ----
+export const PART1_STIMULI: Stimulus[] = [...PART1_BASE_STIMULI, ...PART1B_STIMULI]
+export const PART1_QUESTIONS: Question[] = [...PART1_BASE_QUESTIONS, ...PART1B_QUESTIONS]

@@ -1,24 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Minh hoạ: người đàn ông đang bê một chiếc thùng hàng đứng cạnh xe tải, phía sau là toà nhà kho">
-  <rect width="640" height="420" fill="#eef2f8"/>
-  <rect x="0" y="336" width="640" height="84" fill="#dde5ef"/>
-  <!-- toà nhà kho -->
-  <rect x="40" y="96" width="200" height="150" rx="5" fill="#ffffff" stroke="#8f9bab" stroke-width="5"/>
-  <rect x="96" y="176" width="70" height="70" fill="#c9d3e0" stroke="#8f9bab" stroke-width="4"/>
-  <!-- xe tải -->
-  <rect x="320" y="176" width="210" height="120" rx="8" fill="#ffffff" stroke="#1c4b87" stroke-width="6"/>
-  <path d="M530 296v-70h56l28 44v26z" fill="#1c4b87"/>
-  <circle cx="380" cy="316" r="26" fill="#39424f" stroke="#14181f" stroke-width="5"/>
-  <circle cx="560" cy="316" r="26" fill="#39424f" stroke="#14181f" stroke-width="5"/>
-  <rect x="548" y="238" width="34" height="28" rx="3" fill="#dfeaf7"/>
-  <!-- người đàn ông bê thùng -->
-  <circle cx="290" cy="140" r="28" fill="#f6dfc9" stroke="#1c4b87" stroke-width="5"/>
-  <path d="M262 140a28 28 0 0 1 56 0v-16a28 28 0 0 0-56 0z" fill="#39424f"/>
-  <path d="M268 244v-66a22 22 0 0 1 44 0v66z" fill="#176038"/>
-  <rect x="250" y="238" width="82" height="56" rx="5" fill="#b5854a" stroke="#7a5525" stroke-width="5"/>
-  <line x1="250" y1="262" x2="332" y2="262" stroke="#7a5525" stroke-width="5"/>
-  <path d="M256 244l-10 22" stroke="#176038" stroke-width="11" stroke-linecap="round"/>
-  <path d="M326 244l10 22" stroke="#176038" stroke-width="11" stroke-linecap="round"/>
-  <path d="M276 296l-6 40" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
-  <path d="M306 296l8 40" stroke="#39424f" stroke-width="12" stroke-linecap="round"/>
-  <text x="24" y="404" font-family="Segoe UI, sans-serif" font-size="15" fill="#5b6472">Hình minh hoạ — Part 1</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người đàn ông bê một chiếc thùng các-tông bằng hai tay trước bụng, đứng cạnh chiếc xe tải đang đỗ; phía sau bên trái là toà nhà kho">
+<defs>
+  <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f8fbfe"/><stop offset="1" stop-color="#e3ebf5"/>
+  </linearGradient>
+  <linearGradient id="gFloor" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dee7f2"/><stop offset="1" stop-color="#c4d0e0"/>
+  </linearGradient>
+  <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/>
+  </linearGradient>
+  <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#eaf5fe"/><stop offset=".55" stop-color="#d3e7fa"/><stop offset="1" stop-color="#eff8ff"/>
+  </linearGradient>
+  <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#cde3f7"/><stop offset="1" stop-color="#eaf4fd"/>
+  </linearGradient>
+  <linearGradient id="gScreen" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dcebf8"/>
+  </linearGradient>
+</defs>
+<rect x="0" y="0" width="640" height="150" fill="url(#gSky)"/>
+<ellipse cx="104" cy="44" rx="36" ry="12" fill="#ffffff" fill-opacity=".85"/>
+<ellipse cx="140" cy="50" rx="26" ry="10" fill="#ffffff" fill-opacity=".8"/>
+<ellipse cx="486" cy="36" rx="40" ry="13" fill="#ffffff" fill-opacity=".75"/>
+<ellipse cx="526" cy="42" rx="26" ry="10" fill="#ffffff" fill-opacity=".7"/>
+<rect x="0" y="130" width="300" height="194" fill="#e8eef6"/>
+<rect x="0" y="116" width="300" height="18" fill="#c3d0df"/>
+<rect x="0" y="116" width="300" height="4" fill="#adbccd"/>
+<rect x="26" y="168" width="128" height="30" rx="4" fill="#cfe0f1" stroke="#b6c6d8" stroke-width="3"/>
+<line x1="26" y1="192" x2="154" y2="192" stroke="#b6c6d8" stroke-width="3"/>
+<rect x="178" y="174" width="26" height="20" fill="#cfe0f1" stroke="#b6c6d8" stroke-width="2.5"/>
+<rect x="216" y="174" width="26" height="20" fill="#cfe0f1" stroke="#b6c6d8" stroke-width="2.5"/>
+<rect x="254" y="174" width="26" height="20" fill="#cfe0f1" stroke="#b6c6d8" stroke-width="2.5"/>
+<rect x="24" y="220" width="132" height="104" fill="#c7d4e2"/>
+<line x1="24" y1="237" x2="156" y2="237" stroke="#b0bfd0" stroke-width="2"/>
+<line x1="24" y1="254" x2="156" y2="254" stroke="#b0bfd0" stroke-width="2"/>
+<line x1="24" y1="271" x2="156" y2="271" stroke="#b0bfd0" stroke-width="2"/>
+<line x1="24" y1="288" x2="156" y2="288" stroke="#b0bfd0" stroke-width="2"/>
+<line x1="24" y1="305" x2="156" y2="305" stroke="#b0bfd0" stroke-width="2"/>
+<rect x="18" y="214" width="144" height="10" fill="#a6b5c7"/>
+<rect x="180" y="228" width="100" height="20" rx="4" fill="#1c4b87" fill-opacity=".8"/>
+<rect x="0" y="322" width="640" height="98" fill="#cfd6df"/>
+<rect x="0" y="316" width="640" height="8" fill="#bcc5d0"/>
+<line x1="0" y1="360" x2="640" y2="352" stroke="#b9c3cf" stroke-width="2.2"/>
+<line x1="0" y1="396" x2="640" y2="386" stroke="#b9c3cf" stroke-width="2.2"/>
+<line x1="214" y1="316" x2="160" y2="420" stroke="#b9c3cf" stroke-width="2.2"/>
+<line x1="452" y1="316" x2="520" y2="420" stroke="#b9c3cf" stroke-width="2.2"/>
+<rect x="150" y="296" width="78" height="10" fill="#a3763f"/>
+<rect x="158" y="282" width="62" height="14" fill="#b98a52"/>
+<rect x="166" y="268" width="46" height="14" fill="#c69a63"/>
+<ellipse cx="482.3" cy="326" rx="140.2" ry="10" fill="#8fa0b4" fill-opacity="0.18"/><rect x="348" y="196" width="181" height="120" rx="6" fill="#f5f8fc"/><rect x="348" y="196" width="181" height="120" rx="6" fill="none" stroke="#66748a" stroke-width="3"/><line x1="384.2" y1="204" x2="384.2" y2="308" stroke="#ccd6e2" stroke-width="3"/><line x1="420.4" y1="204" x2="420.4" y2="308" stroke="#ccd6e2" stroke-width="3"/><line x1="456.6" y1="204" x2="456.6" y2="308" stroke="#ccd6e2" stroke-width="3"/><line x1="492.8" y1="204" x2="492.8" y2="308" stroke="#ccd6e2" stroke-width="3"/><rect x="352" y="258" width="173" height="7" fill="#ccd6e2"/><rect x="348" y="308" width="181" height="10" fill="#66748a"/><rect x="523" y="220" width="87.6" height="96" rx="7" fill="#1c4b87"/><path d="M531 230h43.8l28 26v56h-71.8Z" fill="#cfe4f7"/><path d="M531 230h43.8l28 26v56h-71.8Z" fill="none" stroke="#123a6b" stroke-width="2.5"/><rect x="527" y="294" width="87.6" height="8" fill="#123a6b"/><rect x="608.6" y="306" width="18" height="11" rx="3" fill="#66748a"/><rect x="602.6" y="266" width="13" height="11" rx="3" fill="#f2d07a"/><circle cx="384.2" cy="320" r="25" fill="#2b3440"/><circle cx="384.2" cy="320" r="10" fill="#ccd6e2"/><circle cx="577.2" cy="320" r="25" fill="#2b3440"/><circle cx="577.2" cy="320" r="10" fill="#ccd6e2"/>
+<ellipse cx="292" cy="390" rx="76.2" ry="9" fill="#8fa0b4" fill-opacity="0.18"/><path d="M266 340L262 382" fill="none" stroke="#41505f" stroke-width="13.6" stroke-linecap="round"/><path d="M272 296L266 340" fill="none" stroke="#41505f" stroke-width="17" stroke-linecap="round"/><rect x="252" y="378" width="25" height="12" rx="6" fill="#1f2b38" transform="rotate(-4 264 384)"/><path d="M322 340L330 382" fill="none" stroke="#41505f" stroke-width="13.6" stroke-linecap="round"/><path d="M312 296L322 340" fill="none" stroke="#41505f" stroke-width="17" stroke-linecap="round"/><rect x="314" y="378" width="25" height="12" rx="6" fill="#1f2b38" transform="rotate(-4 326 384)"/><path d="M253 188C252 236.2 258 265.2 260 300L324 300C326 265.2 332 236.2 331 188Q315.4 179 300.6 182Q292 190 283.4 182Q268.6 179 253 188Z" fill="#176038"/><path d="M303.7 192C307.6 242 314.4 265.2 324 300L309.6 300C301 259.4 299 236.2 296.7 192Z" fill="#000000" fill-opacity=".08"/><path d="M281 185Q292 197 303 185" fill="none" stroke="#000000" stroke-opacity=".15" stroke-width="3"/><rect x="284.5" y="160" width="15" height="34" fill="#f2d7ba"/><ellipse cx="292" cy="148" rx="21" ry="24" fill="#f2d7ba"/><path d="M269.2 153.2A22.8 26.8 0 0 1 314.8 153.2C312.5 144.9 306.1 139.7 299.8 136.6C294.3 141.8 287.4 142.3 281.5 136.1C274.7 139.2 270.6 145.4 269.2 153.2Z" fill="#332b23"/><path d="M276 132Q289.7 122.2 303.4 131" fill="none" stroke="#ffffff" stroke-opacity=".1" stroke-width="3" stroke-linecap="round"/><ellipse cx="272.5" cy="152" rx="4" ry="5.2" fill="#f2d7ba"/><ellipse cx="311.5" cy="152" rx="4" ry="5.2" fill="#f2d7ba"/><ellipse cx="284.4" cy="149.5" rx="2" ry="2.6" fill="#1f2b38"/><line x1="281" y1="143.3" x2="287.8" y2="142.5" stroke="undefined" stroke-width="1.7" stroke-linecap="round"/><ellipse cx="299.6" cy="149.5" rx="2" ry="2.6" fill="#1f2b38"/><line x1="296.2" y1="142.5" x2="303" y2="143.3" stroke="undefined" stroke-width="1.7" stroke-linecap="round"/><path d="M287.4 158Q292 161.4 296.6 158" fill="none" stroke="#cf9f7c" stroke-width="2" stroke-linecap="round"/><path d="M273 150q3 4 0 8" fill="none" stroke="undefined" stroke-width="1.6" stroke-opacity=".5" stroke-linecap="round"/><ellipse cx="292" cy="153.5" rx="1.7" ry="1.4" fill="undefined" fill-opacity=".55"/>
+<rect x="232" y="238" width="122" height="84" rx="4" fill="#c69a63"/>
+<rect x="232" y="238" width="122" height="10" fill="#d8b183"/>
+<rect x="232" y="300" width="122" height="4" fill="#8e6a3b"/>
+<rect x="288" y="248" width="12" height="74" fill="#9c7440" fill-opacity=".45"/>
+<rect x="286" y="258" width="16" height="24" fill="#ffffff" fill-opacity=".8" rx="2"/>
+<rect x="290" y="264" width="8" height="3" fill="#8e6a3b"/>
+<rect x="290" y="271" width="8" height="3" fill="#8e6a3b"/>
+<path d="M236 254.8L240 314" fill="none" stroke="#f2d7ba" stroke-width="8.8" stroke-linecap="round"/><path d="M258 202L236 254.8" fill="none" stroke="#176038" stroke-width="11" stroke-linecap="round"/><ellipse cx="240" cy="314" rx="6.8" ry="6.2" fill="#f2d7ba" transform="rotate(86.1 240 314)"/><path d="M350 254.8L346 314" fill="none" stroke="#f2d7ba" stroke-width="8.8" stroke-linecap="round"/><path d="M326 202L350 254.8" fill="none" stroke="#176038" stroke-width="11" stroke-linecap="round"/><ellipse cx="346" cy="314" rx="6.8" ry="6.2" fill="#f2d7ba" transform="rotate(93.9 346 314)"/>
+<text x="20" y="410" font-family="Segoe UI, Verdana, sans-serif" font-size="13" fill="#7b8899" letter-spacing=".3">Hình minh hoạ — Part 1</text>
 </svg>

@@ -1,7 +1,9 @@
 import type { Question } from '../types'
+import { PART5B_QUESTIONS } from './part5b'
+import { PART5C_QUESTIONS } from './part5c'
 
 /**
- * PART 5 — Điền từ vào câu (20 câu).
+ * PART 5 — Điền từ vào câu (120 câu).
  *
  * Mỗi câu kiểm tra đúng một điểm ngữ pháp/từ vựng và ba phương án nhiễu được chọn
  * theo lỗi mà người học thật hay mắc (sai dạng từ, sai giới từ, sai thì, sai nghĩa).
@@ -10,7 +12,7 @@ import type { Question } from '../types'
  * Quy ước giải thích: luôn nêu đáp án đúng trước, rồi lần lượt gọi tên A/B/C/D của
  * từng phương án nhiễu để người học đối chiếu được ngay với màn hình làm bài.
  */
-export const PART5_QUESTIONS: Question[] = [
+const PART5_BASE_QUESTIONS: Question[] = [
   {
     id: 'p5-0001',
     part: 5,
@@ -442,4 +444,11 @@ export const PART5_QUESTIONS: Question[] = [
       'D sai vì "Satisfy" là động từ nguyên mẫu, không đứng đầu câu làm trạng ngữ.',
     translation: 'Hài lòng với kết quả của chương trình thí điểm, uỷ ban đã phê duyệt triển khai toàn bộ.',
   },
+]
+
+// ---- Nối phần mở rộng (p5-0021 … p5-0120) ----
+export const PART5_QUESTIONS: Question[] = [
+  ...PART5_BASE_QUESTIONS,
+  ...PART5B_QUESTIONS,
+  ...PART5C_QUESTIONS,
 ]

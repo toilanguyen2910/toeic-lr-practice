@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người đàn ông đứng trước cửa văn phòng, tay cầm chìa tra vào ổ khoá">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+<g>
+  <rect x="330" y="60" width="230" height="290" rx="4" fill="#c8d4e2" stroke="#8d9bab" stroke-width="4"/>
+  <rect x="348" y="78" width="194" height="120" rx="3" fill="url(#glass)" stroke="#b6c2d0" stroke-width="3"/>
+  <rect x="348" y="212" width="194" height="120" rx="3" fill="#d2dde9" stroke="#b6c2d0" stroke-width="3"/>
+  <circle cx="512" cy="272" r="9" fill="#f2c94c" stroke="#c9a227" stroke-width="2"/>
+</g>
+<rect x="518" y="266" width="16" height="12" rx="2" fill="#9aa7b5"/>
+<g>
+    <ellipse cx="220" cy="382" rx="27.560000000000002" ry="6.36" fill="rgba(40,60,85,.13)"/>
+    <path d="M206.22 301.56 L204.1 373.64" stroke="#33404f" stroke-width="11.66" stroke-linecap="round"/>
+    <path d="M233.78 301.56 L235.9 373.64" stroke="#33404f" stroke-width="11.66" stroke-linecap="round"/>
+    <rect x="201.98" y="235.84" width="36.04" height="65.72" rx="10.600000000000001" fill="#1c4b87"/>
+    <path d="M197.74 244.32 L193.5 310.03999999999996" stroke="#1c4b87" stroke-width="11.66" stroke-linecap="round" fill="none"/>
+      <circle cx="193.5" cy="310.03999999999996" r="6.36" fill="#f2d3b6"/>
+    <path d="M242.26 244.32 L274.06 280.36" stroke="#1c4b87" stroke-width="11.66" stroke-linecap="round" fill="none"/>
+      <circle cx="274.06" cy="280.36" r="6.36" fill="#f2d3b6"/>
+    <circle cx="220" cy="201.92" r="21.200000000000003" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M198.8 201.92 a21.200000000000003 21.200000000000003 0 0 1 42.400000000000006 0 q0 -18.020000000000003 -21.200000000000003 -19.080000000000002 q-21.200000000000003 0.05 -21.200000000000003 19.080000000000002 Z" fill="#33404f"/>
+  </g>
+<line x1="258" y1="242" x2="512" y2="270" stroke="#f2d3b6" stroke-width="10" stroke-linecap="round"/>
+<circle cx="258" cy="242" r="8" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+<line x1="500" y1="268" x2="524" y2="270" stroke="#f2c94c" stroke-width="4" stroke-linecap="round"/>
+</svg>

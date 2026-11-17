@@ -1,4 +1,5 @@
 import type { Question, Stimulus } from '../types'
+import { PART3B_QUESTIONS, PART3B_STIMULI } from './part3b'
 
 /**
  * PART 3 — Hội thoại ngắn (4 nhóm × 3 câu = 12 câu).
@@ -7,7 +8,7 @@ import type { Question, Stimulus } from '../types'
  * Ba câu hỏi của mỗi nhóm đi theo cấu trúc quen thuộc của đề thật:
  * câu 1 hỏi mục đích/chủ đề, câu 2 hỏi chi tiết, câu 3 hỏi suy luận hoặc hành động tiếp theo.
  */
-export const PART3_STIMULI: Stimulus[] = [
+const PART3_BASE_STIMULI: Stimulus[] = [
   {
     id: 'g-p3-0001',
     part: 3,
@@ -58,7 +59,7 @@ export const PART3_STIMULI: Stimulus[] = [
   },
 ]
 
-export const PART3_QUESTIONS: Question[] = [
+const PART3_BASE_QUESTIONS: Question[] = [
   // ---------- Nhóm 1: chọn địa điểm cho buổi ra mắt sản phẩm ----------
   {
     id: 'p3-0001',
@@ -266,17 +267,17 @@ export const PART3_QUESTIONS: Question[] = [
     prompt: 'What does the woman imply about the hotel she used last year?',
     choices: [
       { letter: 'A', text: 'It was too expensive.' },
-      { letter: 'B', text: 'It was far from the venue.' },
+      { letter: 'B', text: 'It had already been fully booked.' },
       { letter: 'C', text: 'Its rooms were too small.' },
-      { letter: 'D', text: 'It had already been fully booked.' },
+      { letter: 'D', text: 'It was far from the venue.' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Bà ấy nhắc lại khách sạn năm ngoái ngay sau khi yêu cầu đặt phòng "within walking distance of the convention center", ' +
-      'rồi nói chuyến taxi mất ba mươi phút — ngụ ý khách sạn đó quá xa, đi lại bất tiện, nên B đúng. ' +
+      'rồi nói chuyến taxi mất ba mươi phút — ngụ ý khách sạn đó quá xa, đi lại bất tiện, nên D đúng. ' +
       'A sai vì không có con số hay lời phàn nàn nào về giá phòng. ' +
       'C sai vì diện tích phòng không được nhắc. ' +
-      'D sai vì khách sạn năm ngoái đã từng ở được, vấn đề chỉ là khoảng cách; việc "hết phòng" không ai nói tới.',
+      'B sai vì khách sạn năm ngoái đã từng ở được, vấn đề chỉ là khoảng cách; việc "hết phòng" không ai nói tới.',
     translation:
       'Người phụ nữ ngụ ý gì về khách sạn bà ấy ở năm ngoái? — Nó quá xa trung tâm hội nghị nên đi lại bất tiện. ' +
       '("Khách sạn tôi ở năm ngoái phải đi taxi ba mươi phút.")',
@@ -292,16 +293,16 @@ export const PART3_QUESTIONS: Question[] = [
     stimulusId: 'g-p3-0004',
     prompt: 'Why is the man calling?',
     choices: [
-      { letter: 'A', text: 'To report that part of his order is missing' },
+      { letter: 'A', text: 'To change the address for a delivery' },
       { letter: 'B', text: 'To ask for a discount on office chairs' },
-      { letter: 'C', text: 'To change the address for a delivery' },
+      { letter: 'C', text: 'To report that part of his order is missing' },
       { letter: 'D', text: 'To cancel an order for a new office' },
     ],
-    answer: 'A',
+    answer: 'C',
     explanation:
-      'Ông ấy nói đã đặt mười hai ghế nhưng "the delivery this morning brought only nine" — tức báo thiếu hàng, nên A đúng. ' +
+      'Ông ấy nói đã đặt mười hai ghế nhưng "the delivery this morning brought only nine" — tức báo thiếu hàng, nên C đúng. ' +
       'B sai vì ông ấy không xin giảm giá; chính người phụ nữ tự đề nghị miễn phí giao hàng. ' +
-      'C sai vì địa chỉ giao hàng không được nhắc tới. ' +
+      'A sai vì địa chỉ giao hàng không được nhắc tới. ' +
       'D sai vì ông ấy cần đủ cả mười hai ghế cho văn phòng mới, tức muốn giữ đơn chứ không huỷ.',
     translation:
       'Vì sao người đàn ông gọi điện? — Để báo rằng một phần đơn hàng của anh ấy bị thiếu.',
@@ -355,3 +356,6 @@ export const PART3_QUESTIONS: Question[] = [
       'Người đàn ông nhiều khả năng sẽ làm gì tiếp theo? — Gửi email kèm phiếu đóng gói.',
   },
 ]
+// ---- Nối phần mở rộng (p3-0013 … p3-0060) ----
+export const PART3_STIMULI: Stimulus[] = [...PART3_BASE_STIMULI, ...PART3B_STIMULI]
+export const PART3_QUESTIONS: Question[] = [...PART3_BASE_QUESTIONS, ...PART3B_QUESTIONS]

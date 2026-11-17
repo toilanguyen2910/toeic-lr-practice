@@ -28,3 +28,10 @@ dist-ssr
 # sẽ khiến `git status` luôn bẩn. Ảnh tài liệu thật nằm ở docs/screenshots/*.png
 # và được cố định bằng đồng hồ đóng băng trong scripts/screenshots.mjs.
 docs/screenshots/e2e/
+docs/screenshots/live/
+
+# Thư mục của dự án KHÁC nằm nhờ trong cùng thư mục làm việc — không thuộc repo này.
+# Repo này chỉ chứa ứng dụng TOEIC Listening & Reading.
+gfarm/
+ProjectPUBG/
+docs/REVIEW-gfarm-ultra.md

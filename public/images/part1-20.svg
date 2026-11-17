@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Người phụ nữ ngồi ở bàn họp, tay cầm bút viết vào quyển sổ đang mở">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<rect y="290" width="640" height="10" fill="#e8eff7"/>
+<line x1="0" y1="300" x2="640" y2="300" stroke="#b9c6d6" stroke-width="2" stroke-opacity=".6"/>
+
+<rect x="426" y="52" width="168" height="124" rx="4" fill="#f7fbff" stroke="#b6c2d0" stroke-width="3"/>
+<rect x="430" y="56" width="160" height="116" fill="url(#glass)"/>
+<line x1="510" y1="56" x2="510" y2="172" stroke="#b6c2d0" stroke-width="3"/>
+<line x1="430" y1="114" x2="590" y2="114" stroke="#b6c2d0" stroke-width="3"/>
+
+<rect x="50" y="80" width="220" height="130" rx="5" fill="#ffffff" stroke="#b6c2d0" stroke-width="4"/>
+<line x1="70" y1="106" x2="171" y2="106" stroke="#c9d6e4" stroke-width="6" stroke-linecap="round"/>
+<line x1="70" y1="130" x2="142.39999999999998" y2="130" stroke="#dbe4ef" stroke-width="6" stroke-linecap="round"/>
+<path d="M72 176 l26.4 -18 l26.4 14 l26.4 -26 l26.4 22"
+  stroke="#2f7d5c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+<rect x="120" y="296" width="400" height="16" rx="4" fill="url(#wood)" stroke="#a97c47" stroke-width="2"/>
+<line x1="138" y1="312" x2="138" y2="374" stroke="#8d9bab" stroke-width="7" stroke-linecap="round"/>
+<line x1="502" y1="312" x2="502" y2="374" stroke="#8d9bab" stroke-width="7" stroke-linecap="round"/>
+<g>
+  <rect x="250" y="266" width="120" height="34" rx="3" fill="#ffffff" stroke="#b6c2d0" stroke-width="2"/>
+  <line x1="310" y1="266" x2="310" y2="300" stroke="#dde5ee" stroke-width="2"/>
+  <g stroke="#c9d4e0" stroke-width="2">
+    <line x1="262" y1="276" x2="298" y2="276"/><line x1="262" y1="284" x2="298" y2="284"/>
+    <line x1="322" y1="276" x2="358" y2="276"/>
+  </g>
+</g>
+<g>
+    <ellipse cx="330" cy="382" rx="27.3" ry="6.300000000000001" fill="rgba(40,60,85,.13)"/>
+    <path d="M316.35 302.3 L314.25 373.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <path d="M343.65 302.3 L345.75 373.7" stroke="#33404f" stroke-width="11.55" stroke-linecap="round"/>
+    <rect x="312.15" y="237.2" width="35.7" height="65.10000000000002" rx="10.5" fill="#1c4b87"/>
+    <path d="M307.95 245.6 L276.45 281.3" stroke="#1c4b87" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="276.45" cy="281.3" r="6.300000000000001" fill="#f2d3b6"/>
+    <path d="M352.05 245.6 L383.55 281.3" stroke="#1c4b87" stroke-width="11.55" stroke-linecap="round" fill="none"/>
+      <circle cx="383.55" cy="281.3" r="6.300000000000001" fill="#f2d3b6"/>
+    <circle cx="330" cy="203.6" r="21" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M309 201.6 a21 21 0 0 1 42 0 q0 -18.900000000000002 -21 -19.95 q-21 0.05 -21 19.95 Z" fill="#33404f"/>
+         <circle cx="345.75" cy="183.65" r="7.3500000000000005" fill="#33404f"/>
+  </g>
+<line x1="368" y1="250" x2="340" y2="276" stroke="#54627a" stroke-width="5" stroke-linecap="round"/>
+<rect x="128" y="270" width="34" height="26" rx="3" fill="#e8eef6" stroke="#b6c2d0" stroke-width="2"/>
+</svg>

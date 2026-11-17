@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Hai người ngồi trên ghế băng công viên, có cây xanh và bồn hoa phía sau">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f9"/><stop offset="1" stop-color="#e2eaf4"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e1ec"/><stop offset="1" stop-color="#c3cfdd"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99b60"/><stop offset="1" stop-color="#a97c47"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fe"/><stop offset=".6" stop-color="#dbeaf9"/><stop offset="1" stop-color="#f2f9ff"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd9e4"/><stop offset="1" stop-color="#8d9bab"/></linearGradient>
+</defs>
+<rect width="640" height="420" fill="#f4f8fd"/>
+
+<rect width="640" height="300" fill="url(#wall)"/>
+<rect y="230" width="640" height="70" fill="#dde8d9"/>
+<rect y="300" width="640" height="120" fill="url(#floor)"/>
+<g fill="#9dc4a3" opacity=".85">
+  <circle cx="90" cy="150" r="52"/><circle cx="150" cy="176" r="38"/>
+  <circle cx="540" cy="146" r="56"/><circle cx="590" cy="178" r="40"/>
+</g>
+<g stroke="#7d9c81" stroke-width="6" stroke-linecap="round"><line x1="90" y1="192" x2="90" y2="238"/><line x1="540" y1="192" x2="540" y2="238"/></g>
+<g>
+  <rect x="200" y="276" width="240" height="16" rx="4" fill="url(#wood)"/>
+  <rect x="200" y="252" width="240" height="12" rx="4" fill="url(#wood)"/>
+  <rect x="216" y="292" width="12" height="42" fill="#8d9bab"/>
+  <rect x="412" y="292" width="12" height="42" fill="#8d9bab"/>
+  <rect x="204" y="252" width="10" height="40" fill="#8d9bab"/>
+  <rect x="426" y="252" width="10" height="40" fill="#8d9bab"/>
+</g>
+<g>
+    <ellipse cx="268" cy="302" rx="23.92" ry="5.5200000000000005" fill="rgba(40,60,85,.13)"/>
+    <path d="M256.04 231.92000000000002 L254.2 294.48" stroke="#33404f" stroke-width="10.120000000000001" stroke-linecap="round"/>
+    <path d="M279.96 231.92000000000002 L281.8 294.48" stroke="#33404f" stroke-width="10.120000000000001" stroke-linecap="round"/>
+    <rect x="252.36" y="174.88" width="31.28" height="57.04000000000002" rx="9.200000000000001" fill="#1c4b87"/>
+    <path d="M248.68 182.24 L245 239.28" stroke="#1c4b87" stroke-width="10.120000000000001" stroke-linecap="round" fill="none"/>
+      <circle cx="245" cy="239.28" r="5.5200000000000005" fill="#f2d3b6"/>
+    <path d="M287.32 182.24 L291 239.28" stroke="#1c4b87" stroke-width="10.120000000000001" stroke-linecap="round" fill="none"/>
+      <circle cx="291" cy="239.28" r="5.5200000000000005" fill="#f2d3b6"/>
+    <circle cx="268" cy="145.44" r="18.400000000000002" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M249.6 145.44 a18.400000000000002 18.400000000000002 0 0 1 36.800000000000004 0 q0 -15.64 -18.400000000000002 -16.560000000000002 q-18.400000000000002 0.05 -18.400000000000002 16.560000000000002 Z" fill="#33404f"/>
+  </g>
+<g>
+    <ellipse cx="372" cy="302" rx="23.92" ry="5.5200000000000005" fill="rgba(40,60,85,.13)"/>
+    <path d="M360.04 231.92000000000002 L358.2 294.48" stroke="#33404f" stroke-width="10.120000000000001" stroke-linecap="round"/>
+    <path d="M383.96 231.92000000000002 L385.8 294.48" stroke="#33404f" stroke-width="10.120000000000001" stroke-linecap="round"/>
+    <rect x="356.36" y="174.88" width="31.28" height="57.04000000000002" rx="9.200000000000001" fill="#b8443c"/>
+    <path d="M352.68 182.24 L349 239.28" stroke="#b8443c" stroke-width="10.120000000000001" stroke-linecap="round" fill="none"/>
+      <circle cx="349" cy="239.28" r="5.5200000000000005" fill="#f2d3b6"/>
+    <path d="M391.32 182.24 L395 239.28" stroke="#b8443c" stroke-width="10.120000000000001" stroke-linecap="round" fill="none"/>
+      <circle cx="395" cy="239.28" r="5.5200000000000005" fill="#f2d3b6"/>
+    <circle cx="372" cy="145.44" r="18.400000000000002" fill="#f2d3b6" stroke="#e0b795" stroke-width="1.5"/>
+    <path d="M353.6 143.44 a18.400000000000002 18.400000000000002 0 0 1 36.800000000000004 0 q0 -16.560000000000002 -18.400000000000002 -17.48 q-18.400000000000002 0.05 -18.400000000000002 17.48 Z" fill="#33404f"/>
+         <circle cx="385.8" cy="127.96" r="6.44" fill="#33404f"/>
+  </g>
+<g fill="#e4b7c9"><circle cx="480" cy="284" r="8"/><circle cx="500" cy="290" r="6"/></g>
+</svg>

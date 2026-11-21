@@ -174,46 +174,92 @@ export async function runVerifyCore() {
         )
       })
 
-      // ── B. Chế độ thi thử ────────────────────────────────────────────────
-      await report.step('B1 bắt đầu thi thử từ trang chủ', async () => {
+      // ── B. Chế độ thi thử: 10 đề, mỗi đề 200 câu ────────────────────────
+      await report.step('B1 danh sách 10 đề thi thử', async () => {
         await page.clearLocalStorage()
         await page.goto(`${url}#/`)
         await page.waitFor(sel('home'), 20000)
         // Chờ hết transition màu của thanh nav (140ms) để ảnh không chụp giữa lúc chuyển tab.
         await new Promise((r) => setTimeout(r, 300))
         await screenshot('home', 'e2e')
+
         await page.click(sel('home-start-mock'))
-        await page.waitFor(sel('session'), 20000)
-        report.check('B1.1 vào được phiên thi thử', (await page.count(sel('session'))) === 1)
+        await page.waitFor(sel('mock-sets'), 20000)
+
+        // Nút "Thi thử" ở trang chủ nay mở DANH SÁCH 10 đề, không vào thẳng phiên.
+        const cards = await page.eval(
+          `[...document.querySelectorAll('[data-testid]')]
+             .filter((el) => /^mock-set-\\d+$/.test(el.getAttribute('data-testid'))).length`,
+        )
+        report.check('B1.1 có đúng 10 đề thi thử', cards === 10, `nhận ${cards}`)
+
+        const text1 = await page.text('[data-testid="mock-set-1"]')
+        report.check('B1.2 mỗi đề ghi 200 câu', text1.includes('200 câu'), text1.slice(0, 80))
+        report.check('B1.3 mỗi đề ghi 120 phút', text1.includes('120 phút'), text1.slice(0, 80))
       })
 
       let mockTotal = 0
-      await report.step('B2 thi thử không lộ đáp án', async () => {
+      await report.step('B2 vào đề 3 và kiểm cấu trúc đề thật', async () => {
+        await page.click('[data-testid="mock-set-3"] a')
+        await page.waitFor(sel('session'), 25000)
+
         const counter = await page.text(sel('question-counter'))
         mockTotal = Number(/(\d+)\s*$/u.exec(counter)?.[1] ?? 0)
-        report.check('B2.1 phiên thi thử có câu hỏi', mockTotal > 0, `nhận ${mockTotal}`)
+        report.check('B2.1 đề thi thử có đúng 200 câu', mockTotal === 200, `nhận ${mockTotal}`)
+
         const timer = await page.text(sel('timer'))
-        // Chấp nhận cả `mm:ss` và `h:mm:ss` — đặc tả formatClock cho phép cả hai.
-        report.check('B2.2 thi thử có đồng hồ đếm ngược', /^(?:\d{1,3}:\d{2}|\d+:\d{2}:\d{2})$/.test(timer), `nhận "${timer}"`)
+        // Đề 120 phút nên đồng hồ phải ở dạng `h:mm:ss`.
+        report.check('B2.2 đồng hồ đếm ngược 120 phút', timer.startsWith('2:00') || timer.startsWith('1:5'), `nhận "${timer}"`)
+
+        // Cơ cấu part phải đúng như đề thật.
+        const raw = await page.localStorage('toeic-lr/v1/session')
+        const session = raw ? JSON.parse(raw) : null
+        const byPart = {}
+        for (const id of session?.questionIds ?? []) {
+          const p = id.split('-')[0]
+          byPart[p] = (byPart[p] ?? 0) + 1
+        }
+        report.equals(
+          'B2.3 cơ cấu 6/25/39/30/30/16/54',
+          {
+            p1: byPart.p1,
+            p2: byPart.p2,
+            p3: byPart.p3,
+            p4: byPart.p4,
+            p5: byPart.p5,
+            p6: byPart.p6,
+            p7: byPart.p7,
+          },
+          { p1: 6, p2: 25, p3: 39, p4: 30, p5: 30, p6: 16, p7: 54 },
+        )
+
+        // Thi thử không được lộ đáp án khi đang làm.
+        await page.click(sel('choice-A'))
+        await new Promise((r) => setTimeout(r, 250))
+        const leaked = await page.count(sel('feedback'))
+        report.check('B2.4 thi thử KHÔNG hiện giải thích khi đang làm', leaked === 0, `thấy ${leaked} ô phản hồi`)
       })
 
-      await report.step('B3 làm hết và nộp bài', async () => {
-        for (let i = 0; i < mockTotal; i += 1) {
-          await page.waitFor(sel('question'), 10000)
-          await page.click(sel('choice-A'))
-          if (i === 0) {
-            await new Promise((r) => setTimeout(r, 250))
-            const leaked = await page.count(sel('feedback'))
-            report.check('B3.1 thi thử KHÔNG hiện giải thích khi đang làm', leaked === 0, `thấy ${leaked} ô phản hồi`)
-          }
-          if (i < mockTotal - 1) await page.click(sel('next-question'))
-        }
+      await report.step('B3 nộp bài giữa chừng, đếm đúng số câu bỏ trống', async () => {
+        // Không trả lời hết 200 câu (quá chậm cho CI); chỉ trả lời 1 câu rồi nộp.
+        // Như vậy kiểm được điều quan trọng hơn: số câu bỏ trống phải đếm đúng.
+        const answered = await page.eval(
+          `[...document.querySelectorAll('[data-testid^="choice-"][data-selected="true"]')].length`,
+        )
+        report.check('B3.1 đã ghi nhận đúng 1 đáp án', answered === 1, `nhận ${answered}`)
+
         await page.click(sel('submit-session'))
-        await page.waitFor(sel('result'), 20000)
+        await page.waitFor(sel('result'), 25000)
+
         const total = Number((await page.text(sel('score-total'))).replace(/[^\d]/g, ''))
         report.check('B3.2 nộp bài thi thử ra điểm', total >= 10 && total <= 990, `nhận ${total}`)
+
         const blank = Number((await page.text(sel('result-blank'))).replace(/[^\d]/g, ''))
-        report.check('B3.3 không còn câu bỏ trống', blank === 0, `nhận ${blank}`)
+        report.check('B3.3 đếm đúng 199 câu bỏ trống', blank === 199, `nhận ${blank}`)
+
+        const correct = Number((await page.text(sel('result-correct'))).replace(/[^\d]/g, ''))
+        const wrong = Number((await page.text(sel('result-wrong'))).replace(/[^\d]/g, ''))
+        report.check('B3.4 đúng + sai + trống = 200', correct + wrong + blank === 200, `${correct}+${wrong}+${blank}`)
         await screenshot('result', 'e2e')
       })
 
@@ -247,5 +293,6 @@ if (isMain) {
       process.exit(1)
     })
 }
+
 
 

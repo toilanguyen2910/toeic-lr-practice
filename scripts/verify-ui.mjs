@@ -156,24 +156,21 @@ async function startPractice(page, url, count) {
   return note
 }
 
+/**
+ * Vào một phiên thi thử.
+ *
+ * Trước đây nút "Thi thử" ở trang chủ vào thẳng phiên. Nay nó mở danh sách 10 đề
+ * (mỗi đề đủ 200 câu), nên helper phải bấm thêm một bước chọn đề.
+ *
+ * Dùng đề 1 vì nó luôn có mặt; không phụ thuộc đề nào đã làm trước đó.
+ */
 async function startMock(page, url) {
   await page.goto(`${url}#/`)
   await page.waitFor(sel('home'), 20000)
   await page.click(sel('home-start-mock'))
-  await page.waitFor(sel('session'), 20000)
-}
-
-/** Đi tới câu cuối mà không trả lời, trả về số lần bấm next và việc có thấy nút nộp. */
-async function skipToLast(page, total) {
-  let clicks = 0
-  for (let guard = 0; guard < total + 5; guard += 1) {
-    if ((await page.count(sel('submit-session'))) > 0) break
-    if ((await page.count(sel('next-question'))) === 0) break
-    await page.click(sel('next-question'))
-    clicks += 1
-    await sleep(120)
-  }
-  return { clicks, submitVisible: (await page.count(sel('submit-session'))) > 0 }
+  await page.waitFor(sel('mock-sets'), 20000)
+  await page.click('[data-testid="mock-set-1"] a')
+  await page.waitFor(sel('session'), 25000)
 }
 
 export async function runVerifyUi() {
@@ -337,19 +334,25 @@ export async function runVerifyUi() {
         await startMock(page, url)
         await page.waitFor(sel('question'), 15000)
         const start = await readCounter(page)
-        report.check('G1 phiên thi thử có câu hỏi', start.total >= 2, `tổng số câu nhận ${start.total}`)
+        report.check('G1 đề thi thử đủ 200 câu', start.total === 200, `tổng số câu nhận ${start.total}`)
 
         await page.click(sel('choice-A'))
         await sleep(250)
         const answered = await page.count('[data-testid^="choice-"][data-selected="true"]')
         report.check('G2 chọn được đáp án cho câu đầu', answered === 1, `thấy ${answered} lựa chọn được chọn`)
 
-        const skipped = await skipToLast(page, start.total)
-        report.logs.push(`    bấm next ${skipped.clicks} lần để tới câu cuối`)
-        report.check('G3 tới được câu cuối và thấy nút nộp bài', skipped.submitVisible, 'không thấy nút nộp bài ở câu cuối')
+        // KHÔNG bấm next 200 lần: đề thi thử giờ đủ 200 câu, bấm từng câu sẽ vượt
+        // thời gian test. Nút nộp bài hiện ở mọi câu (thanh điều hướng luôn có),
+        // nên chỉ cần kiểm nó hiện rồi nộp luôn — vẫn kiểm được đúng điều cần kiểm:
+        // số câu bỏ trống có đếm đúng hay không.
+        report.check(
+          'G3 thấy nút nộp bài',
+          (await page.count(sel('submit-session'))) === 1,
+          'không thấy nút nộp bài',
+        )
 
         await page.click(sel('submit-session'))
-        await page.waitFor(sel('result'), 20000)
+        await page.waitFor(sel('result'), 25000)
         await sleep(400)
         const blank = num(await page.text(sel('result-blank')))
         const correct = num(await page.text(sel('result-correct')))

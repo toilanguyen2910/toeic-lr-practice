@@ -83,6 +83,16 @@ export { formatClock } from './time'
 export type { PartAllocation } from './allocate'
 export { allocateByOfficialRatio, officialTotalOf } from './allocate'
 
+export type { MockSetDef } from './mockSet'
+export {
+  buildMockSet,
+  findMockSet,
+  MOCK_DURATION_SECONDS,
+  MOCK_SETS,
+  MOCK_SET_COUNT,
+  mockSetSize,
+} from './mockSet'
+
 export type { ExamSetDef, ExamSetMix } from './examSet'
 export {
   buildExamSet,

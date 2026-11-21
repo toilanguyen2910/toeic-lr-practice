@@ -1,6 +1,6 @@
 import './styles/index.css'
 import { FULL_BANK } from './data'
-import { ROUTES, TID, parseExamSetRoute } from './testids'
+import { ROUTES, TID, parseExamSetRoute, parseMockSetRoute } from './testids'
 import { useBankIndex } from './hooks/useBankIndex'
 import { useHashRoute } from './hooks/useHashRoute'
 import { AppFooter, AppHeader } from './ui/AppLayout'
@@ -8,12 +8,14 @@ import { ExamSetRoute } from './ui/ExamSetRoute'
 import { ExamSetsPage } from './ui/ExamSetsPage'
 import { HistoryPage } from './ui/HistoryPage'
 import { HomePage } from './ui/HomePage'
+import { MockSetRoute } from './ui/MockSetRoute'
+import { MockSetsPage } from './ui/MockSetsPage'
 import { NotFoundPage } from './ui/NotFoundPage'
 import { PartSelectPage } from './ui/PartSelectPage'
 import { ResultPage } from './ui/ResultPage'
 import { ReviewPage } from './ui/ReviewPage'
 import { SessionProvider } from './ui/SessionProvider'
-import { MockRoute, PracticeSessionRoute } from './ui/SessionRoutes'
+import { PracticeSessionRoute } from './ui/SessionRoutes'
 import { SettingsPage } from './ui/SettingsPage'
 import { SettingsProvider } from './ui/SettingsProvider'
 import type { BankIndex } from './hooks/useBankIndex'
@@ -50,13 +52,17 @@ function App() {
   )
 }
 
-/** Bảng định tuyến — một `switch` duy nhất, route lấy từ `ROUTES`. */
+/** Bảng định tuyến — route có tham số được phân tích trước, còn lại vào `switch`. */
 function AppRoutes({ route, index }: { route: string; index: BankIndex }) {
-  // `#/de/7` là route có tham số duy nhất, nên phải thử phân tích trước khi switch.
+  // Hai route có tham số: `#/de/<số>` (đề luyện) và `#/mock/<số>` (đề thi thử).
   const examSetId = parseExamSetRoute(route)
-
   if (examSetId != null) {
     return <ExamSetRoute id={examSetId} index={index} />
+  }
+
+  const mockSetId = parseMockSetRoute(route)
+  if (mockSetId != null) {
+    return <MockSetRoute id={mockSetId} index={index} />
   }
 
   switch (route) {
@@ -67,7 +73,7 @@ function AppRoutes({ route, index }: { route: string; index: BankIndex }) {
     case ROUTES.practice:
       return <PracticeSessionRoute index={index} />
     case ROUTES.mock:
-      return <MockRoute index={index} />
+      return <MockSetsPage />
     case ROUTES.examSets:
       return <ExamSetsPage />
     case ROUTES.result:

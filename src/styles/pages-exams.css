@@ -60,6 +60,12 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
+  /* Nhãn dài ("ĐỀ THI THỬ 01") có thể sát nhãn bên phải; cho phép co lại và
+     chừa khoảng để hai nhãn không dính nhau. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .exam-card__name {

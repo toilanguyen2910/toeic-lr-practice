@@ -33,6 +33,19 @@ export function parseExamSetRoute(hash: string): number | null {
   return Number.isInteger(id) && id >= 1 && id <= 20 ? id : null
 }
 
+/** Route thi thử: `#/mock` là danh sách đề, `#/mock/3` là đề thi thử số 3. */
+export function mockSetRoute(id: number): string {
+  return `${ROUTES.mock}/${id}`
+}
+
+/** Đọc số hiệu đề thi thử từ hash; `null` nếu hash không phải `#/mock/<số>`. */
+export function parseMockSetRoute(hash: string): number | null {
+  const match = /^#\/mock\/(\d{1,2})$/.exec(hash)
+  if (!match) return null
+  const id = Number(match[1])
+  return Number.isInteger(id) && id >= 1 && id <= 10 ? id : null
+}
+
 export const TID = {
   // Khung chung
   app: 'app',
@@ -50,6 +63,12 @@ export const TID = {
   examSetStart: 'exam-set-start',
   examSetProgress: (id: number) => `exam-set-progress-${id}`,
   homeStartExamSets: 'home-start-exam-sets',
+
+  // 10 đề thi thử (đủ 200 câu, 120 phút)
+  mockSets: 'mock-sets',
+  mockSetCard: (id: number) => `mock-set-${id}`,
+  mockSetProgress: (id: number) => `mock-set-progress-${id}`,
+  mockSetStart: 'mock-set-start',
 
   // Trang chủ
   home: 'home',

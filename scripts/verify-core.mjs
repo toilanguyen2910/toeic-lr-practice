@@ -36,8 +36,20 @@ export async function runVerifyCore() {
         for (const p of [3, 4, 6, 7]) await page.click(sel(`part-toggle-${p}`))
         const checked = await page.count('[data-testid^="part-toggle-"][data-checked="true"]')
         report.equals('A2.1 còn đúng 3 part được chọn', checked, 3)
+
+        // Chuyển sang chế độ "mỗi part N câu" rồi đặt N = 2.
+        // Mặc định nay là chế độ "tổng số câu", nên phải chọn rõ chế độ trước khi
+        // nhập, nếu không ô nhập sẽ là ô tổng chứ không phải ô mỗi-part.
+        await page.click(sel('count-mode-per-part'))
         await page.type(sel('practice-count'), '2')
-        report.check('A2.2 ô số câu nhận giá trị 2', (await page.eval(`document.querySelector('${sel('practice-count')}').value`)) === '2')
+        const perPartValue = await page.eval(
+          `document.querySelector('${sel('practice-count')}').value`,
+        )
+        report.check('A2.2 ô số câu nhận giá trị 2', perPartValue === '2', `nhận "${perPartValue}"`)
+
+        // Phần tóm tắt phải nói rõ phép nhân để người dùng không hiểu nhầm.
+        const summary = await page.text(sel('practice-summary'))
+        report.check('A2.3 tóm tắt ghi rõ tổng câu', /\b6\b/u.test(summary), `nhận "${summary}"`)
       })
 
       await report.step('A3 bắt đầu làm bài', async () => {
@@ -124,6 +136,42 @@ export async function runVerifyCore() {
         const rows = await page.count(sel('history-row'))
         report.check('A8.4 trang lịch sử hiện bản ghi', rows >= 1, `nhận ${rows}`)
         await screenshot('history', 'e2e')
+      })
+
+      // Đặt ở CUỐI nhánh A vì bước này tạo phiên MỚI (77 câu) và làm hỏng phiên
+      // 6 câu mà A5–A8 đang dựa vào. Bản đầu đặt nó trước A5 nên A5 lặp theo số
+      // câu cũ trong khi phiên đã đổi, khiến 71 câu bị bỏ trống.
+      await report.step('A9 chế độ tổng số câu chia đúng tỉ lệ đề thật', async () => {
+        // Chọn Part 1 + 2 + 5 + 6 rồi đòi đúng 77 câu — 77 là tổng số câu chính
+        // thức của bốn part đó (6+25+30+16). Đây là yêu cầu thật của người dùng.
+        await page.goto(`${url}#/practice`)
+        await page.waitFor(sel('part-select'), 20000)
+        for (const p of [3, 4, 7]) await page.click(sel(`part-toggle-${p}`))
+        await page.click(sel('count-mode-total'))
+        await page.type(sel('practice-total'), '77')
+        const summary = await page.text(sel('practice-summary'))
+        report.check('A9.1 tóm tắt ghi 77 câu', /\b77\b/u.test(summary), `nhận "${summary}"`)
+
+        await page.click(sel('start-practice'))
+        await page.waitFor(sel('session'), 20000)
+        const counter = await page.text(sel('question-counter'))
+        const total = Number(/(\d+)\s*$/u.exec(counter)?.[1] ?? 0)
+        report.check('A9.2 phiên thật có đúng 77 câu', total === 77, `nhận ${total}`)
+
+        // Phân bổ phải đúng 6/25/30/16 — không chỉ tổng đúng.
+        const raw = await page.localStorage('toeic-lr/v1/session')
+        const parsed = raw ? JSON.parse(raw) : null
+        const ids = parsed?.questionIds ?? []
+        const byPart = {}
+        for (const id of ids) {
+          const p = id.split('-')[0]
+          byPart[p] = (byPart[p] ?? 0) + 1
+        }
+        report.equals(
+          'A9.3 phân bổ đúng 6/25/30/16',
+          { p1: byPart.p1, p2: byPart.p2, p5: byPart.p5, p6: byPart.p6 },
+          { p1: 6, p2: 25, p5: 30, p6: 16 },
+        )
       })
 
       // ── B. Chế độ thi thử ────────────────────────────────────────────────

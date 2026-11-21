@@ -65,6 +65,12 @@ export const TID = {
   partToggle: (part: number) => `part-toggle-${part}`,
   startPractice: 'start-practice',
   practiceCount: 'practice-count',
+  practiceTotal: 'practice-total',
+  practiceSummary: 'practice-summary',
+  practiceTotalCount: 'practice-total-count',
+  countModeTotal: 'count-mode-total',
+  countModePerPart: 'count-mode-per-part',
+  useOfficialTotal: 'use-official-total',
 
   // Làm bài
   session: 'session',

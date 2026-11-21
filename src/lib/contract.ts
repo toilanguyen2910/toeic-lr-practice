@@ -36,6 +36,14 @@ export interface SessionOptions {
   parts: Part[]
   /** Số câu mỗi part; bỏ trống = lấy toàn bộ câu của các part đó. */
   countPerPart?: number
+  /**
+   * Số câu riêng cho từng part — ưu tiên cao hơn `countPerPart`.
+   *
+   * Dùng khi người dùng nhập TỔNG số câu rồi muốn chia theo tỉ lệ đề thật
+   * (xem `allocateByOfficialRatio`). Part không có trong đối tượng này thì lấy
+   * `countPerPart`, và nếu cũng không có thì lấy hết câu của part đó.
+   */
+  countByPart?: Partial<Record<Part, number>>
   /** Số nguyên cố định giúp xáo đề lặp lại được (phục vụ test). */
   seed?: number
   durationSeconds?: number | null

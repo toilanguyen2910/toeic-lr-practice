@@ -198,6 +198,22 @@
   font-weight: 600;
 }
 
+/* Dòng "Sẽ làm N câu" — chỉ hiện khi part đang bật, để người dùng thấy ngay
+   mình sắp làm bao nhiêu câu ở part đó thay vì phải tự nhân. */
+.part-card__planned {
+  display: block;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.part-card__planned strong {
+  font-weight: 800;
+}
+
 /* ── Khối cấu hình bài luyện ─────────────────────────────────────────────── */
 .practice-setup {
   display: grid;

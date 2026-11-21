@@ -80,6 +80,9 @@ export {
 } from './storage'
 export { formatClock } from './time'
 
+export type { PartAllocation } from './allocate'
+export { allocateByOfficialRatio, officialTotalOf } from './allocate'
+
 export type { ExamSetDef, ExamSetMix } from './examSet'
 export {
   buildExamSet,

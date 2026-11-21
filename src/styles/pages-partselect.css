@@ -1,0 +1,93 @@
+/* ============================================================================
+   CHỌN CÁCH NHẬP SỐ CÂU (tổng / mỗi part).
+   Thuộc màn hình chọn part; tách riêng để không làm phình pages-home.css.
+   ========================================================================= */
+
+.count-mode {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+
+.count-mode legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.count-mode__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 11px;
+  margin-bottom: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.count-mode__option:hover {
+  border-color: var(--line-strong);
+}
+
+/* Khi được chọn: viền và nền đổi theo màu chính, kèm dấu hiệu rõ cho người
+   dùng bàn phím (viền dày hơn, không chỉ đổi màu). */
+.count-mode__option:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--ink);
+}
+
+.count-mode__option:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.count-mode__option input {
+  margin-top: 2px;
+  accent-color: var(--primary);
+  flex: 0 0 auto;
+}
+
+.count-mode__option strong {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .count-mode__option {
+    transition: none;
+  }
+}
+
+/* Nút dạng liên kết, dùng trong dòng gợi ý ("Dùng đúng 77 câu"). */
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--primary-hover);
+}
+
+.link-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Cảnh báo nhẹ khi không đủ câu để đạt đúng con số người dùng muốn. */
+.field__hint--warn {
+  color: var(--flag);
+  font-weight: 600;
+}

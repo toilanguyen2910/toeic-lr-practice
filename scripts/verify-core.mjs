@@ -101,7 +101,9 @@ export async function runVerifyCore() {
         await page.waitFor(sel('result'), 20000)
         const total = await page.text(sel('score-total'))
         const totalNum = Number(total.replace(/[^\d]/g, ''))
-        report.check('A6.1 tổng điểm nằm trên thang 10–990', totalNum >= 10 && totalNum <= 990, `nhận "${total}"`)
+        // Sàn của tổng nay là 0 (không phải 10): phiên ngắn làm đúng ít câu thì
+        // điểm thấp là đúng, không bị đẩy lên mức sàn của bài thi thật.
+        report.check('A6.1 tổng điểm nằm trên thang 0-990', totalNum >= 0 && totalNum <= 990, `nhận "${total}"`)
         const listening = Number((await page.text(sel('score-listening'))).replace(/[^\d]/g, ''))
         const reading = Number((await page.text(sel('score-reading'))).replace(/[^\d]/g, ''))
         report.check('A6.2 điểm nghe trong khoảng 5–495', listening >= 0 && listening <= 495, `nhận ${listening}`)
@@ -130,7 +132,7 @@ export async function runVerifyCore() {
         report.check('A8.1 localStorage có lịch sử', Boolean(raw), 'không tìm thấy khoá lịch sử')
         const parsed = raw ? JSON.parse(raw) : []
         report.check('A8.2 lịch sử có ít nhất 1 bản ghi', Array.isArray(parsed) && parsed.length >= 1, `nhận ${parsed.length}`)
-        report.check('A8.3 bản ghi có điểm ước lượng', Number(parsed?.[0]?.estimateTotal) >= 10, JSON.stringify(parsed?.[0] ?? null))
+        report.check('A8.3 bản ghi có điểm ước lượng', Number.isFinite(Number(parsed?.[0]?.estimateTotal)) && Number(parsed?.[0]?.estimateTotal) >= 0, JSON.stringify(parsed?.[0] ?? null))
         await page.goto(`${url}#/history`)
         await page.waitFor(sel('history'), 20000)
         const rows = await page.count(sel('history-row'))
@@ -252,7 +254,7 @@ export async function runVerifyCore() {
         await page.waitFor(sel('result'), 25000)
 
         const total = Number((await page.text(sel('score-total'))).replace(/[^\d]/g, ''))
-        report.check('B3.2 nộp bài thi thử ra điểm', total >= 10 && total <= 990, `nhận ${total}`)
+        report.check('B3.2 nộp bài thi thử ra điểm', total >= 0 && total <= 990, `nhận ${total}`)
 
         const blank = Number((await page.text(sel('result-blank'))).replace(/[^\d]/g, ''))
         report.check('B3.3 đếm đúng 199 câu bỏ trống', blank === 199, `nhận ${blank}`)
@@ -293,6 +295,7 @@ if (isMain) {
       process.exit(1)
     })
 }
+
 
 
 

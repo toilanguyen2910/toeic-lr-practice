@@ -233,7 +233,7 @@ describe('scoreSession — câu lạ (id không có trong ngân hàng)', () => {
     expect(result.byTag).toEqual([])
     expect(result.estimate.listening).toBe(0)
     expect(result.estimate.reading).toBe(0)
-    expect(result.estimate.total).toBe(10)
+    expect(result.estimate.total).toBe(0)
   })
 })
 
@@ -334,22 +334,51 @@ describe('scoreSession — bất biến và an toàn', () => {
 })
 
 describe('estimateScore — công thức thật, không hard-code', () => {
-  it('đúng hết cả 8 câu → nghe 495, đọc 495, tổng 990', () => {
+  /**
+   * GHI CHÚ VỀ THAY ĐỔI CÔNG THỨC (quan trọng):
+   *
+   * Công thức cũ: `đúng / số câu của section TRONG PHIÊN × 495`. Hệ quả sai:
+   * làm 6/6 câu Part 1 cho ra 495 điểm nghe — tức điểm tuyệt đối. Người dùng
+   * phát hiện và báo đúng: "làm có part 1 thôi mà 495 điểm rồi hơi kì".
+   *
+   * Công thức mới: `đúng / 100 × 495`, với 100 là số câu chính thức của mỗi kỹ
+   * năng trong đề thật. Câu không có trong phiên được coi là CHƯA LÀM.
+   *
+   * Nhờ vậy: làm 6/6 câu Part 1 → 30 điểm nghe (hợp lý), làm đủ 100 câu nghe
+   * đúng 80 → 396 điểm, và chỉ khi làm đủ với tỉ lệ rất cao mới tiến gần 495.
+   */
+
+  it('đúng 4/8 câu → 4/100 × 495 ≈ 20 mỗi phần, không phải điểm tuyệt đối', () => {
+    // SAMPLE_BANK có 4 câu nghe (p1-0001, p1-0002, p2-0001, p2-0002) và 4 câu đọc.
     const session = answerAllCorrect(makeSession([]))
     const result = scoreSession(SAMPLE_BANK, session)
-    expect(result.estimate.listening).toBe(495)
-    expect(result.estimate.reading).toBe(495)
-    expect(result.estimate.total).toBe(990)
+    // Nghe: 4 câu đúng / 100 → round(4/100 × 495) = round(19.8) = 20
+    expect(result.estimate.listening).toBe(20)
+    // Đọc: 4 câu đúng / 100 → 20
+    expect(result.estimate.reading).toBe(20)
+    expect(result.estimate.total).toBe(40)
   })
 
-  it('bỏ trống hết → mỗi phần kẹp về 5, tổng kẹp về 10', () => {
+  it('làm 6 câu Part 1 đúng hết → chỉ ~30 điểm nghe, KHÔNG phải 495', () => {
+    // Đây chính là ca người dùng báo lỗi. SAMPLE_BANK chỉ có 3 câu nghe nên
+    // dùng 3/100 → 15; điều quan trọng là nó KHÔNG bằng 495.
+    const session = answerAllCorrect(makeSession([1, 2]))
+    const result = scoreSession(SAMPLE_BANK, session)
+    expect(result.estimate.listening).toBeLessThan(50)
+    expect(result.estimate.listening).not.toBe(495)
+    expect(result.estimate.reading).toBe(0)
+  })
+
+  it('bỏ trống hết → 0 điểm, không kẹp lên 5', () => {
     const result = scoreSession(SAMPLE_BANK, makeSession([]))
-    expect(result.estimate.listening).toBe(5)
-    expect(result.estimate.reading).toBe(5)
-    expect(result.estimate.total).toBe(10)
+    // Điểm 5 là sàn của một bài thi thật CÓ làm bài; bỏ trống hết trong phiên
+    // ngắn thì đúng là 0.
+    expect(result.estimate.listening).toBe(0)
+    expect(result.estimate.reading).toBe(0)
+    expect(result.estimate.total).toBe(0)
   })
 
-  it('ví dụ số cụ thể: nghe 2/4 đúng, đọc 1/4 đúng → 248 + 124 = 372', () => {
+  it('ví dụ số cụ thể: nghe 2 đúng, đọc 1 đúng → 10 + 5 = 15', () => {
     const session = makeSession([])
     // 4 câu nghe: p1-0001 (A), p1-0002 (A), p2-0001 (A), p2-0002 (A)
     // 4 câu đọc: p5-0001 (B), p5-0002 (A), p7-0001 (B), p7-0002 (A)
@@ -365,27 +394,26 @@ describe('estimateScore — công thức thật, không hard-code', () => {
     })
     const result = scoreSession(SAMPLE_BANK, answered)
     expect(result.correct).toBe(3)
-    // round(2/4 * 495) = round(247.5) = 248
-    expect(result.estimate.listening).toBe(248)
-    // round(1/4 * 495) = round(123.75) = 124
-    expect(result.estimate.reading).toBe(124)
-    expect(result.estimate.total).toBe(372)
+    // round(2/100 × 495) = round(9.9) = 10
+    expect(result.estimate.listening).toBe(10)
+    // round(1/100 × 495) = round(4.95) = 5
+    expect(result.estimate.reading).toBe(5)
+    expect(result.estimate.total).toBe(15)
   })
 
-  it('section không có câu nào → điểm 0 (không kẹp lên 5)', () => {
+  it('section không có câu nào → điểm 0', () => {
     const readingOnly = makeSession([5, 7])
     const result = scoreSession(SAMPLE_BANK, answerAllCorrect(readingOnly))
     expect(result.estimate.listening).toBe(0)
-    expect(result.estimate.reading).toBe(495)
-    expect(result.estimate.total).toBe(495)
+    expect(result.estimate.reading).toBeGreaterThan(0)
+    expect(result.estimate.reading).toBeLessThan(50) // 3 câu / 100, không phải 495
   })
 
   it('chỉ có phần nghe cũng cho 0 ở phần đọc', () => {
     const listeningOnly = makeSession([1, 2])
     const result = scoreSession(SAMPLE_BANK, answerAllCorrect(listeningOnly))
-    expect(result.estimate.listening).toBe(495)
+    expect(result.estimate.listening).toBeLessThan(50)
     expect(result.estimate.reading).toBe(0)
-    expect(result.estimate.total).toBe(495)
   })
 
   it('total luôn bằng listening + reading khi không vượt biên', () => {
@@ -406,7 +434,9 @@ describe('estimateScore — công thức thật, không hard-code', () => {
     expect(allCorrect.estimate.total).toBeGreaterThan(noneCorrect.estimate.total)
   })
 
-  it('mỗi phần luôn nằm trong thang 0..495, tổng trong 10..990', () => {
+  it('mỗi phần luôn nằm trong thang 0..495, tổng trong 0..990', () => {
+    // Sàn của tổng nay là 0 chứ không phải 10: một phiên bỏ trống hết trong đề
+    // ngắn đúng là 0 điểm, không nên được đẩy lên 10.
     for (const seed of [11, 12, 13]) {
       for (const parts of [[], [1], [5], [1, 5], [1, 2, 5, 7]] as Session['parts'][]) {
         const result = scoreSession(SAMPLE_BANK, makeSession(parts, seed))
@@ -414,7 +444,7 @@ describe('estimateScore — công thức thật, không hard-code', () => {
         expect(result.estimate.listening).toBeLessThanOrEqual(495)
         expect(result.estimate.reading).toBeGreaterThanOrEqual(0)
         expect(result.estimate.reading).toBeLessThanOrEqual(495)
-        expect(result.estimate.total).toBeGreaterThanOrEqual(10)
+        expect(result.estimate.total).toBeGreaterThanOrEqual(0)
         expect(result.estimate.total).toBeLessThanOrEqual(990)
       }
     }
@@ -481,20 +511,20 @@ describe('estimateScore — gọi trực tiếp như một hàm độc lập', (
     expect(again).toEqual(real.estimate)
   })
 
-  it('byPart rỗng nhưng phiên có câu → 0 đúng nên mỗi phần kẹp về 5, tổng 10', () => {
+  it('byPart rỗng nhưng phiên có câu → 0 đúng nên mỗi phần 0, tổng 0', () => {
     const estimate: ScoreEstimate = estimateScore(SAMPLE_BANK, session, buildResult())
-    expect(estimate.listening).toBe(5)
-    expect(estimate.reading).toBe(5)
-    expect(estimate.total).toBe(10)
+    expect(estimate.listening).toBe(0)
+    expect(estimate.reading).toBe(0)
+    expect(estimate.total).toBe(0)
   })
 
-  it('phiên không có câu nào → mỗi phần 0 (không kẹp lên 5), tổng kẹp về 10', () => {
+  it('phiên không có câu nào → mỗi phần 0, tổng 0', () => {
     const empty = makeSession([3, 4])
     expect(empty.questionIds).toHaveLength(0)
     const estimate: ScoreEstimate = estimateScore(SAMPLE_BANK, empty, buildResult())
     expect(estimate.listening).toBe(0)
     expect(estimate.reading).toBe(0)
-    expect(estimate.total).toBe(10)
+    expect(estimate.total).toBe(0)
   })
 
   it('không sửa session hay result truyền vào', () => {

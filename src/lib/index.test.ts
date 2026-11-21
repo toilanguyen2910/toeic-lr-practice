@@ -103,7 +103,10 @@ describe('index.ts — barrel khớp EngineApi', () => {
 
     const result = engineApi.scoreSession(SAMPLE_BANK, submitted)
     expect(result.total).toBe(4)
-    expect(result.estimate.total).toBeGreaterThanOrEqual(10)
+    // Điểm ước lượng đi qua barrel vẫn tính đúng: sàn của tổng nay là 0 chứ
+    // không phải 10, và mọi giá trị phải nằm trên thang 0..990.
+    expect(result.estimate.total).toBeGreaterThanOrEqual(0)
+    expect(result.estimate.total).toBeLessThanOrEqual(990)
     expect(result.estimate.approximate).toBe(true)
     expect(engineApi.formatClock(submitted.elapsedSeconds)).toBe('01:30')
   })

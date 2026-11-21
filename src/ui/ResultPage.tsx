@@ -69,7 +69,7 @@ export function ResultPage() {
           <strong className="score-hero__total" data-testid={TID.scoreTotal}>
             {estimate.total}
           </strong>
-          <span className="score-hero__scale">trên thang 10–990</span>
+          <span className="score-hero__scale">trên thang 0–990</span>
           {estimate.approximate ? (
             <p className="score-hero__note">
               <span className="badge">Ước lượng</span> {estimate.note}
@@ -83,14 +83,14 @@ export function ResultPage() {
             <strong className="score-section__value" data-testid={TID.scoreListening}>
               {estimate.listening}
             </strong>
-            <span className="score-section__scale">5–495</span>
+            <span className="score-section__scale">0–495</span>
           </div>
           <div className="card score-section">
             <span className="score-section__label">Đọc</span>
             <strong className="score-section__value" data-testid={TID.scoreReading}>
               {estimate.reading}
             </strong>
-            <span className="score-section__scale">5–495</span>
+            <span className="score-section__scale">0–495</span>
           </div>
         </div>
       </section>
@@ -230,3 +230,4 @@ function countPerPart(questionIds: string[]): number | undefined {
   if (counts.size === 0) return undefined
   return Math.max(...counts.values())
 }
+

@@ -6,9 +6,7 @@
 import type { Letter, Part, Question, QuestionBank, Section } from '../types'
 import {
   SCALE_MAX,
-  SCALE_MIN,
   SCALE_PER_SECTION_MAX,
-  SCALE_PER_SECTION_MIN,
   sectionOfPart,
 } from '../types'
 import type {
@@ -20,6 +18,24 @@ import type {
 
 /** Số câu của đề TOEIC L-R đầy đủ — mốc để biết điểm có phải ước lượng không. */
 const FULL_EXAM_QUESTION_COUNT = 200
+
+/**
+ * Số câu chính thức của mỗi section trong đề thật: nghe 100 (Part 1–4),
+ * đọc 100 (Part 5–7).
+ *
+ * Vì sao cần hằng số này: công thức cũ chỉ chia `đúng / tổng của section TRONG
+ * PHIÊN`, nên làm 6/6 câu Part 1 cho ra 495 điểm — tức điểm tuyệt đối. Điều đó
+ * vô lý: 6 câu không đại diện cho 100 câu nghe của đề thật, và người làm đúng
+ * 6 câu dễ không thể coi là đạt điểm tối đa.
+ *
+ * Cách tính đúng: coi các câu KHÔNG có trong phiên như câu chưa làm (0 điểm).
+ * Nhờ vậy làm ít câu thì điểm thấp một cách hợp lý, và chỉ khi làm đủ 100 câu
+ * nghe với tỉ lệ đúng cao mới tiến gần 495.
+ */
+const OFFICIAL_SECTION_COUNT: Record<Section, number> = {
+  listening: 100,
+  reading: 100,
+}
 
 /** Làm tròn 1 chữ số thập phân, tránh `-0` và `NaN`. */
 function round1(value: number): number {
@@ -162,11 +178,23 @@ export function scoreSession(bank: QuestionBank, session: Session): SessionResul
   return { ...partial, estimate: estimateScore(bank, session, placeholder) }
 }
 
-/** Điểm một section trên thang 5–495; section không có câu nào thì 0. */
-function sectionScore(correct: number, total: number): number {
-  if (!(total > 0)) return 0
-  const raw = Math.round((correct / total) * SCALE_PER_SECTION_MAX)
-  return clamp(raw, SCALE_PER_SECTION_MIN, SCALE_PER_SECTION_MAX)
+/**
+ * Điểm một section khi quy đổi về đề thật.
+ *
+ * `correct` là số câu đúng trong phiên; `official` là số câu chính thức của
+ * section đó trong đề thật (100 cho mỗi kỹ năng). Câu không có trong phiên được
+ * coi là chưa làm.
+ *
+ * Ví dụ: làm 6 câu Part 1, đúng 6 → 6/100 × 495 = 30 điểm nghe (không phải 495).
+ * Làm đủ 100 câu nghe, đúng 80 → 80/100 × 495 = 396 điểm.
+ *
+ * Kẹp tối thiểu bằng 0 (không phải 5) vì 0 câu đúng trong phiên ngắn không nên
+ * bị đẩy lên 5 điểm — 5 điểm là mức sàn của một bài THI THẬT có làm bài.
+ */
+function officialSectionScore(correct: number, official: number): number {
+  if (!(official > 0)) return 0
+  const raw = Math.round((correct / official) * SCALE_PER_SECTION_MAX)
+  return clamp(raw, 0, SCALE_PER_SECTION_MAX)
 }
 
 /**
@@ -202,9 +230,24 @@ export function estimateScore(
     corrects[section] += Number.isFinite(entry.correct) ? Math.max(0, entry.correct) : 0
   }
 
-  const listening = sectionScore(corrects.listening, totals.listening)
-  const reading = sectionScore(corrects.reading, totals.reading)
-  const total = clamp(listening + reading, SCALE_MIN, SCALE_MAX)
+  /**
+   * Điểm từng section.
+   *
+   * Dùng `OFFICIAL_SECTION_COUNT` (100 câu mỗi kỹ năng) làm mẫu số, KHÔNG dùng
+   * `totals` (số câu có trong phiên). Lý do: làm 6 câu Part 1 mà chia cho 6 sẽ
+   * ra điểm tuyệt đối 495 — vô lý, vì 6 câu không đại diện cho 100 câu nghe.
+   * Coi các câu không có trong phiên là chưa làm thì điểm mới phản ánh đúng.
+   *
+   * `totals` vẫn được tính ở trên để biết section nào CÓ MẶT trong phiên; section
+   * không có câu nào thì điểm bằng 0 chứ không phải "đúng 0/0".
+   */
+  const listening = totals.listening > 0
+    ? officialSectionScore(corrects.listening, OFFICIAL_SECTION_COUNT.listening)
+    : 0
+  const reading = totals.reading > 0
+    ? officialSectionScore(corrects.reading, OFFICIAL_SECTION_COUNT.reading)
+    : 0
+  const total = clamp(listening + reading, 0, SCALE_MAX)
 
   const questionCount =
     Number.isFinite(result.total) && result.total >= 0
@@ -223,3 +266,4 @@ export function estimateScore(
 
   return { listening, reading, total, approximate, note }
 }
+

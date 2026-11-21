@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { formatClock } from '../lib'
 import type { Session } from '../lib/contract'
-import type { Letter, Question, Stimulus } from '../types'
+import type { Letter, Part, Question, Stimulus } from '../types'
 import { PART_META } from '../types'
 import { ROUTES, TID } from '../testids'
 import { navigate } from '../hooks/useHashRoute'
@@ -301,6 +301,29 @@ export function SessionPage({ session, index }: SessionPageProps) {
   const meta = PART_META[question.part]
   const isPart1 = question.part === 1
 
+  /**
+   * Nhóm câu hỏi theo PART cho bảng điều hướng.
+   *
+   * Giữ `position` là vị trí trong `questionIds` (số thứ tự thật của câu trong
+   * phiên), nên nhãn "câu 40–79" vẫn khớp số hiển thị trên ô. Chỉ nhóm lại để
+   * hiển thị, không đổi dữ liệu phiên.
+   */
+  const paletteGroups = (() => {
+    const groups: Array<{ part: Part; from: number; to: number; items: Array<{ id: string; position: number }> }> = []
+    session.questionIds.forEach((id, position) => {
+      const q = index.questionById.get(id)
+      const part: Part = q?.part ?? 1
+      const last = groups[groups.length - 1]
+      if (last && last.part === part) {
+        last.items.push({ id, position })
+        last.to = position
+      } else {
+        groups.push({ part, from: position, to: position, items: [{ id, position }] })
+      }
+    })
+    return groups
+  })()
+
   return (
     <div className="session" data-testid={TID.session}>
       <header className="session__bar">
@@ -467,36 +490,64 @@ export function SessionPage({ session, index }: SessionPageProps) {
 
       <details className="palette">
         <summary className="palette__summary">Bảng câu hỏi ({answeredCount}/{total} đã trả lời)</summary>
-        <div className="palette__grid">
-          {session.questionIds.map((id, position) => {
-            const isCurrent = position === safeCursor
-            const isAnswered = session.answers[id] != null
-            const flagged = session.flagged[id] === true
-            const classes = [
-              'palette__cell',
-              isCurrent ? 'is-current' : '',
-              isAnswered ? 'is-answered' : '',
-              flagged ? 'is-flagged' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')
+        {/*
+          Nhóm câu theo PART thay vì một lưới phẳng.
 
-            return (
-              <button
-                key={id}
-                type="button"
-                className={classes}
-                aria-label={`Câu ${position + 1}${isAnswered ? ', đã trả lời' : ', chưa trả lời'}${
-                  flagged ? ', đã đánh dấu' : ''
-                }`}
-                aria-current={isCurrent ? 'true' : undefined}
-                onClick={() => goTo(position)}
-              >
-                {position + 1}
-                {flagged ? <span aria-hidden="true">★</span> : null}
-              </button>
-            )
-          })}
+          Vì sao: đề 200 câu trải bảy part với số câu rất khác nhau (6, 25, 39,
+          30, 30, 16, 54). Lưới phẳng 200 ô không cho biết câu 47 thuộc part nào,
+          nên người làm bài không nhảy nhanh tới part mình muốn được. Nhóm theo
+          part cũng khớp cách đề thật trình bày: mỗi phần có dải câu riêng.
+        */}
+        <div className="palette__groups">
+          {paletteGroups.map((group, groupIndex) => (
+            /*
+             * Key phải gồm cả chỉ số nhóm, không chỉ `part`.
+             *
+             * Một part có thể xuất hiện ở HAI nhóm nếu đề không xếp part liền
+             * mạch (ví dụ phiên luyện chọn part 1 và 5 nhưng thứ tự câu bị trộn).
+             * Dùng `key={group.part}` sẽ sinh key trùng và React báo lỗi.
+             */
+            <section className="palette__group" key={`${group.part}-${groupIndex}`}>
+              <h4 className="palette__group-title">
+                <span className="palette__group-name">{PART_META[group.part].label}</span>
+                <span className="palette__group-range">
+                  câu {group.from + 1}–{group.to + 1}
+                </span>
+                <span className="palette__group-count">{group.items.length} câu</span>
+              </h4>
+              <div className="palette__grid">
+                {group.items.map(({ id, position }) => {
+                  const isCurrent = position === safeCursor
+                  const isAnswered = session.answers[id] != null
+                  const flagged = session.flagged[id] === true
+                  const classes = [
+                    'palette__cell',
+                    isCurrent ? 'is-current' : '',
+                    isAnswered ? 'is-answered' : '',
+                    flagged ? 'is-flagged' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
+
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      className={classes}
+                      aria-label={`Câu ${position + 1}, ${PART_META[group.part].label}${
+                        isAnswered ? ', đã trả lời' : ', chưa trả lời'
+                      }${flagged ? ', đã đánh dấu' : ''}`}
+                      aria-current={isCurrent ? 'true' : undefined}
+                      onClick={() => goTo(position)}
+                    >
+                      {position + 1}
+                      {flagged ? <span aria-hidden="true">★</span> : null}
+                    </button>
+                  )
+                })}
+              </div>
+            </section>
+          ))}
         </div>
       </details>
     </div>

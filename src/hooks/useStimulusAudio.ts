@@ -3,29 +3,31 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 /**
  * PHÁT ÂM THANH CHO PART 1–4.
  *
- * Hai nguồn, ưu tiên file MP3:
- * 1. File MP3 sinh sẵn trong `public/audio/<stimulusId>.mp3` (xem
- *    `scripts/generate-audio.py`). Đây là nguồn chính — giọng đọc tự nhiên, giống
- *    nhau trên mọi máy, hội thoại có hai giọng khác nhau.
- * 2. Nếu chưa có file (dữ liệu mới thêm mà chưa sinh âm thanh), rơi về Speech
- *    Synthesis của trình duyệt để không có đoạn nào bị câm hoàn toàn.
+ * Ba lỗi đã sửa sau khi người dùng thử (xem comment tại từng chỗ):
+ * 1. Bấm "Dừng" nhưng âm thanh vẫn phát lại — vì callback `oncanplaythrough` của
+ *    lần phát trước vẫn còn sống và tự gọi `play()` sau khi đã dừng.
+ * 2. Nút không trở về "Nghe" sau khi dừng — vì `stop()` chỉ set state, không huỷ
+ *    các callback đang chờ.
+ * 3. Không có thanh tiến trình — đề thật cho tua và biết còn bao lâu.
  *
- * Vì sao cần `useImperativeHandle`: nút "Nghe lời thoại" ở màn hình làm bài cần
- * gọi `play()/stop()` từ ngoài, nhưng đối tượng `HTMLAudioElement` phải nằm trong
- * hook để dọn dẹp đúng khi đổi câu.
+ * Cách sửa gốc: giữ một "thế hệ" (generation) tăng mỗi lần play/stop. Mọi callback
+ * bất đồng bộ kiểm tra thế hệ của mình còn khớp không; nếu không thì bỏ qua. Nhờ
+ * vậy không cần dọn từng listener và không có callback mồ côi.
  */
 
 export interface AudioHandle {
-  /** Có phát được không (bật cài đặt và trình duyệt hỗ trợ). */
   supported: boolean
-  /** Đang phát. */
   playing: boolean
-  /** Đang tải file. */
   loading: boolean
-  /** Không tìm thấy file MP3 — đang dùng giọng trình duyệt thay thế. */
   usingFallback: boolean
+  /** Vị trí phát hiện tại (giây). */
+  currentTime: number
+  /** Tổng thời lượng (giây), 0 khi chưa biết. */
+  duration: number
   play: () => void
   stop: () => void
+  /** Tua tới vị trí (giây). */
+  seek: (seconds: number) => void
 }
 
 /** Đường dẫn file MP3, ghép `BASE_URL` để đúng khi deploy dưới thư mục con. */
@@ -42,17 +44,33 @@ export function useStimulusAudio(
   const [playing, setPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
   const [usingFallback, setUsingFallback] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  /** Tăng mỗi lần play/stop; callback cũ thấy số khác thì tự bỏ. */
+  const generationRef = useRef(0)
+  const rafRef = useRef<number | null>(null)
+  const currentIdRef = useRef<string | undefined>(stimulusId)
 
-  /** Dừng mọi thứ đang phát và dọn tài nguyên. */
+  /** Huỷ vòng cập nhật tiến trình. */
+  const stopTicker = useCallback(() => {
+    if (rafRef.current != null) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+  }, [])
+
+  /** Dừng phát, huỷ mọi callback đang chờ, đưa state về ban đầu. */
   const stop = useCallback(() => {
+    // Tăng thế hệ: mọi callback của lần phát trước sẽ thấy sai và bỏ qua.
+    generationRef.current += 1
+
+    stopTicker()
     const audio = audioRef.current
     if (audio) {
       try {
         audio.pause()
-        audio.currentTime = 0
       } catch {
         /* bỏ qua */
       }
@@ -64,11 +82,29 @@ export function useStimulusAudio(
     }
     setPlaying(false)
     setLoading(false)
-  }, [])
+    setCurrentTime(0)
+  }, [stopTicker])
 
-  /** Dừng khi đổi câu hoặc rời màn hình — không để âm thanh chạy sang trang khác. */
+  /** Cập nhật thanh tiến trình mỗi khung hình khi đang phát. */
+  const startTicker = useCallback(
+    (audio: HTMLAudioElement) => {
+      stopTicker()
+      const tick = () => {
+        if (audioRef.current !== audio) return
+        setCurrentTime(audio.currentTime)
+        if (audio.duration && Number.isFinite(audio.duration)) setDuration(audio.duration)
+        rafRef.current = requestAnimationFrame(tick)
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    },
+    [stopTicker],
+  )
+
+  // Rời màn hình: dừng và dọn.
   useEffect(() => {
     return () => {
+      generationRef.current += 1
+      stopTicker()
       const audio = audioRef.current
       if (audio) {
         try {
@@ -84,93 +120,209 @@ export function useStimulusAudio(
         /* bỏ qua */
       }
     }
-  }, [])
+  }, [stopTicker])
 
-  // Ghi nhớ id hiện tại để biết khi nào nên ngừng phát.
-  const currentIdRef = useRef<string | undefined>(stimulusId)
-
-  /**
-   * Đổi câu thì dừng âm thanh của câu trước.
-   *
-   * Dùng `useEffect` (không phải ghi ref trong render) vì React Compiler cấm
-   * mutation trong lúc render. Ở đây effect KHÔNG gọi setState — nó chỉ dừng đối
-   * tượng audio và đặt lại cờ qua ref, nên không gây vòng render thêm.
-   */
+  // Đổi câu: dừng âm thanh của câu trước.
   useEffect(() => {
     if (currentIdRef.current === stimulusId) return
     currentIdRef.current = stimulusId
-    const previous = audioRef.current
-    if (!previous) return
-    try {
-      previous.pause()
-      previous.currentTime = 0
-    } catch {
-      /* bỏ qua */
+    generationRef.current += 1
+    stopTicker()
+    const audio = audioRef.current
+    if (audio) {
+      try {
+        audio.pause()
+        audio.currentTime = 0
+      } catch {
+        /* bỏ qua */
+      }
+      audioRef.current = null
     }
-    audioRef.current = null
     setPlaying(false)
-  }, [stimulusId])
+    setCurrentTime(0)
+    setDuration(0)
+  }, [stimulusId, stopTicker])
+
+  /**
+   * Tải trước metadata khi vào câu.
+   *
+   * Vì sao cần: thanh phát hiện `--:--` cho tới khi người dùng bấm phát, vì file
+   * chỉ được tải lúc đó. Nhưng người học cần biết đoạn dài bao lâu NGAY khi nhìn
+   * thấy câu hỏi, để quyết định nghe hay bỏ qua. Tải trước metadata chỉ lấy vài
+   * KB header, không tải toàn bộ file, nên không tốn băng thông đáng kể.
+   */
+  useEffect(() => {
+    if (!stimulusId || !enabled) return
+    const preload = new Audio(audioSrcFor(stimulusId))
+    preload.preload = 'metadata'
+    let cancelled = false
+    preload.onloadedmetadata = () => {
+      if (cancelled) return
+      if (preload.duration && Number.isFinite(preload.duration)) setDuration(preload.duration)
+    }
+    preload.onerror = () => {
+      // Không có file — để `play()` xử lý việc rơi về giọng trình duyệt.
+    }
+    preload.load()
+    return () => {
+      cancelled = true
+      preload.onloadedmetadata = null
+      preload.onerror = null
+    }
+  }, [enabled, stimulusId])
 
   /** Phát bằng giọng trình duyệt khi không có file MP3. */
-  const playFallback = useCallback(() => {
-    if (!scriptText?.trim() || !('speechSynthesis' in window)) {
+  const playFallback = useCallback(
+    (generation: number) => {
+      if (!scriptText?.trim() || !('speechSynthesis' in window)) {
+        setLoading(false)
+        return
+      }
+      setUsingFallback(true)
+      const utterance = new SpeechSynthesisUtterance(scriptText)
+      utterance.lang = 'en-US'
+      utterance.rate = 0.92
+      utterance.onend = () => {
+        if (generationRef.current !== generation) return
+        setPlaying(false)
+      }
+      utterance.onerror = () => {
+        if (generationRef.current !== generation) return
+        setPlaying(false)
+      }
+      setPlaying(true)
       setLoading(false)
-      return
-    }
-    setUsingFallback(true)
-    const utterance = new SpeechSynthesisUtterance(scriptText)
-    utterance.lang = 'en-US'
-    utterance.rate = 0.92
-    utterance.onend = () => setPlaying(false)
-    utterance.onerror = () => setPlaying(false)
-    utteranceRef.current = utterance
-    setPlaying(true)
-    setLoading(false)
-    window.speechSynthesis.speak(utterance)
-  }, [scriptText])
+      window.speechSynthesis.speak(utterance)
+    },
+    [scriptText],
+  )
 
   const play = useCallback(() => {
     if (!enabled) return
-    stop()
+
+    // Dừng mọi thứ đang chạy trước, rồi lấy thế hệ mới.
+    generationRef.current += 1
+    const generation = generationRef.current
+    stopTicker()
+
+    const previous = audioRef.current
+    if (previous) {
+      try {
+        previous.pause()
+      } catch {
+        /* bỏ qua */
+      }
+    }
+    try {
+      window.speechSynthesis?.cancel()
+    } catch {
+      /* bỏ qua */
+    }
+
+    setCurrentTime(0)
+    setDuration(0)
 
     if (!stimulusId) {
-      playFallback()
+      playFallback(generation)
       return
     }
 
     setLoading(true)
     const audio = new Audio(audioSrcFor(stimulusId))
     audio.preload = 'auto'
+    audioRef.current = audio
 
-    audio.oncanplaythrough = () => {
+    /**
+     * LỖI CŨ: các callback này không kiểm tra thế hệ, nên nếu người dùng bấm
+     * "Dừng" trong lúc file còn đang tải, `oncanplaythrough` vẫn fire sau đó và
+     * tự gọi `play()` — âm thanh phát lại dù đã dừng. Nay mỗi callback kiểm tra
+     * `generationRef.current === generation` trước khi làm bất cứ điều gì.
+     *
+     * LỖI THỨ HAI (phát hiện khi kiểm): chỉ dựa vào `oncanplaythrough` thì đôi khi
+     * sự kiện đó không bao giờ fire (trình duyệt đã có đủ buffer nhưng không phát
+     * lại sự kiện). Hậu quả: thời lượng hiện `--:--` và nút kẹt ở trạng thái
+     * "đang phát" dù audio không chạy. Nay dùng `loadedmetadata` (bắn sớm và luôn
+     * bắn) để lấy thời lượng, và `canplay` để bắt đầu phát.
+     */
+    const stillCurrent = () => generationRef.current === generation
+
+    const beginPlayback = () => {
+      if (!stillCurrent()) return
       setLoading(false)
       setUsingFallback(false)
-      setPlaying(true)
-      void audio.play().catch(() => {
-        // Trình duyệt chặn tự phát, hoặc file hỏng → dùng giọng trình duyệt.
-        setPlaying(false)
-        playFallback()
-      })
+      if (audio.duration && Number.isFinite(audio.duration)) setDuration(audio.duration)
+      void audio
+        .play()
+        .then(() => {
+          if (!stillCurrent()) {
+            // Bấm dừng ngay sau khi play() resolve — phải dừng lại lần nữa.
+            audio.pause()
+            return
+          }
+          setPlaying(true)
+          startTicker(audio)
+        })
+        .catch(() => {
+          if (!stillCurrent()) return
+          setPlaying(false)
+          playFallback(generation)
+        })
     }
-    audio.onended = () => setPlaying(false)
+
+    // `loadedmetadata` bắn ngay khi biết thời lượng — dùng để hiện tổng thời gian
+    // và bật thanh tua, không chờ tải xong.
+    audio.onloadedmetadata = () => {
+      if (!stillCurrent()) return
+      if (audio.duration && Number.isFinite(audio.duration)) setDuration(audio.duration)
+    }
+
+    // `canplay` và `canplaythrough` đều có thể không bắn tuỳ trình duyệt; chọn cái
+    // nào tới trước thì bắt đầu phát, và chỉ phát một lần.
+    let started = false
+    const tryStart = () => {
+      if (started || !stillCurrent()) return
+      started = true
+      beginPlayback()
+    }
+    audio.oncanplay = tryStart
+    audio.oncanplaythrough = tryStart
+
+    audio.onended = () => {
+      if (!stillCurrent()) return
+      setPlaying(false)
+      setCurrentTime(0)
+      stopTicker()
+    }
+
     audio.onerror = () => {
-      // Không có file (dữ liệu mới, chưa sinh âm thanh) → giọng trình duyệt.
+      if (!stillCurrent()) return
       setLoading(false)
-      playFallback()
+      playFallback(generation)
     }
 
-    audioRef.current = audio
     audio.load()
-  }, [enabled, playFallback, stimulusId, stop])
+  }, [enabled, playFallback, startTicker, stimulusId, stopTicker])
 
-  const handle: AudioHandle = {
+  const seek = useCallback((seconds: number) => {
+    const audio = audioRef.current
+    if (!audio || !Number.isFinite(seconds)) return
+    try {
+      audio.currentTime = Math.max(0, Math.min(seconds, audio.duration || seconds))
+      setCurrentTime(audio.currentTime)
+    } catch {
+      /* bỏ qua */
+    }
+  }, [])
+
+  return {
     supported: supported && enabled,
     playing,
     loading,
     usingFallback,
+    currentTime,
+    duration,
     play,
     stop,
+    seek,
   }
-
-  return handle
 }

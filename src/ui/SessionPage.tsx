@@ -7,6 +7,7 @@ import { ROUTES, TID } from '../testids'
 import { navigate } from '../hooks/useHashRoute'
 import { suggestedDurationSeconds } from '../hooks/sessionDuration'
 import { useStimulusAudio } from '../hooks/useStimulusAudio'
+import { AudioPlayer } from './AudioPlayer'
 import { useAppSettings } from './settingsContext'
 import { useSession } from './sessionContext'
 import type { BankIndex } from '../hooks/useBankIndex'
@@ -29,10 +30,15 @@ function StimulusBlock({
   stimulus,
   part,
   audioEnabled,
+  showChoiceText,
+  onToggleChoiceText,
 }: {
   stimulus: Stimulus
   part: Question['part']
   audioEnabled: boolean
+  /** Chỉ dùng cho Part 1: đang hiện chữ đáp án hay ẩn. */
+  showChoiceText: boolean
+  onToggleChoiceText: () => void
 }) {
   // Part 3/4/6/7 có ngữ liệu dài: mặc định mở, nhưng bấm được để thu gọn.
   const [open, setOpen] = useState(true)
@@ -53,26 +59,15 @@ function StimulusBlock({
           {hasPassages ? 'Đoạn văn' : hasImage ? 'Hình ảnh' : 'Lời thoại'} · {meta.label}
         </h2>
         <div className="stimulus__tools">
-          {hasAudioScript ? (
+          {hasAudioScript && part === 1 ? (
             <button
               type="button"
               className="btn btn--sm btn--ghost"
-              onClick={() => (audio.playing ? audio.stop() : audio.play())}
-              disabled={!audio.supported || audio.loading}
-              title={
-                audio.supported
-                  ? audio.usingFallback
-                    ? 'Chưa có file âm thanh cho đoạn này — đang dùng giọng của trình duyệt'
-                    : 'Phát audio'
-                  : 'Âm thanh đang tắt trong Cài đặt'
-              }
-              data-testid={TID.audioToggle}
+              onClick={onToggleChoiceText}
+              data-testid={TID.toggleChoiceText}
+              aria-pressed={showChoiceText}
             >
-              {audio.loading
-                ? '… Đang tải'
-                : audio.playing
-                  ? '■ Dừng'
-                  : '▶ Nghe'}
+              {showChoiceText ? 'Ẩn chữ đáp án' : 'Hiện chữ đáp án'}
             </button>
           ) : null}
           <button
@@ -103,6 +98,13 @@ function StimulusBlock({
               />
             </figure>
           ) : null}
+
+          {/*
+            Thanh phát âm thanh đặt NGAY DƯỚI ảnh, đúng bố cục đề thi thật: nhìn
+            ảnh, nghe mô tả, chọn đáp án. Trước đây nút nghe nằm trên tiêu đề ngữ
+            liệu nên người dùng phải mắt lên góc mới thấy.
+          */}
+          {hasAudioScript ? <AudioPlayer audio={audio} stimulusId={stimulus.id} /> : null}
 
           {hasPassages
             ? stimulus.passages?.map((passage, passageIndex) => (
@@ -167,6 +169,13 @@ export function SessionPage({ session, index }: SessionPageProps) {
 
   const total = session.questionIds.length
   const [cursor, setCursor] = useState(0)
+  /**
+   * Part 1: có hiện chữ của bốn phương án hay không.
+   *
+   * Mặc định ẨN, đúng như đề thi thật — Part 1 chỉ nghe, không in chữ. Người mới
+   * hoặc người không nghe được có thể bấm "Hiện chữ đáp án" để đọc.
+   */
+  const [showChoiceText, setShowChoiceText] = useState(false)
   const safeCursor = Math.min(Math.max(cursor, 0), Math.max(total - 1, 0))
   const questionId = session.questionIds[safeCursor]
   const question = questionId ? index.questionById.get(questionId) : undefined
@@ -290,6 +299,7 @@ export function SessionPage({ session, index }: SessionPageProps) {
   const revealFeedback = session.revealMode && chosen != null
   const progressPercent = total === 0 ? 0 : Math.round((answeredCount / total) * 100)
   const meta = PART_META[question.part]
+  const isPart1 = question.part === 1
 
   return (
     <div className="session" data-testid={TID.session}>
@@ -340,6 +350,8 @@ export function SessionPage({ session, index }: SessionPageProps) {
             stimulus={stimulus}
             part={question.part}
             audioEnabled={settings.audioEnabled}
+            showChoiceText={showChoiceText}
+            onToggleChoiceText={() => setShowChoiceText((prev) => !prev)}
           />
         ) : null}
 
@@ -364,20 +376,34 @@ export function SessionPage({ session, index }: SessionPageProps) {
                   ? 'choice--selected'
                   : ''
 
+            /**
+             * PART 1 ẨN CHỮ ĐÁP ÁN.
+             *
+             * Đề thi thật: Part 1 chỉ nghe bốn câu mô tả tranh, KHÔNG in chữ ra
+             * giấy — người thi phải nghe và tự chọn. Nếu app hiện sẵn văn bản thì
+             * không còn là bài luyện nghe nữa, chỉ là bài đọc hiểu.
+             *
+             * Nay Part 1 chỉ hiện nút A/B/C/D trống. Muốn xem chữ thì bấm "Hiện
+             * chữ" (dành cho người mới, hoặc khi trình duyệt không có âm thanh).
+             * Sau khi chọn đáp án, phần phản hồi vẫn hiện đầy đủ như các part khác.
+             */
+            const hideText = isPart1 && !showChoiceText
+
             return (
               <button
                 key={choice.letter}
                 type="button"
-                className={`choice ${stateClass}`}
+                className={`choice ${stateClass} ${hideText ? 'choice--audio-only' : ''}`}
                 data-testid={TID.choice(choice.letter)}
                 data-selected={isSelected ? 'true' : 'false'}
                 aria-pressed={isSelected}
+                aria-label={hideText ? `Đáp án ${choice.letter}` : undefined}
                 onClick={() => handleSelect(choice.letter)}
               >
                 <span className="choice__letter" aria-hidden="true">
                   {choice.letter}
                 </span>
-                <span className="choice__text">{choice.text}</span>
+                {hideText ? null : <span className="choice__text">{choice.text}</span>}
                 {showCorrect ? (
                   <span className="choice__mark" aria-label="đáp án đúng">
                     ✓

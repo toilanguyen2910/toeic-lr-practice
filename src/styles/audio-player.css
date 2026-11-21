@@ -1,0 +1,215 @@
+/* ============================================================================
+   THANH PHÁT ÂM THANH — bố cục theo đề thi thật.
+   Nút phát tròn, thời gian hai đầu, thanh tiến trình tua được ở giữa.
+   ========================================================================= */
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+.audio-player__btn {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-ink);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.audio-player__btn:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.audio-player__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.audio-player__btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Vòng xoay khi đang tải file. */
+.audio-player__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgb(255 255 255 / 35%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: audio-spin 700ms linear infinite;
+}
+
+@keyframes audio-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audio-player__spinner {
+    animation: none;
+  }
+
+  .audio-player__btn {
+    transition: none;
+  }
+}
+
+.audio-player__time {
+  flex: 0 0 auto;
+  min-width: 38px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  text-align: center;
+  user-select: none;
+}
+
+/* Vùng thanh tiến trình: có lớp nền và lớp đã phát, cộng input range trong suốt
+   phủ lên trên để bấm tua được bằng chuột và bàn phím. */
+.audio-player__track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.audio-player__track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+}
+
+.audio-player__bar {
+  position: absolute;
+  left: 0;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--primary);
+  pointer-events: none;
+}
+
+.audio-player__range {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.audio-player__range::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--surface);
+  box-shadow: 0 1px 3px rgb(16 24 40 / 25%);
+}
+
+.audio-player__range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--surface);
+}
+
+.audio-player__range:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 999px;
+}
+
+.audio-player__range:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.audio-player__replay {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.audio-player__replay:hover:not(:disabled) {
+  border-color: var(--line-strong);
+  color: var(--primary);
+}
+
+.audio-player__replay:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.audio-player__replay:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ── PART 1: nút A/B/C/D khi ẩn chữ ─────────────────────────────────────── */
+
+/*
+  Khi ẩn chữ, nút chỉ còn chữ cái. Phải giữ chiều cao tối thiểu để vùng bấm đủ
+  lớn (WCAG yêu cầu tối thiểu 24×24, ta dùng 56px cho thoải mái trên điện thoại).
+*/
+.choice--audio-only {
+  justify-content: center;
+  min-height: 56px;
+}
+
+.choice--audio-only .choice__letter {
+  margin-right: 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 620px) {
+  .audio-player {
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .audio-player__btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .audio-player__time {
+    min-width: 32px;
+    font-size: 12px;
+  }
+}

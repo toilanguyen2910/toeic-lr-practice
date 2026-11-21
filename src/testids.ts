@@ -108,6 +108,7 @@ export const TID = {
   feedback: 'feedback',
   feedbackCorrect: 'feedback-correct',
   feedbackExplanation: 'feedback-explanation',
+  audioToggle: 'audio-toggle',
 
   // Kết quả
   result: 'result',

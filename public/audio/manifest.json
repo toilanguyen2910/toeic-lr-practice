@@ -1,0 +1,512 @@
+{
+  "g-p1-0001": {
+    "bytes": 81600,
+    "file": "audio/g-p1-0001.mp3",
+    "part": 1
+  },
+  "g-p1-0002": {
+    "bytes": 78528,
+    "file": "audio/g-p1-0002.mp3",
+    "part": 1
+  },
+  "g-p1-0003": {
+    "bytes": 92160,
+    "file": "audio/g-p1-0003.mp3",
+    "part": 1
+  },
+  "g-p1-0004": {
+    "bytes": 85824,
+    "file": "audio/g-p1-0004.mp3",
+    "part": 1
+  },
+  "g-p1-0005": {
+    "bytes": 83136,
+    "file": "audio/g-p1-0005.mp3",
+    "part": 1
+  },
+  "g-p1-0006": {
+    "bytes": 80256,
+    "file": "audio/g-p1-0006.mp3",
+    "part": 1
+  },
+  "g-p1-0007": {
+    "bytes": 83904,
+    "file": "audio/g-p1-0007.mp3",
+    "part": 1
+  },
+  "g-p1-0008": {
+    "bytes": 82944,
+    "file": "audio/g-p1-0008.mp3",
+    "part": 1
+  },
+  "g-p1-0009": {
+    "bytes": 78912,
+    "file": "audio/g-p1-0009.mp3",
+    "part": 1
+  },
+  "g-p1-0010": {
+    "bytes": 87936,
+    "file": "audio/g-p1-0010.mp3",
+    "part": 1
+  },
+  "g-p1-0011": {
+    "bytes": 92928,
+    "file": "audio/g-p1-0011.mp3",
+    "part": 1
+  },
+  "g-p1-0012": {
+    "bytes": 80640,
+    "file": "audio/g-p1-0012.mp3",
+    "part": 1
+  },
+  "g-p1-0013": {
+    "bytes": 86976,
+    "file": "audio/g-p1-0013.mp3",
+    "part": 1
+  },
+  "g-p1-0014": {
+    "bytes": 76032,
+    "file": "audio/g-p1-0014.mp3",
+    "part": 1
+  },
+  "g-p1-0015": {
+    "bytes": 95040,
+    "file": "audio/g-p1-0015.mp3",
+    "part": 1
+  },
+  "g-p1-0016": {
+    "bytes": 84672,
+    "file": "audio/g-p1-0016.mp3",
+    "part": 1
+  },
+  "g-p1-0017": {
+    "bytes": 87168,
+    "file": "audio/g-p1-0017.mp3",
+    "part": 1
+  },
+  "g-p1-0018": {
+    "bytes": 79104,
+    "file": "audio/g-p1-0018.mp3",
+    "part": 1
+  },
+  "g-p1-0019": {
+    "bytes": 79488,
+    "file": "audio/g-p1-0019.mp3",
+    "part": 1
+  },
+  "g-p1-0020": {
+    "bytes": 82752,
+    "file": "audio/g-p1-0020.mp3",
+    "part": 1
+  },
+  "g-p2-0001": {
+    "bytes": 22848,
+    "file": "audio/g-p2-0001.mp3",
+    "part": 2
+  },
+  "g-p2-0002": {
+    "bytes": 23616,
+    "file": "audio/g-p2-0002.mp3",
+    "part": 2
+  },
+  "g-p2-0004": {
+    "bytes": 17280,
+    "file": "audio/g-p2-0004.mp3",
+    "part": 2
+  },
+  "g-p2-0005": {
+    "bytes": 34368,
+    "file": "audio/g-p2-0005.mp3",
+    "part": 2
+  },
+  "g-p2-0006": {
+    "bytes": 22464,
+    "file": "audio/g-p2-0006.mp3",
+    "part": 2
+  },
+  "g-p2-0007": {
+    "bytes": 27072,
+    "file": "audio/g-p2-0007.mp3",
+    "part": 2
+  },
+  "g-p2-0009": {
+    "bytes": 21312,
+    "file": "audio/g-p2-0009.mp3",
+    "part": 2
+  },
+  "g-p2-0010": {
+    "bytes": 29952,
+    "file": "audio/g-p2-0010.mp3",
+    "part": 2
+  },
+  "g-p2-0011": {
+    "bytes": 24000,
+    "file": "audio/g-p2-0011.mp3",
+    "part": 2
+  },
+  "g-p2-0013": {
+    "bytes": 28800,
+    "file": "audio/g-p2-0013.mp3",
+    "part": 2
+  },
+  "g-p2-0014": {
+    "bytes": 23424,
+    "file": "audio/g-p2-0014.mp3",
+    "part": 2
+  },
+  "g-p2-0015": {
+    "bytes": 26688,
+    "file": "audio/g-p2-0015.mp3",
+    "part": 2
+  },
+  "g-p2-0016": {
+    "bytes": 26880,
+    "file": "audio/g-p2-0016.mp3",
+    "part": 2
+  },
+  "g-p2-0017": {
+    "bytes": 39360,
+    "file": "audio/g-p2-0017.mp3",
+    "part": 2
+  },
+  "g-p2-0018": {
+    "bytes": 26880,
+    "file": "audio/g-p2-0018.mp3",
+    "part": 2
+  },
+  "g-p2-0019": {
+    "bytes": 37440,
+    "file": "audio/g-p2-0019.mp3",
+    "part": 2
+  },
+  "g-p2-0020": {
+    "bytes": 30144,
+    "file": "audio/g-p2-0020.mp3",
+    "part": 2
+  },
+  "g-p2-0022": {
+    "bytes": 27072,
+    "file": "audio/g-p2-0022.mp3",
+    "part": 2
+  },
+  "g-p2-0024": {
+    "bytes": 30528,
+    "file": "audio/g-p2-0024.mp3",
+    "part": 2
+  },
+  "g-p2-0025": {
+    "bytes": 30336,
+    "file": "audio/g-p2-0025.mp3",
+    "part": 2
+  },
+  "g-p2-0026": {
+    "bytes": 28608,
+    "file": "audio/g-p2-0026.mp3",
+    "part": 2
+  },
+  "g-p2-0027": {
+    "bytes": 25728,
+    "file": "audio/g-p2-0027.mp3",
+    "part": 2
+  },
+  "g-p2-0028": {
+    "bytes": 27264,
+    "file": "audio/g-p2-0028.mp3",
+    "part": 2
+  },
+  "g-p2-0029": {
+    "bytes": 30144,
+    "file": "audio/g-p2-0029.mp3",
+    "part": 2
+  },
+  "g-p2-0030": {
+    "bytes": 33024,
+    "file": "audio/g-p2-0030.mp3",
+    "part": 2
+  },
+  "g-p2-0031": {
+    "bytes": 25344,
+    "file": "audio/g-p2-0031.mp3",
+    "part": 2
+  },
+  "g-p2-0032": {
+    "bytes": 25344,
+    "file": "audio/g-p2-0032.mp3",
+    "part": 2
+  },
+  "g-p2-0033": {
+    "bytes": 30144,
+    "file": "audio/g-p2-0033.mp3",
+    "part": 2
+  },
+  "g-p2-0034": {
+    "bytes": 25728,
+    "file": "audio/g-p2-0034.mp3",
+    "part": 2
+  },
+  "g-p2-0035": {
+    "bytes": 27648,
+    "file": "audio/g-p2-0035.mp3",
+    "part": 2
+  },
+  "g-p2-0037": {
+    "bytes": 28032,
+    "file": "audio/g-p2-0037.mp3",
+    "part": 2
+  },
+  "g-p2-0039": {
+    "bytes": 22848,
+    "file": "audio/g-p2-0039.mp3",
+    "part": 2
+  },
+  "g-p2-0040": {
+    "bytes": 30528,
+    "file": "audio/g-p2-0040.mp3",
+    "part": 2
+  },
+  "g-p2-0041": {
+    "bytes": 36672,
+    "file": "audio/g-p2-0041.mp3",
+    "part": 2
+  },
+  "g-p2-0042": {
+    "bytes": 28032,
+    "file": "audio/g-p2-0042.mp3",
+    "part": 2
+  },
+  "g-p2-0043": {
+    "bytes": 32064,
+    "file": "audio/g-p2-0043.mp3",
+    "part": 2
+  },
+  "g-p2-0044": {
+    "bytes": 26496,
+    "file": "audio/g-p2-0044.mp3",
+    "part": 2
+  },
+  "g-p2-0045": {
+    "bytes": 28800,
+    "file": "audio/g-p2-0045.mp3",
+    "part": 2
+  },
+  "g-p2-0046": {
+    "bytes": 26112,
+    "file": "audio/g-p2-0046.mp3",
+    "part": 2
+  },
+  "g-p2-0048": {
+    "bytes": 26880,
+    "file": "audio/g-p2-0048.mp3",
+    "part": 2
+  },
+  "g-p2-0049": {
+    "bytes": 20544,
+    "file": "audio/g-p2-0049.mp3",
+    "part": 2
+  },
+  "g-p2-0051": {
+    "bytes": 30144,
+    "file": "audio/g-p2-0051.mp3",
+    "part": 2
+  },
+  "g-p2-0052": {
+    "bytes": 28416,
+    "file": "audio/g-p2-0052.mp3",
+    "part": 2
+  },
+  "g-p2-0053": {
+    "bytes": 27840,
+    "file": "audio/g-p2-0053.mp3",
+    "part": 2
+  },
+  "g-p2-0054": {
+    "bytes": 22272,
+    "file": "audio/g-p2-0054.mp3",
+    "part": 2
+  },
+  "g-p2-0056": {
+    "bytes": 20928,
+    "file": "audio/g-p2-0056.mp3",
+    "part": 2
+  },
+  "g-p2-0057": {
+    "bytes": 28032,
+    "file": "audio/g-p2-0057.mp3",
+    "part": 2
+  },
+  "g-p2-0058": {
+    "bytes": 28608,
+    "file": "audio/g-p2-0058.mp3",
+    "part": 2
+  },
+  "g-p2-0059": {
+    "bytes": 27072,
+    "file": "audio/g-p2-0059.mp3",
+    "part": 2
+  },
+  "g-p2-0060": {
+    "bytes": 26688,
+    "file": "audio/g-p2-0060.mp3",
+    "part": 2
+  },
+  "g-p3-0001": {
+    "bytes": 46464,
+    "file": "audio/g-p3-0001.mp3",
+    "part": 3
+  },
+  "g-p3-0004": {
+    "bytes": 120429,
+    "file": "audio/g-p3-0004.mp3",
+    "part": 3
+  },
+  "g-p3-0005": {
+    "bytes": 128109,
+    "file": "audio/g-p3-0005.mp3",
+    "part": 3
+  },
+  "g-p3-0007": {
+    "bytes": 102189,
+    "file": "audio/g-p3-0007.mp3",
+    "part": 3
+  },
+  "g-p3-0008": {
+    "bytes": 180717,
+    "file": "audio/g-p3-0008.mp3",
+    "part": 3
+  },
+  "g-p3-0009": {
+    "bytes": 223149,
+    "file": "audio/g-p3-0009.mp3",
+    "part": 3
+  },
+  "g-p3-0010": {
+    "bytes": 177261,
+    "file": "audio/g-p3-0010.mp3",
+    "part": 3
+  },
+  "g-p3-0011": {
+    "bytes": 293421,
+    "file": "audio/g-p3-0011.mp3",
+    "part": 3
+  },
+  "g-p3-0012": {
+    "bytes": 212397,
+    "file": "audio/g-p3-0012.mp3",
+    "part": 3
+  },
+  "g-p3-0013": {
+    "bytes": 202413,
+    "file": "audio/g-p3-0013.mp3",
+    "part": 3
+  },
+  "g-p3-0014": {
+    "bytes": 362541,
+    "file": "audio/g-p3-0014.mp3",
+    "part": 3
+  },
+  "g-p3-0015": {
+    "bytes": 299757,
+    "file": "audio/g-p3-0015.mp3",
+    "part": 3
+  },
+  "g-p3-0016": {
+    "bytes": 307053,
+    "file": "audio/g-p3-0016.mp3",
+    "part": 3
+  },
+  "g-p3-0017": {
+    "bytes": 295341,
+    "file": "audio/g-p3-0017.mp3",
+    "part": 3
+  },
+  "g-p3-0018": {
+    "bytes": 301101,
+    "file": "audio/g-p3-0018.mp3",
+    "part": 3
+  },
+  "g-p3-0019": {
+    "bytes": 278445,
+    "file": "audio/g-p3-0019.mp3",
+    "part": 3
+  },
+  "g-p3-0020": {
+    "bytes": 293421,
+    "file": "audio/g-p3-0020.mp3",
+    "part": 3
+  },
+  "g-p4-0001": {
+    "bytes": 177837,
+    "file": "audio/g-p4-0001.mp3",
+    "part": 4
+  },
+  "g-p4-0002": {
+    "bytes": 44928,
+    "file": "audio/g-p4-0002.mp3",
+    "part": 4
+  },
+  "g-p4-0003": {
+    "bytes": 135021,
+    "file": "audio/g-p4-0003.mp3",
+    "part": 4
+  },
+  "g-p4-0004": {
+    "bytes": 315501,
+    "file": "audio/g-p4-0004.mp3",
+    "part": 4
+  },
+  "g-p4-0005": {
+    "bytes": 309165,
+    "file": "audio/g-p4-0005.mp3",
+    "part": 4
+  },
+  "g-p4-0006": {
+    "bytes": 317805,
+    "file": "audio/g-p4-0006.mp3",
+    "part": 4
+  },
+  "g-p4-0007": {
+    "bytes": 284973,
+    "file": "audio/g-p4-0007.mp3",
+    "part": 4
+  },
+  "g-p4-0008": {
+    "bytes": 308589,
+    "file": "audio/g-p4-0008.mp3",
+    "part": 4
+  },
+  "g-p4-0009": {
+    "bytes": 316653,
+    "file": "audio/g-p4-0009.mp3",
+    "part": 4
+  },
+  "g-p4-0010": {
+    "bytes": 314925,
+    "file": "audio/g-p4-0010.mp3",
+    "part": 4
+  },
+  "g-p4-0011": {
+    "bytes": 283437,
+    "file": "audio/g-p4-0011.mp3",
+    "part": 4
+  },
+  "g-p4-0012": {
+    "bytes": 339117,
+    "file": "audio/g-p4-0012.mp3",
+    "part": 4
+  },
+  "g-p4-0013": {
+    "bytes": 309357,
+    "file": "audio/g-p4-0013.mp3",
+    "part": 4
+  },
+  "g-p4-0014": {
+    "bytes": 301101,
+    "file": "audio/g-p4-0014.mp3",
+    "part": 4
+  },
+  "g-p4-0015": {
+    "bytes": 309549,
+    "file": "audio/g-p4-0015.mp3",
+    "part": 4
+  }
+}

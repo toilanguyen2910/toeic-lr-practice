@@ -6,7 +6,7 @@ import { PART_META } from '../types'
 import { ROUTES, TID } from '../testids'
 import { navigate } from '../hooks/useHashRoute'
 import { suggestedDurationSeconds } from '../hooks/sessionDuration'
-import { useSpeech } from '../hooks/useSpeech'
+import { useStimulusAudio } from '../hooks/useStimulusAudio'
 import { useAppSettings } from './settingsContext'
 import { useSession } from './sessionContext'
 import type { BankIndex } from '../hooks/useBankIndex'
@@ -36,7 +36,8 @@ function StimulusBlock({
 }) {
   // Part 3/4/6/7 có ngữ liệu dài: mặc định mở, nhưng bấm được để thu gọn.
   const [open, setOpen] = useState(true)
-  const speech = useSpeech(audioEnabled)
+  // Nguồn âm thanh ưu tiên file MP3 sinh sẵn; thiếu file thì rơi về giọng trình duyệt.
+  const audio = useStimulusAudio(stimulus.id, stimulus.audioScript, audioEnabled)
   const meta = PART_META[part]
 
   const hasPassages = Boolean(stimulus.passages && stimulus.passages.length > 0)
@@ -56,11 +57,22 @@ function StimulusBlock({
             <button
               type="button"
               className="btn btn--sm btn--ghost"
-              onClick={() => (speech.speaking ? speech.stop() : speech.speak(stimulus.audioScript ?? ''))}
-              disabled={!speech.supported}
-              title={speech.supported ? undefined : 'Trình duyệt không hỗ trợ đọc hoặc âm thanh đang tắt'}
+              onClick={() => (audio.playing ? audio.stop() : audio.play())}
+              disabled={!audio.supported || audio.loading}
+              title={
+                audio.supported
+                  ? audio.usingFallback
+                    ? 'Chưa có file âm thanh cho đoạn này — đang dùng giọng của trình duyệt'
+                    : 'Phát audio'
+                  : 'Âm thanh đang tắt trong Cài đặt'
+              }
+              data-testid={TID.audioToggle}
             >
-              {speech.speaking ? '■ Dừng đọc' : '▶ Nghe lời thoại'}
+              {audio.loading
+                ? '… Đang tải'
+                : audio.playing
+                  ? '■ Dừng'
+                  : '▶ Nghe'}
             </button>
           ) : null}
           <button

@@ -13,6 +13,7 @@ import {
   toggleFlag,
 } from '../lib'
 import type { HistoryEntry, Session, SessionOptions } from '../lib/contract'
+import { SCORING_VERSION } from '../lib/contract'
 import type { Letter, Part, QuestionBank } from '../types'
 import { SessionContext } from './sessionContext'
 import type { SessionContextValue } from './sessionContext'
@@ -108,6 +109,9 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
         total: scored.total,
         estimateTotal: scored.estimate.total,
         elapsedSeconds: submitted.elapsedSeconds,
+        // Đánh dấu công thức đã dùng. Bản ghi cũ không có trường này (mặc định
+        // là phiên bản 1) nên UI biết mà loại khỏi thống kê và so sánh điểm.
+        scoringVersion: SCORING_VERSION,
         ...(setNumber != null ? { examSetId: setNumber } : {}),
       }
       pushHistory(entry)

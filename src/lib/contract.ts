@@ -98,7 +98,23 @@ export interface HistoryEntry {
    * Nhờ trường này màn hình chọn đề hiển thị được "đã làm mấy lần, cao nhất bao nhiêu".
    */
   examSetId?: number
+  /**
+   * Phiên bản công thức chấm điểm dùng để tính `estimateTotal`.
+   *
+   * Vì sao cần: công thức đã đổi một lần (xem `scoring.ts`). Bản ghi cũ tính
+   * theo công thức cũ nên điểm không so sánh được với bản ghi mới — ví dụ làm 6
+   * câu Part 1 đúng hết ra 495 điểm, trong khi cùng bài đó theo công thức mới chỉ
+   * khoảng 30. Không có trường này thì lịch sử trộn hai thang điểm khác nhau và
+   * "điểm cao nhất" sẽ luôn là bản ghi cũ sai.
+   *
+   * Bản ghi thiếu trường này là bản ghi cũ (trước khi có trường) và bị coi là
+   * không đáng tin để so sánh.
+   */
+  scoringVersion?: number
 }
+
+/** Phiên bản công thức chấm điểm hiện tại. Tăng số này mỗi khi đổi công thức. */
+export const SCORING_VERSION = 2
 
 export interface Settings {
   /** Hiện giải thích ngay khi chọn đáp án ở chế độ luyện tập. */

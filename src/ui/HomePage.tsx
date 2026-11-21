@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { loadHistory } from '../lib'
+import { loadHistory, SCORING_VERSION } from '../lib'
 import type { HistoryEntry } from '../lib/contract'
 import { PART_META } from '../types'
 import type { Part } from '../types'
@@ -32,7 +32,19 @@ export function HomePage() {
   // Đọc lịch sử mỗi lần mở trang chủ: nộp bài xong quay về đây phải thấy số mới.
   const history = useMemo<HistoryEntry[]>(() => loadHistory(), [])
 
-  const bestScore = history.reduce((best, entry) => Math.max(best, entry.estimateTotal), 0)
+  /**
+   * Chỉ tính "điểm cao nhất" trên các bản ghi dùng công thức chấm điểm HIỆN TẠI.
+   *
+   * Bản ghi cũ (thiếu `scoringVersion`, tức phiên bản 1) được tính theo công thức
+   * cũ — công thức đó cho 495 điểm khi làm 6 câu Part 1 đúng hết. Trộn chúng vào
+   * sẽ khiến "điểm cao nhất" luôn hiện con số sai và không bao giờ bị vượt.
+   */
+  const currentHistory = useMemo(
+    () => history.filter((entry) => entry.scoringVersion === SCORING_VERSION),
+    [history],
+  )
+
+  const bestScore = currentHistory.reduce((best, entry) => Math.max(best, entry.estimateTotal), 0)
   const resumable = session && session.status === 'active' ? session : null
   const lastFinished = history[0]
 
@@ -94,12 +106,14 @@ export function HomePage() {
         <div className="card stat-card">
           <span className="stat-card__label">Điểm cao nhất (ước lượng)</span>
           <strong className="stat-card__value" data-testid={TID.statBestScore}>
-            {history.length === 0 ? '—' : bestScore}
+            {currentHistory.length === 0 ? '—' : bestScore}
           </strong>
           <span className="stat-card__foot">
             {history.length === 0
               ? 'Hoàn thành một phiên để có điểm'
-              : 'Thang 10–990, tính từ bộ câu rút gọn'}
+              : currentHistory.length === 0
+                ? 'Các phiên cũ dùng cách tính khác — làm một phiên mới để có điểm'
+                : 'Thang 0–990, tính từ bộ câu rút gọn'}
           </span>
         </div>
       </section>

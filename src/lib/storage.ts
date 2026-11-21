@@ -236,7 +236,18 @@ export function parseHistoryEntry(value: unknown): HistoryEntry | null {
   const parts = parseParts(rawParts)
   if (!parts) return null
 
-  return {
+  /**
+   * Phiên bản công thức chấm điểm.
+   *
+   * Bản ghi cũ (trước khi có trường này) được coi là phiên bản 1 — công thức cũng
+   * cũ, từng cho 495 điểm khi làm 6 câu Part 1 đúng hết. UI và phần tính "điểm
+   * cao nhất" phải bỏ qua bản ghi có phiên bản khác hiện tại, nếu không lịch sử
+   * sẽ trộn hai thang điểm và hiện ra con số vô lý.
+   */
+  const rawVersion = (value as Record<string, unknown>).scoringVersion
+  const scoringVersion = isFiniteNumber(rawVersion) && rawVersion >= 1 ? Math.floor(rawVersion) : 1
+
+  const entry: HistoryEntry = {
     id,
     mode: mode as HistoryEntry['mode'],
     parts,
@@ -245,7 +256,16 @@ export function parseHistoryEntry(value: unknown): HistoryEntry | null {
     total,
     estimateTotal,
     elapsedSeconds,
+    scoringVersion,
   }
+
+  // `examSetId` là trường tuỳ chọn: chỉ gán khi dữ liệu có số hợp lệ.
+  const rawSetId = (value as Record<string, unknown>).examSetId
+  if (isFiniteNumber(rawSetId) && rawSetId >= 1 && rawSetId <= 20) {
+    entry.examSetId = Math.floor(rawSetId)
+  }
+
+  return entry
 }
 
 /**

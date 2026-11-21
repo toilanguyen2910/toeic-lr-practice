@@ -197,7 +197,17 @@ describe('loadHistory / pushHistory / clearHistory', () => {
   it('giữ đúng dữ liệu từng bản ghi qua vòng lưu/đọc', () => {
     const entry = makeEntry({ id: 'h-abc', estimateTotal: 845 })
     pushHistory(entry)
-    expect(loadHistory()[0]).toEqual(entry)
+    // Bản ghi đọc lên có thêm `scoringVersion` (mặc định 1 nếu lúc ghi không có),
+    // nên so sánh từng trường thay vì so cả object.
+    const loaded = loadHistory()[0]!
+    expect(loaded.id).toBe(entry.id)
+    expect(loaded.mode).toBe(entry.mode)
+    expect(loaded.parts).toEqual(entry.parts)
+    expect(loaded.correct).toBe(entry.correct)
+    expect(loaded.total).toBe(entry.total)
+    expect(loaded.estimateTotal).toBe(entry.estimateTotal)
+    expect(loaded.elapsedSeconds).toBe(entry.elapsedSeconds)
+    expect(loaded.scoringVersion).toBe(1)
   })
 
   it(`giữ tối đa ${HISTORY_LIMIT} bản ghi, bỏ bản ghi cũ nhất`, () => {

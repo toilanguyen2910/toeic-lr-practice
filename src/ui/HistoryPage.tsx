@@ -1,5 +1,5 @@
 import { ROUTES, TID } from '../testids'
-import { clearHistory, loadHistory } from '../lib'
+import { clearHistory, loadHistory, SCORING_VERSION } from '../lib'
 import { useState } from 'react'
 import { describeParts } from './partHelpers'
 
@@ -89,7 +89,22 @@ export function HistoryPage() {
                   {entry.correct}/{entry.total}
                 </span>
                 <span className="history-row__score" role="cell">
-                  {entry.estimateTotal}
+                  {/*
+                    Bản ghi cũ (phiên bản công thức khác hiện tại) vẫn hiện điểm
+                    nhưng kèm dấu "cũ" và chú thích, không thì người dùng thấy con
+                    số 495 vô lý mà không hiểu vì sao.
+                  */}
+                  {entry.scoringVersion === SCORING_VERSION ? (
+                    entry.estimateTotal
+                  ) : (
+                    <span
+                      className="history-row__legacy"
+                      title="Điểm tính theo công thức cũ, không so sánh được với các phiên mới"
+                    >
+                      {entry.estimateTotal}
+                      <span className="history-row__legacy-tag">cũ</span>
+                    </span>
+                  )}
                 </span>
                 <span className="history-row__num" role="cell">
                   {formatDuration(entry.elapsedSeconds)}

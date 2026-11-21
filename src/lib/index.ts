@@ -48,7 +48,7 @@ export type {
   Settings,
 } from './contract'
 
-export { DEFAULT_SETTINGS, STORAGE_KEYS } from './contract'
+export { DEFAULT_SETTINGS, SCORING_VERSION, STORAGE_KEYS } from './contract'
 
 export type {
   Choice,

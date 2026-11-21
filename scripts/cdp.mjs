@@ -132,21 +132,49 @@ class Cdp {
 
 /**
  * Mở một phiên kiểm thử trọn gói.
+ *
+ * `options.mode`:
+ * - `'dev'` (mặc định) — chạy Vite dev server, phục vụ mã nguồn chưa đóng gói.
+ * - `'preview'` — chạy `vite preview`, phục vụ thư mục `dist/` đã build. Dùng để
+ *   kiểm đúng thứ sẽ đưa lên Vercel: bundle đã minify, asset đã copy, đường dẫn
+ *   tương đối thật.
+ *
  * @param {(ctx: {page: PageApi, url: string, screenshot: Function}) => Promise<void>} run
  */
 export async function withBrowser(run, options = {}) {
   const port = options.port ?? 5199
   const cdpPort = options.cdpPort ?? 9411
+  const mode = options.mode ?? 'dev'
   const profileDir = join(ROOT, 'node_modules', '.tmp', `cdp-profile-${process.pid}`)
   const chrome = options.chromePath ?? process.env.CHROME_PATH ?? findChrome()
 
   mkdirSync(profileDir, { recursive: true })
 
-  const vite = spawn(
-    process.execPath,
-    [join(ROOT, 'node_modules', 'vite', 'bin', 'vite.js'), '--port', String(port), '--strictPort', '--host', '127.0.0.1'],
-    { cwd: ROOT, stdio: 'ignore', windowsHide: true },
-  )
+  const viteArgs =
+    mode === 'preview'
+      ? [
+          join(ROOT, 'node_modules', 'vite', 'bin', 'vite.js'),
+          'preview',
+          '--port',
+          String(port),
+          '--strictPort',
+          '--host',
+          '127.0.0.1',
+        ]
+      : [
+          join(ROOT, 'node_modules', 'vite', 'bin', 'vite.js'),
+          '--port',
+          String(port),
+          '--strictPort',
+          '--host',
+          '127.0.0.1',
+        ]
+
+  const vite = spawn(process.execPath, viteArgs, {
+    cwd: ROOT,
+    stdio: 'ignore',
+    windowsHide: true,
+  })
 
   let browser = null
   const cleanup = []

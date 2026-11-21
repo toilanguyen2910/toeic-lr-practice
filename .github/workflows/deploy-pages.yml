@@ -1,0 +1,68 @@
+name: Deploy lên GitHub Pages
+
+# Tự động phát hành mỗi khi push lên nhánh main, hoặc bấm tay từ tab Actions.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Quyền tối thiểu cần thiết để đẩy bản build lên Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Chỉ giữ một lần deploy đang chạy; lần mới sẽ huỷ lần cũ đang xếp hàng.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      # `VITE_BASE` bắt buộc: GitHub Pages phục vụ ở /<ten-repo>/, không phải gốc
+      # tên miền. Thiếu biến này thì asset và ảnh đều 404.
+      - name: Kiểm tra kiểu
+        run: npx tsc -b
+
+      - name: Chạy unit test
+        run: npx vitest run
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+
+      # Pages cần một tệp .nojekyll, nếu không Jekyll sẽ bỏ qua các thư mục
+      # bắt đầu bằng dấu gạch dưới (không có ở đây, nhưng thêm cho chắc).
+      - name: Thêm .nojekyll
+        run: touch dist/.nojekyll
+
+      - name: Đóng gói artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Phát hành lên Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

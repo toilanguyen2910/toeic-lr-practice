@@ -9,11 +9,11 @@
     "lint": "oxlint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "smoke": "node scripts/smoke.mjs",
     "preview": "vite preview",
     "verify:core": "node scripts/verify-core.mjs",
     "verify:ui": "node scripts/verify-ui.mjs",
-    "shots": "node scripts/screenshots.mjs"
+    "shots": "node scripts/screenshots.mjs",
+    "verify:prod": "node scripts/verify-prod.mjs"
   },
   "dependencies": {
     "react": "^19.3.1",

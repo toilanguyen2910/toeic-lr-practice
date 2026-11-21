@@ -80,7 +80,12 @@ function StimulusBlock({
             <figure className="stimulus__figure">
               <img
                 className="stimulus__image"
-                src={stimulus.imageUrl}
+                // `imageUrl` trong ngân hàng là đường dẫn tuyệt đối từ gốc
+                // (`/images/part1-01.svg`). Khi app được deploy dưới một thư mục
+                // con — ví dụ GitHub Pages phục vụ ở `/<ten-repo>/` — đường dẫn
+                // đó sẽ trỏ ra ngoài và ảnh 404. Ghép thêm `BASE_URL` để đúng ở
+                // cả hai trường hợp.
+                src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${stimulus.imageUrl}`}
                 alt={`Hình minh hoạ cho ${meta.label}`}
                 loading="lazy"
               />

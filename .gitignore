@@ -35,3 +35,19 @@ docs/screenshots/live/
 gfarm/
 ProjectPUBG/
 docs/REVIEW-gfarm-ultra.md
+
+# Tệp lặt vặt của việc khác trong cùng thư mục làm việc (ảnh chụp, VM, công cụ thử).
+# Dùng mẫu rộng để repo TOEIC không bị lẫn; nếu cần thêm file thật của dự án thì
+# thêm ngoại lệ bằng dấu `!` ngay bên dưới.
+*.ova
+*.zip
+_probe_*/
+_vaa_*/
+win-anon/
+Whonix-*/
+*whonix*.png
+gw-*.png
+ws-*.png
+final-*.png
+
+.vercel

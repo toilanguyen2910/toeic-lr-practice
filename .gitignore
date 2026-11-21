@@ -51,3 +51,8 @@ ws-*.png
 final-*.png
 
 .vercel
+
+# Khoa API - KHONG BAO GIO commit
+.env
+.env.local
+.env.*.local

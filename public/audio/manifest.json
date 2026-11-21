@@ -1,511 +1,613 @@
 {
   "g-p1-0001": {
-    "bytes": 81600,
+    "bytes": 178093,
+    "engine": "eleven",
     "file": "audio/g-p1-0001.mp3",
     "part": 1
   },
   "g-p1-0002": {
-    "bytes": 78528,
+    "bytes": 148836,
+    "engine": "eleven",
     "file": "audio/g-p1-0002.mp3",
     "part": 1
   },
   "g-p1-0003": {
-    "bytes": 92160,
+    "bytes": 182273,
+    "engine": "eleven",
     "file": "audio/g-p1-0003.mp3",
     "part": 1
   },
   "g-p1-0004": {
-    "bytes": 85824,
+    "bytes": 151762,
+    "engine": "eleven",
     "file": "audio/g-p1-0004.mp3",
     "part": 1
   },
   "g-p1-0005": {
-    "bytes": 83136,
+    "bytes": 152598,
+    "engine": "eleven",
     "file": "audio/g-p1-0005.mp3",
     "part": 1
   },
   "g-p1-0006": {
-    "bytes": 80256,
+    "bytes": 158031,
+    "engine": "eleven",
     "file": "audio/g-p1-0006.mp3",
     "part": 1
   },
   "g-p1-0007": {
-    "bytes": 83904,
+    "bytes": 144656,
+    "engine": "eleven",
     "file": "audio/g-p1-0007.mp3",
     "part": 1
   },
   "g-p1-0008": {
-    "bytes": 82944,
+    "bytes": 158449,
+    "engine": "eleven",
     "file": "audio/g-p1-0008.mp3",
     "part": 1
   },
   "g-p1-0009": {
-    "bytes": 78912,
+    "bytes": 147582,
+    "engine": "eleven",
     "file": "audio/g-p1-0009.mp3",
     "part": 1
   },
   "g-p1-0010": {
-    "bytes": 87936,
+    "bytes": 162211,
+    "engine": "eleven",
     "file": "audio/g-p1-0010.mp3",
     "part": 1
   },
   "g-p1-0011": {
-    "bytes": 92928,
+    "bytes": 174750,
+    "engine": "eleven",
     "file": "audio/g-p1-0011.mp3",
     "part": 1
   },
   "g-p1-0012": {
-    "bytes": 80640,
+    "bytes": 163883,
+    "engine": "eleven",
     "file": "audio/g-p1-0012.mp3",
     "part": 1
   },
   "g-p1-0013": {
-    "bytes": 86976,
+    "bytes": 154687,
+    "engine": "eleven",
     "file": "audio/g-p1-0013.mp3",
     "part": 1
   },
   "g-p1-0014": {
-    "bytes": 76032,
+    "bytes": 139223,
+    "engine": "eleven",
     "file": "audio/g-p1-0014.mp3",
     "part": 1
   },
   "g-p1-0015": {
-    "bytes": 95040,
+    "bytes": 173496,
+    "engine": "eleven",
     "file": "audio/g-p1-0015.mp3",
     "part": 1
   },
   "g-p1-0016": {
-    "bytes": 84672,
+    "bytes": 157195,
+    "engine": "eleven",
     "file": "audio/g-p1-0016.mp3",
     "part": 1
   },
   "g-p1-0017": {
-    "bytes": 87168,
+    "bytes": 178093,
+    "engine": "eleven",
     "file": "audio/g-p1-0017.mp3",
     "part": 1
   },
   "g-p1-0018": {
-    "bytes": 79104,
+    "bytes": 145074,
+    "engine": "eleven",
     "file": "audio/g-p1-0018.mp3",
     "part": 1
   },
   "g-p1-0019": {
-    "bytes": 79488,
+    "bytes": 150508,
+    "engine": "eleven",
     "file": "audio/g-p1-0019.mp3",
     "part": 1
   },
   "g-p1-0020": {
-    "bytes": 82752,
+    "bytes": 147582,
+    "engine": "eleven",
     "file": "audio/g-p1-0020.mp3",
     "part": 1
   },
   "g-p2-0001": {
-    "bytes": 22848,
+    "bytes": 31390,
+    "engine": "eleven",
     "file": "audio/g-p2-0001.mp3",
     "part": 2
   },
   "g-p2-0002": {
-    "bytes": 23616,
+    "bytes": 35987,
+    "engine": "eleven",
     "file": "audio/g-p2-0002.mp3",
     "part": 2
   },
   "g-p2-0004": {
-    "bytes": 17280,
+    "bytes": 27628,
+    "engine": "eleven",
     "file": "audio/g-p2-0004.mp3",
     "part": 2
   },
   "g-p2-0005": {
-    "bytes": 34368,
+    "bytes": 53123,
+    "engine": "eleven",
     "file": "audio/g-p2-0005.mp3",
     "part": 2
   },
   "g-p2-0006": {
-    "bytes": 22464,
+    "bytes": 33897,
+    "engine": "eleven",
     "file": "audio/g-p2-0006.mp3",
     "part": 2
   },
   "g-p2-0007": {
-    "bytes": 27072,
+    "bytes": 41003,
+    "engine": "eleven",
     "file": "audio/g-p2-0007.mp3",
     "part": 2
   },
   "g-p2-0009": {
-    "bytes": 21312,
+    "bytes": 34315,
+    "engine": "eleven",
     "file": "audio/g-p2-0009.mp3",
     "part": 2
   },
   "g-p2-0010": {
-    "bytes": 29952,
+    "bytes": 48526,
+    "engine": "eleven",
     "file": "audio/g-p2-0010.mp3",
     "part": 2
   },
   "g-p2-0011": {
-    "bytes": 24000,
+    "bytes": 35987,
+    "engine": "eleven",
     "file": "audio/g-p2-0011.mp3",
     "part": 2
   },
   "g-p2-0013": {
-    "bytes": 28800,
+    "bytes": 47690,
+    "engine": "eleven",
     "file": "audio/g-p2-0013.mp3",
     "part": 2
   },
   "g-p2-0014": {
-    "bytes": 23424,
+    "bytes": 36823,
+    "engine": "eleven",
     "file": "audio/g-p2-0014.mp3",
     "part": 2
   },
   "g-p2-0015": {
-    "bytes": 26688,
+    "bytes": 42674,
+    "engine": "eleven",
     "file": "audio/g-p2-0015.mp3",
     "part": 2
   },
   "g-p2-0016": {
-    "bytes": 26880,
+    "bytes": 37659,
+    "engine": "eleven",
     "file": "audio/g-p2-0016.mp3",
     "part": 2
   },
   "g-p2-0017": {
-    "bytes": 39360,
+    "bytes": 59811,
+    "engine": "eleven",
     "file": "audio/g-p2-0017.mp3",
     "part": 2
   },
   "g-p2-0018": {
-    "bytes": 26880,
+    "bytes": 42674,
+    "engine": "eleven",
     "file": "audio/g-p2-0018.mp3",
     "part": 2
   },
   "g-p2-0019": {
-    "bytes": 37440,
+    "bytes": 51034,
+    "engine": "eleven",
     "file": "audio/g-p2-0019.mp3",
     "part": 2
   },
   "g-p2-0020": {
-    "bytes": 30144,
+    "bytes": 49362,
+    "engine": "eleven",
     "file": "audio/g-p2-0020.mp3",
     "part": 2
   },
   "g-p2-0022": {
-    "bytes": 27072,
+    "bytes": 45600,
+    "engine": "eleven",
     "file": "audio/g-p2-0022.mp3",
     "part": 2
   },
   "g-p2-0024": {
-    "bytes": 30528,
+    "bytes": 45600,
+    "engine": "eleven",
     "file": "audio/g-p2-0024.mp3",
     "part": 2
   },
   "g-p2-0025": {
-    "bytes": 30336,
+    "bytes": 47690,
+    "engine": "eleven",
     "file": "audio/g-p2-0025.mp3",
     "part": 2
   },
   "g-p2-0026": {
-    "bytes": 28608,
+    "bytes": 47690,
+    "engine": "eleven",
     "file": "audio/g-p2-0026.mp3",
     "part": 2
   },
   "g-p2-0027": {
-    "bytes": 25728,
+    "bytes": 38913,
+    "engine": "eleven",
     "file": "audio/g-p2-0027.mp3",
     "part": 2
   },
   "g-p2-0028": {
-    "bytes": 27264,
+    "bytes": 47690,
+    "engine": "eleven",
     "file": "audio/g-p2-0028.mp3",
     "part": 2
   },
   "g-p2-0029": {
-    "bytes": 30144,
+    "bytes": 52287,
+    "engine": "eleven",
     "file": "audio/g-p2-0029.mp3",
     "part": 2
   },
   "g-p2-0030": {
-    "bytes": 33024,
+    "bytes": 49362,
+    "engine": "eleven",
     "file": "audio/g-p2-0030.mp3",
     "part": 2
   },
   "g-p2-0031": {
-    "bytes": 25344,
+    "bytes": 47272,
+    "engine": "eleven",
     "file": "audio/g-p2-0031.mp3",
     "part": 2
   },
   "g-p2-0032": {
-    "bytes": 25344,
+    "bytes": 40585,
+    "engine": "eleven",
     "file": "audio/g-p2-0032.mp3",
     "part": 2
   },
   "g-p2-0033": {
-    "bytes": 30144,
+    "bytes": 47690,
+    "engine": "eleven",
     "file": "audio/g-p2-0033.mp3",
     "part": 2
   },
   "g-p2-0034": {
-    "bytes": 25728,
+    "bytes": 38913,
+    "engine": "eleven",
     "file": "audio/g-p2-0034.mp3",
     "part": 2
   },
   "g-p2-0035": {
-    "bytes": 27648,
+    "bytes": 44346,
+    "engine": "eleven",
     "file": "audio/g-p2-0035.mp3",
     "part": 2
   },
   "g-p2-0037": {
-    "bytes": 28032,
+    "bytes": 48526,
+    "engine": "eleven",
     "file": "audio/g-p2-0037.mp3",
     "part": 2
   },
   "g-p2-0039": {
-    "bytes": 22848,
+    "bytes": 33061,
+    "engine": "eleven",
     "file": "audio/g-p2-0039.mp3",
     "part": 2
   },
   "g-p2-0040": {
-    "bytes": 30528,
+    "bytes": 51034,
+    "engine": "eleven",
     "file": "audio/g-p2-0040.mp3",
     "part": 2
   },
   "g-p2-0041": {
-    "bytes": 36672,
+    "bytes": 53123,
+    "engine": "eleven",
     "file": "audio/g-p2-0041.mp3",
     "part": 2
   },
   "g-p2-0042": {
-    "bytes": 28032,
+    "bytes": 44764,
+    "engine": "eleven",
     "file": "audio/g-p2-0042.mp3",
     "part": 2
   },
   "g-p2-0043": {
-    "bytes": 32064,
+    "bytes": 51034,
+    "engine": "eleven",
     "file": "audio/g-p2-0043.mp3",
     "part": 2
   },
   "g-p2-0044": {
-    "bytes": 26496,
+    "bytes": 43510,
+    "engine": "eleven",
     "file": "audio/g-p2-0044.mp3",
     "part": 2
   },
   "g-p2-0045": {
-    "bytes": 28800,
+    "bytes": 46436,
+    "engine": "eleven",
     "file": "audio/g-p2-0045.mp3",
     "part": 2
   },
   "g-p2-0046": {
-    "bytes": 26112,
+    "bytes": 43510,
+    "engine": "eleven",
     "file": "audio/g-p2-0046.mp3",
     "part": 2
   },
   "g-p2-0048": {
-    "bytes": 26880,
+    "bytes": 42674,
+    "engine": "eleven",
     "file": "audio/g-p2-0048.mp3",
     "part": 2
   },
   "g-p2-0049": {
-    "bytes": 20544,
+    "bytes": 33897,
+    "engine": "eleven",
     "file": "audio/g-p2-0049.mp3",
     "part": 2
   },
   "g-p2-0051": {
-    "bytes": 30144,
+    "bytes": 51452,
+    "engine": "eleven",
     "file": "audio/g-p2-0051.mp3",
     "part": 2
   },
   "g-p2-0052": {
-    "bytes": 28416,
+    "bytes": 44764,
+    "engine": "eleven",
     "file": "audio/g-p2-0052.mp3",
     "part": 2
   },
   "g-p2-0053": {
-    "bytes": 27840,
+    "bytes": 47272,
+    "engine": "eleven",
     "file": "audio/g-p2-0053.mp3",
     "part": 2
   },
   "g-p2-0054": {
-    "bytes": 22272,
+    "bytes": 34315,
+    "engine": "eleven",
     "file": "audio/g-p2-0054.mp3",
     "part": 2
   },
   "g-p2-0056": {
-    "bytes": 20928,
+    "bytes": 33061,
+    "engine": "eleven",
     "file": "audio/g-p2-0056.mp3",
     "part": 2
   },
   "g-p2-0057": {
-    "bytes": 28032,
+    "bytes": 41838,
+    "engine": "eleven",
     "file": "audio/g-p2-0057.mp3",
     "part": 2
   },
   "g-p2-0058": {
-    "bytes": 28608,
+    "bytes": 48526,
+    "engine": "eleven",
     "file": "audio/g-p2-0058.mp3",
     "part": 2
   },
   "g-p2-0059": {
-    "bytes": 27072,
+    "bytes": 41838,
+    "engine": "eleven",
     "file": "audio/g-p2-0059.mp3",
     "part": 2
   },
   "g-p2-0060": {
-    "bytes": 26688,
+    "bytes": 39749,
+    "engine": "eleven",
     "file": "audio/g-p2-0060.mp3",
     "part": 2
   },
   "g-p3-0001": {
-    "bytes": 46464,
+    "bytes": 67752,
+    "engine": "eleven",
     "file": "audio/g-p3-0001.mp3",
     "part": 3
   },
   "g-p3-0004": {
-    "bytes": 120429,
+    "bytes": 186453,
+    "engine": "eleven",
     "file": "audio/g-p3-0004.mp3",
     "part": 3
   },
   "g-p3-0005": {
-    "bytes": 128109,
+    "bytes": 220726,
+    "engine": "eleven",
     "file": "audio/g-p3-0005.mp3",
     "part": 3
   },
   "g-p3-0007": {
-    "bytes": 102189,
+    "bytes": 152180,
+    "engine": "eleven",
     "file": "audio/g-p3-0007.mp3",
     "part": 3
   },
   "g-p3-0008": {
-    "bytes": 180717,
+    "bytes": 287599,
+    "engine": "eleven",
     "file": "audio/g-p3-0008.mp3",
     "part": 3
   },
   "g-p3-0009": {
-    "bytes": 223149,
+    "bytes": 359069,
+    "engine": "eleven",
     "file": "audio/g-p3-0009.mp3",
     "part": 3
   },
   "g-p3-0010": {
-    "bytes": 177261,
+    "bytes": 300138,
+    "engine": "eleven",
     "file": "audio/g-p3-0010.mp3",
     "part": 3
   },
   "g-p3-0011": {
-    "bytes": 293421,
+    "bytes": 465230,
+    "engine": "eleven",
     "file": "audio/g-p3-0011.mp3",
     "part": 3
   },
   "g-p3-0012": {
-    "bytes": 212397,
+    "bytes": 327305,
+    "engine": "eleven",
     "file": "audio/g-p3-0012.mp3",
     "part": 3
   },
   "g-p3-0013": {
-    "bytes": 202413,
+    "bytes": 309750,
+    "engine": "eleven",
     "file": "audio/g-p3-0013.mp3",
     "part": 3
   },
   "g-p3-0014": {
-    "bytes": 362541,
+    "bytes": 549658,
+    "engine": "eleven",
     "file": "audio/g-p3-0014.mp3",
     "part": 3
   },
   "g-p3-0015": {
-    "bytes": 299757,
+    "bytes": 478187,
+    "engine": "eleven",
     "file": "audio/g-p3-0015.mp3",
     "part": 3
   },
   "g-p3-0016": {
-    "bytes": 307053,
+    "bytes": 461050,
+    "engine": "eleven",
     "file": "audio/g-p3-0016.mp3",
     "part": 3
   },
   "g-p3-0017": {
-    "bytes": 295341,
+    "bytes": 458543,
+    "engine": "eleven",
     "file": "audio/g-p3-0017.mp3",
     "part": 3
   },
   "g-p3-0018": {
-    "bytes": 301101,
+    "bytes": 489889,
+    "engine": "eleven",
     "file": "audio/g-p3-0018.mp3",
     "part": 3
   },
   "g-p3-0019": {
-    "bytes": 278445,
+    "bytes": 447675,
+    "engine": "eleven",
     "file": "audio/g-p3-0019.mp3",
     "part": 3
   },
   "g-p3-0020": {
-    "bytes": 293421,
+    "bytes": 460214,
+    "engine": "eleven",
     "file": "audio/g-p3-0020.mp3",
     "part": 3
   },
   "g-p4-0001": {
-    "bytes": 177837,
+    "bytes": 286345,
+    "engine": "eleven",
     "file": "audio/g-p4-0001.mp3",
     "part": 4
   },
   "g-p4-0002": {
-    "bytes": 44928,
+    "bytes": 58975,
+    "engine": "eleven",
     "file": "audio/g-p4-0002.mp3",
     "part": 4
   },
   "g-p4-0003": {
-    "bytes": 135021,
+    "bytes": 217381,
+    "engine": "eleven",
     "file": "audio/g-p4-0003.mp3",
     "part": 4
   },
   "g-p4-0004": {
-    "bytes": 315501,
+    "bytes": 492398,
+    "engine": "eleven",
     "file": "audio/g-p4-0004.mp3",
     "part": 4
   },
   "g-p4-0005": {
-    "bytes": 309165,
+    "bytes": 526253,
+    "engine": "eleven",
     "file": "audio/g-p4-0005.mp3",
     "part": 4
   },
   "g-p4-0006": {
-    "bytes": 317805,
+    "bytes": 545061,
+    "engine": "eleven",
     "file": "audio/g-p4-0006.mp3",
     "part": 4
   },
   "g-p4-0007": {
-    "bytes": 284973,
+    "bytes": 481950,
+    "engine": "eleven",
     "file": "audio/g-p4-0007.mp3",
     "part": 4
   },
   "g-p4-0008": {
-    "bytes": 308589,
+    "bytes": 513714,
+    "engine": "eleven",
     "file": "audio/g-p4-0008.mp3",
     "part": 4
   },
   "g-p4-0009": {
-    "bytes": 316653,
+    "bytes": 552585,
+    "engine": "eleven",
     "file": "audio/g-p4-0009.mp3",
     "part": 4
   },
   "g-p4-0010": {
-    "bytes": 314925,
+    "bytes": 535448,
+    "engine": "eleven",
     "file": "audio/g-p4-0010.mp3",
     "part": 4
   },
   "g-p4-0011": {
-    "bytes": 283437,
+    "bytes": 473590,
+    "engine": "eleven",
     "file": "audio/g-p4-0011.mp3",
     "part": 4
   },
   "g-p4-0012": {
-    "bytes": 339117,
+    "bytes": 579752,
+    "engine": "eleven",
     "file": "audio/g-p4-0012.mp3",
     "part": 4
   },
   "g-p4-0013": {
-    "bytes": 309357,
+    "bytes": 515386,
+    "engine": "eleven",
     "file": "audio/g-p4-0013.mp3",
     "part": 4
   },
   "g-p4-0014": {
-    "bytes": 301101,
+    "bytes": 301293,
+    "engine": "eleven",
     "file": "audio/g-p4-0014.mp3",
     "part": 4
   },
   "g-p4-0015": {
     "bytes": 309549,
+    "engine": "eleven",
     "file": "audio/g-p4-0015.mp3",
     "part": 4
   }

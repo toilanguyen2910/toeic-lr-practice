@@ -1,8 +1,11 @@
 import { ROUTES, TID } from '../testids'
+import { buildMockSet, findMockSet, MOCK_DURATION_SECONDS } from '../lib'
+import type { Part } from '../types'
 import { navigate } from '../hooks/useHashRoute'
 import { useSession } from './sessionContext'
 import { describeParts } from './partHelpers'
 import { setPreferredReviewFilter } from './reviewFilter'
+import { useBankIndex } from '../hooks/useBankIndex'
 
 function percent(value: number): string {
   // `SessionResult.accuracy` đã là % do engine tính; UI chỉ trình bày.
@@ -11,17 +14,62 @@ function percent(value: number): string {
 
 /** Màn hình kết quả của phiên đã nộp. */
 export function ResultPage() {
-  const { session, result, reset, start } = useSession()
+  const { session, result, reset, start, adopt, bank } = useSession()
+  const questionById = useBankIndex(bank).questionById
 
+  /**
+   * "Làm lại" — dựng lại ĐÚNG phiên cũ, không tạo phiên mới tuỳ ý.
+   * Ba lỗi cũ (reviewer phát hiện, nay đã sửa):
+   * 1. Thi thử: `start()` không truyền `seed` nên tạo phiên lấy TOÀN BỘ ngân hàng
+   *    (425 câu) thay vì 200.
+   * 2. Luyện tập: `countPerPart()` lấy số lớn nhất trong các part rồi áp cho MỌI
+   *    part. Đặt 77 câu (6/25/30/16) thì làm lại ra 30/30/30/30 = 120 câu.
+   * 3. Đồng hồ: thi thử làm lại rơi về 59:59 thay vì 120:00.
+   * Cách sửa: đếm lại số câu THẬT của từng part trong phiên cũ rồi dựng lại đúng
+   * phân bổ đó. Với thi thử, quay về trang chọn đề để dựng lại đúng đề 200 câu
+   * qua `MockSetRoute` — nơi đã biết cách dựng theo seed của đề.
+   */
   const retry = () => {
     if (!session) {
       navigate(ROUTES.partSelect)
       return
     }
+
+    // Thi thử: về danh sách đề, người dùng chọn lại (đề đó vẫn còn, đúng 200 câu).
+    const mockMatch = /^mock(\d{1,2})-/u.exec(session.id)
+    if (mockMatch) {
+      const id = Number(mockMatch[1])
+      const def = findMockSet(id)
+      if (def) {
+        /*
+         * Dựng phiên đề đó qua provider và ÉP thời lượng 120 phút.
+         *
+         * `buildMockSet` trả `durationSeconds: null` (để `createSession` tự tính),
+         * nên phải ghi đè sau khi dựng. Thiếu bước này thì đồng hồ về `null` và
+         * màn làm bài hiện "không giới hạn" thay vì đếm ngược.
+         */
+        const rebuilt = buildMockSet(bank, def)
+        adopt({ ...rebuilt, durationSeconds: MOCK_DURATION_SECONDS })
+        navigate(`${ROUTES.mock}/${id}`)
+        return
+      }
+      navigate(ROUTES.mock)
+      return
+    }
+
+    // Luyện tập: đếm lại số câu thật của từng part, giữ nguyên thời lượng.
+    const perPart: Partial<Record<Part, number>> = {}
+    for (const qid of session.questionIds) {
+      const q = questionById.get(qid)
+      if (!q) continue
+      perPart[q.part] = (perPart[q.part] ?? 0) + 1
+    }
+
     start({
       mode: session.mode,
       parts: session.parts,
-      countPerPart: session.mode === 'practice' ? countPerPart(session.questionIds) : undefined,
+      countByPart: perPart,
+      durationSeconds: session.durationSeconds ?? undefined,
       revealMode: session.revealMode,
     })
     navigate(session.mode === 'mock' ? ROUTES.mock : ROUTES.practice)
@@ -216,18 +264,10 @@ export function ResultPage() {
 
 /**
  * Số câu mỗi part của phiên vừa làm — dùng để "Làm lại" với đúng cấu hình cũ.
- *
  * Id câu hỏi theo quy ước `p{part}-{4 số}` trong `src/types.ts`, nên tiền tố
  * trước dấu `-` chính là part. Ở chế độ luyện tập mọi part có cùng số câu, nên
- * lấy giá trị lớn nhất là khớp.
  */
-function countPerPart(questionIds: string[]): number | undefined {
-  const counts = new Map<string, number>()
-  for (const id of questionIds) {
-    const prefix = id.slice(0, id.indexOf('-') === -1 ? undefined : id.indexOf('-'))
-    counts.set(prefix, (counts.get(prefix) ?? 0) + 1)
-  }
-  if (counts.size === 0) return undefined
-  return Math.max(...counts.values())
-}
+
+
+
 

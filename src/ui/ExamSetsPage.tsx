@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { EXAM_SETS, examSetSize, loadHistory } from '../lib'
+import { EXAM_SETS, examSetSize, loadHistory, SCORING_VERSION } from '../lib'
 import type { HistoryEntry } from '../lib/contract'
 import { ROUTES, TID, examSetRoute } from '../testids'
 import { useSession } from './sessionContext'
@@ -28,6 +28,9 @@ function collectStats(history: HistoryEntry[]): Map<number, SetStat> {
   for (const entry of history) {
     const id = entry.examSetId
     if (!id) continue
+    // Bỏ qua bản ghi tính theo công thức cũ: điểm của nó không so sánh được với
+    // điểm hiện tại, nên không được tham gia "cao nhất".
+    if (entry.scoringVersion !== SCORING_VERSION) continue
     const current = map.get(id) ?? { attempts: 0, best: null }
     map.set(id, {
       attempts: current.attempts + 1,
@@ -98,3 +101,4 @@ export function ExamSetsPage() {
     </div>
   )
 }
+

@@ -14,7 +14,7 @@ import type { Question, Stimulus } from '../types'
  * - part1-13.svg: người đàn ông đứng bên tủ hồ sơ, tay đưa tập tài liệu vào ngăn kéo.
  * - part1-14.svg: người phụ nữ đặt đĩa và dao nĩa lên bàn ăn trong nhà hàng.
  * - part1-15.svg: người đàn ông quỳ bên máy photocopy đang mở nắp, tay cầm tua-vít.
- * - part1-16.svg: người phụ nữ đứng cạnh màn hình lớn, tay chỉ vào biểu đồ, đồng nghiệp ngồi nghe.
+        'Người phụ nữ đứng bên trái tấm bảng trắng, tay phải cầm bút đưa lên chỉ vào biểu đồ đường đã vẽ sẵn trên bảng, hướng về phía đồng nghiệp đang ngồi nghe, nên B đúng. ' +
  * - part1-17.svg: người đàn ông bê thùng các-tông lên sàn xe tải đang mở cửa sau.
  * - part1-18.svg: ba người ngồi trên ghế băng trong công viên, cây xanh phía sau.
  * - part1-19.svg: người đàn ông tra chìa khoá vào ổ cửa gỗ.
@@ -165,7 +165,7 @@ export const PART1B_QUESTIONS: Question[] = [
     explanation:
       'Hai người đứng đối diện nhau, tay phải của cả hai nắm lấy nhau ngang ngực ở giữa khung hình, nên A mô tả đúng động tác trong tranh. ' +
       'B sai vì hai tay còn lại của họ buông xuôi, trong ảnh không có thùng hàng nào. ' +
-      'C sai vì cửa thang máy phía sau đang đóng và không ai quay mặt về phía đó chờ đợi. ' +
+        'C sai vì trong ảnh không có thang máy nào; phía sau chỉ có cửa ra vào và cửa sổ. ' +
       'D sai vì sàn sảnh sạch, không có chổi hay cây lau nhà nào trong tranh.',
     translation: 'Họ đang bắt tay. (Đáp án A)',
   },
@@ -231,7 +231,7 @@ export const PART1B_QUESTIONS: Question[] = [
     explanation:
       'Cả ba người đều đội mũ bảo hộ màu vàng trên đầu, và mũ là chi tiết rõ nhất trong khung hình, nên D mô tả đúng. ' +
       'A sai vì không có con lăn sơn, xô sơn hay giàn giáo nào đang được dùng. ' +
-      'B sai vì chiếc cần cẩu đứng ở xa, không ai ngồi trong buồng điều khiển. ' +
+        'B sai vì trong ảnh không có cần cẩu hay xe cộ nào, chỉ có tường và cửa sổ. ' +
       'C sai vì không ai cầm hộp cơm hay ngồi xuống ăn; cả ba đang đứng nhìn công trình.',
     translation: 'Họ đang đội mũ bảo hộ lao động. (Đáp án D)',
   },
@@ -252,9 +252,9 @@ export const PART1B_QUESTIONS: Question[] = [
     answer: 'A',
     explanation:
       'Người đàn ông đứng bên tủ hồ sơ đã mở ngăn kéo, tay đưa tập tài liệu vào trong, nên A đúng. ' +
-      'B sai vì máy in đặt ở góc phòng đang không chạy và anh ta không đứng cạnh nó. ' +
-      'C sai vì chiếc điện thoại trên bàn đang đặt úp xuống, không ai cầm lên nghe. ' +
-      'D sai vì cửa phòng phía sau đang mở và tay còn lại của anh ta không cầm chìa khoá.',
+        'B sai vì trong ảnh không có máy in nào; sau lưng anh ta chỉ có cửa sổ. ' +
+        'C sai vì không có điện thoại trong ảnh, và tay còn lại của anh ta buông xuôi. ' +
+        'D sai vì không có cửa phòng nào trong ảnh và tay anh ta không cầm chìa khoá.',
     translation: 'Anh ấy đang cất tài liệu vào tủ hồ sơ. (Đáp án A)',
   },
   {
@@ -273,7 +273,7 @@ export const PART1B_QUESTIONS: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Người phụ nữ cúi xuống đặt đĩa và bộ dao nĩa lên mặt bàn ăn đã trải khăn, nên C mô tả đúng. ' +
+        'Người phụ nữ đứng cạnh bàn ăn đã trải khăn trắng, tay đưa đĩa và ly đặt lên mặt bàn, nên C mô tả đúng. ' +
       'A sai vì cô ấy đứng ở khu vực bàn khách, cách xa quầy bếp và không cầm xoong chảo. ' +
       'B sai vì không có bồn rửa hay chồng bát bẩn nào trong ảnh. ' +
       'D sai vì trên bàn không có hoá đơn hay ví tiền, tay cô ấy đang cầm đĩa.',
@@ -317,10 +317,10 @@ export const PART1B_QUESTIONS: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Người phụ nữ đứng cạnh màn hình lớn, tay chỉ vào biểu đồ trên màn hình, phía dưới là đồng nghiệp ngồi nghe, nên B đúng. ' +
-      'A sai vì đèn trong phòng vẫn sáng và tay cô ấy đang chỉ lên màn hình, không với tới công tắc. ' +
+        'Người phụ nữ đứng bên trái tấm bảng trắng, tay phải cầm bút đưa lên chỉ vào biểu đồ đường đã vẽ sẵn trên bảng, hướng về phía đồng nghiệp đang ngồi nghe, nên B đúng. ' +
+        'A sai vì tay cô ấy đang cầm bút chỉ lên bảng, không với tới công tắc đèn nào. ' +
       'C sai vì tất cả ghế đều đã có người ngồi và không ai kê ghế. ' +
-      'D sai vì không có tập tài liệu nào trên tay cô ấy; giấy tờ nằm sẵn trên bàn.',
+        'D sai vì tay cô ấy cầm bút, không cầm tập tài liệu nào; giấy tờ nằm sẵn trên bàn.',
     translation: 'Cô ấy đang thuyết trình. (Đáp án B)',
   },
   {
@@ -361,10 +361,10 @@ export const PART1B_QUESTIONS: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Ba người đều ngồi trên ghế băng gỗ trong công viên, chân duỗi về phía lối đi, nên C đúng. ' +
+        'Hai người ngồi cạnh nhau trên ghế băng gỗ trong công viên, nên C đúng. ' +
       'A sai vì cây đã trồng sẵn thành hàng, không ai cầm xẻng hay bình tưới. ' +
       'B sai vì không có chiếc xe đạp nào trong ảnh. ' +
-      'D sai vì không có hàng người nối tiếp, cả ba đang ngồi chứ không đứng.',
+        'D sai vì không có hàng người nối tiếp, cả hai đang ngồi chứ không đứng.',
     translation: 'Họ đang ngồi trên ghế băng. (Đáp án C)',
   },
   {
@@ -412,3 +412,4 @@ export const PART1B_QUESTIONS: Question[] = [
     translation: 'Cô ấy đang ghi chép vào sổ tay. (Đáp án D)',
   },
 ]
+

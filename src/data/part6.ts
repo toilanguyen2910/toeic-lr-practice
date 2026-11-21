@@ -73,18 +73,18 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0001',
     prompt: 'Which word best completes blank (1)?',
     choices: [
-      { letter: 'A', text: 'scheduling' },
-      { letter: 'B', text: 'schedules' },
-      { letter: 'C', text: 'schedule' },
-      { letter: 'D', text: 'scheduled' },
-    ],
-    answer: 'D',
+        { letter: 'A', text: 'scheduling' },
+        { letter: 'B', text: 'scheduled' },
+        { letter: 'C', text: 'schedules' },
+        { letter: 'D', text: 'schedule' },
+      ],
+    answer: 'B',
     explanation:
-      'Câu bị động "The move was originally ______ for April": sau "was" cần quá khứ phân từ (V3) → D ' +
+      'Dâu bị động "The move was originally ______ for April": sau "was" cần quá khứ phân từ (V3) → B ' +
       '("scheduled", được lên lịch) là đúng. ' +
-      'C là động từ nguyên mẫu, không đứng sau "was"; ' +
+      'D là động từ nguyên mẫu, không đứng sau "was"; ' +
       'A là V-ing, chỉ dùng trong thì tiếp diễn chứ không mang nghĩa bị động ở đây; ' +
-      'B chia ngôi thứ ba số ít, không hợp với "The move was".',
+      'C chia ngôi thứ ba số ít, không hợp với "The move was".',
     translation:
       'Việc chuyển văn phòng ban đầu được lên lịch vào tháng Tư, nhưng chủ toà nhà cần thêm thời gian ' +
       'hoàn thiện việc cải tạo tầng bốn.',
@@ -98,17 +98,17 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0001',
     prompt: 'Which word best completes blank (2)?',
     choices: [
-      { letter: 'A', text: 'by' },
-      { letter: 'B', text: 'at' },
-      { letter: 'C', text: 'with' },
-      { letter: 'D', text: 'of' },
-    ],
-    answer: 'C',
+        { letter: 'A', text: 'with' },
+        { letter: 'B', text: 'by' },
+        { letter: 'C', text: 'at' },
+        { letter: 'D', text: 'of' },
+      ],
+    answer: 'A',
     explanation:
-      'Cấu trúc "label something with something" — ghi nhãn cái gì BẰNG cái gì → "label every box with your ' +
-      'name and desk number" là đúng, nên C. ' +
-      'A sai vì "by" dùng cho phương thức hoặc tác nhân (labelled by hand), không hợp ở đây. ' +
-      'B sai vì "at" chỉ địa điểm hoặc thời điểm. ' +
+      'Aấu trúc "label something with something" — ghi nhãn cái gì CẰNG cái gì → "label every box with your ' +
+      'name and desk number" là đúng, nên A. ' +
+      'B sai vì "by" dùng cho phương thức hoặc tác nhân (labelled by hand), không hợp ở đây. ' +
+      'C sai vì "at" chỉ địa điểm hoặc thời điểm. ' +
       'D sai vì "of" chỉ sở hữu hoặc thành phần, không tạo ra cụm đúng nghĩa.',
     translation: 'Vui lòng ghi nhãn mỗi thùng bằng tên và số bàn làm việc của bạn.',
   },
@@ -121,16 +121,16 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0001',
     prompt: 'Which word best completes blank (3)?',
     choices: [
-      { letter: 'A', text: 'that' },
-      { letter: 'B', text: 'which' },
-      { letter: 'C', text: 'where' },
-      { letter: 'D', text: 'what' },
-    ],
-    answer: 'B',
+        { letter: 'A', text: 'which' },
+        { letter: 'B', text: 'that' },
+        { letter: 'C', text: 'where' },
+        { letter: 'D', text: 'what' },
+      ],
+    answer: 'A',
     explanation:
       'Đây là mệnh đề quan hệ không xác định (non-defining), đứng sau dấu phẩy và bổ sung thông tin cho ' +
-      '"the fourth floor", nên phải dùng "which" → B đúng. ' +
-      'A sai vì "that" không bao giờ đứng sau dấu phẩy trong mệnh đề quan hệ không xác định. ' +
+      '"the fourth floor", nên phải dùng "which" → A đúng. ' +
+      'B sai vì "that" không bao giờ đứng sau dấu phẩy trong mệnh đề quan hệ không xác định. ' +
       'C sai vì "where" thay cho trạng ngữ chỉ nơi chốn, nhưng ở đây nó phải làm CHỦ NGỮ của "is connected". ' +
       'D sai vì "what" không có tiền từ (antecedent) đứng trước nên không dùng được.',
     translation: 'Văn phòng mới nằm ở tầng bốn, tầng này được nối với toà nhà chính bằng một lối đi có mái che.',
@@ -144,17 +144,17 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0001',
     prompt: 'Which word best completes blank (4)?',
     choices: [
-      { letter: 'A', text: 'inform' },
-      { letter: 'B', text: 'informing' },
-      { letter: 'C', text: 'informed' },
-      { letter: 'D', text: 'information' },
-    ],
-    answer: 'C',
+        { letter: 'A', text: 'inform' },
+        { letter: 'B', text: 'informed' },
+        { letter: 'C', text: 'informing' },
+        { letter: 'D', text: 'information' },
+      ],
+    answer: 'B',
     explanation:
-      'Cụm cố định "keep somebody informed of something" — luôn giữ ai đó được biết thông tin → cần quá khứ ' +
-      'phân từ "informed" → C đúng. ' +
+      'Bụm cố định "keep somebody informed of something" — luôn giữ ai đó được biết thông tin → cần quá khứ ' +
+      'phân từ "informed" → B đúng. ' +
       'A là động từ nguyên mẫu, không đứng sau "keep you"; ' +
-      'B là V-ing, tạo nghĩa sai ("giữ bạn đang thông báo"); ' +
+      'C là V-ing, tạo nghĩa sai ("giữ bạn đang thông báo"); ' +
       'D là danh từ, không đứng sau "keep you" trong cấu trúc này.',
     translation:
       'Chúng tôi cảm ơn sự kiên nhẫn của bạn trong thời gian chuyển giao này và sẽ luôn thông báo cho bạn ' +
@@ -171,18 +171,18 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0002',
     prompt: 'Which word best completes blank (1)?',
     choices: [
-      { letter: 'A', text: 'based' },
-      { letter: 'B', text: 'basically' },
-      { letter: 'C', text: 'basis' },
-      { letter: 'D', text: 'base' },
-    ],
-    answer: 'C',
+        { letter: 'A', text: 'based' },
+        { letter: 'B', text: 'basis' },
+        { letter: 'C', text: 'basically' },
+        { letter: 'D', text: 'base' },
+      ],
+    answer: 'B',
     explanation:
-      'Cụm thành ngữ "on a first-come, first-served basis" (theo nguyên tắc đến trước được phục vụ trước) luôn ' +
-      'dùng danh từ "basis" → C đúng. ' +
+      'Bụm thành ngữ "on a first-come, first-served basis" (theo nguyên tắc đến trước được phục vụ trước) luôn ' +
+      'dùng danh từ "basis" → B đúng. ' +
       'D sai vì "base" mang nghĩa khác (căn cứ, nền) và không xuất hiện trong cụm này. ' +
       'A sai vì "based" là tính từ/V3, không đứng sau mạo từ "a". ' +
-      'B sai vì "basically" là trạng từ, cũng không thể đứng sau "a".',
+      'C sai vì "basically" là trạng từ, cũng không thể đứng sau "a".',
     translation:
       'Vì buổi đào tạo có các bài tập nhóm, số người tham dự giới hạn ở hai mươi. Suất được phân bổ theo ' +
       'nguyên tắc ai đăng ký trước được nhận trước, nên hãy đăng ký sớm.',
@@ -196,16 +196,16 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0002',
     prompt: 'Which word best completes blank (2)?',
     choices: [
-      { letter: 'A', text: 'will conduct' },
-      { letter: 'B', text: 'will be conducted' },
-      { letter: 'C', text: 'will be conducting' },
-      { letter: 'D', text: 'has conducted' },
-    ],
-    answer: 'B',
+        { letter: 'A', text: 'will be conducted' },
+        { letter: 'B', text: 'will conduct' },
+        { letter: 'C', text: 'will be conducting' },
+        { letter: 'D', text: 'has conducted' },
+      ],
+    answer: 'A',
     explanation:
       'Chủ ngữ "The workshop" không tự tiến hành mà ĐƯỢC tiến hành, nên cần bị động tương lai ' +
-      '"will be + V3" → B ("will be conducted") đúng. ' +
-      'A là chủ động kép sai cấu trúc; C là tương lai tiếp diễn chủ động ("will be conducting" = sẽ đang tự tiến hành) — ' +
+      '"will be + V3" → A ("will be conducted") đúng. ' +
+      'B là chủ động kép sai cấu trúc; C là tương lai tiếp diễn chủ động ("will be conducting" = sẽ đang tự tiến hành) — ' +
       'cả hai đều mâu thuẫn với nghĩa "buổi đào tạo được tiến hành"; ' +
       'D ở thì hiện tại hoàn thành, không khớp với sự kiện chưa diễn ra trong tương lai.',
     translation: 'Buổi đào tạo sẽ được tiến hành hoàn toàn bằng tiếng Anh, và mỗi người tham dự sẽ phải trình bày một tình huống đàm phán ngắn theo cặp.',
@@ -219,17 +219,17 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0002',
     prompt: 'Which word best completes blank (3)?',
     choices: [
-      { letter: 'A', text: 'attend' },
-      { letter: 'B', text: 'attending' },
-      { letter: 'C', text: 'attendance' },
-      { letter: 'D', text: 'attended' },
-    ],
-    answer: 'A',
+        { letter: 'A', text: 'attending' },
+        { letter: 'B', text: 'attendance' },
+        { letter: 'C', text: 'attended' },
+        { letter: 'D', text: 'attend' },
+      ],
+    answer: 'D',
     explanation:
-      'Sau "does not need to" phải là động từ nguyên mẫu không "to" → A ("attend") đúng. ' +
-      'B là V-ing, không đứng sau "to" trong cấu trúc này; ' +
-      'C là danh từ nên không thể nhận tân ngữ "the morning session"; ' +
-      'D là V3, chỉ dùng trong thì hoàn thành hoặc bị động.',
+      'Sau "does not need to" phải là động từ nguyên mẫu không "to" → D ("attend") đúng. ' +
+      'A là V-ing, không đứng sau "to" trong cấu trúc này; ' +
+      'B là danh từ nên không thể nhận tân ngữ "the morning session"; ' +
+      'C là V3, chỉ dùng trong thì hoàn thành hoặc bị động.',
     translation:
       'Ai đã tham dự một khoá tương tự trong hai năm qua thì không cần tham dự lại buổi sáng, ' +
       'tuy nhiên vẫn được hoan nghênh tham gia phần thảo luận buổi chiều.',
@@ -243,16 +243,16 @@ const PART6_BASE_QUESTIONS: Question[] = [
     stimulusId: 'g-p6-0002',
     prompt: 'Which sentence best fits blank (4)?',
     choices: [
-      { letter: 'A', text: 'We look forward to seeing you there.' },
-      { letter: 'B', text: 'The materials were ordered last month.' },
-      { letter: 'C', text: 'Unfortunately, the workshop has been cancelled.' },
-      { letter: 'D', text: 'Please return your laptop to the IT desk.' },
-    ],
-    answer: 'A',
+        { letter: 'A', text: 'The materials were ordered last month.' },
+        { letter: 'B', text: 'Unfortunately, the workshop has been cancelled.' },
+        { letter: 'C', text: 'We look forward to seeing you there.' },
+        { letter: 'D', text: 'Please return your laptop to the IT desk.' },
+      ],
+    answer: 'C',
     explanation:
-      'Chỗ trống nằm ở cuối email, ngay sau lời nhờ xác nhận tham dự, nên cần một câu kết thân thiện → A phù hợp. ' +
-      'B mâu thuẫn với câu ngay trước: tài liệu còn phải đặt SAU khi biết số người, nên không thể "đã đặt từ tháng trước"; ' +
-      'C trái hoàn toàn với nội dung thông báo về một buổi đào tạo sắp diễn ra; ' +
+      'Chỗ trống nằm ở cuối email, ngay sau lời nhờ xác nhận tham dự, nên cần một câu kết thân thiện → C phù hợp. ' +
+      'A mâu thuẫn với câu ngay trước: tài liệu còn phải đặt SAU khi biết số người, nên không thể "đã đặt từ tháng trước"; ' +
+      'B trái hoàn toàn với nội dung thông báo về một buổi đào tạo sắp diễn ra; ' +
       'D mâu thuẫn với yêu cầu "Participants should bring a laptop".',
     translation:
       'Vui lòng xác nhận việc tham dự trước thứ Sáu để chúng tôi đặt đủ tài liệu cho mọi người. ' +

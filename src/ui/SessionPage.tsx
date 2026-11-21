@@ -32,6 +32,7 @@ function StimulusBlock({
   audioEnabled,
   showChoiceText,
   onToggleChoiceText,
+  showTranscript,
 }: {
   stimulus: Stimulus
   part: Question['part']
@@ -39,6 +40,8 @@ function StimulusBlock({
   /** Chỉ dùng cho Part 1: đang hiện chữ đáp án hay ẩn. */
   showChoiceText: boolean
   onToggleChoiceText: () => void
+  /** Có được in lời thoại ra màn hình hay không (xem giải thích ở nơi render). */
+  showTranscript: boolean
 }) {
   // Part 3/4/6/7 có ngữ liệu dài: mặc định mở, nhưng bấm được để thu gọn.
   const [open, setOpen] = useState(true)
@@ -119,8 +122,25 @@ function StimulusBlock({
               ))
             : null}
 
-          {hasAudioScript && !hasImage ? (
-            <p className="stimulus__script">{stimulus.audioScript}</p>
+          {/*
+            LỜI THOẠI CHỈ HIỆN KHI ĐƯỢC PHÉP.
+
+            Ba lỗi từng tồn tại ở đây (reviewer phát hiện):
+            1. Thi thử hiện nguyên transcript của Part 2, 3, 4 — biến bài thi NGHE
+               thành bài ĐỌC. Người làm chỉ cần đọc câu trả lời trong đoạn hội
+               thoại là xong, không nghe gì.
+            2. Part 1 cũng lộ đáp án y như vậy (bốn câu mô tả tranh in sẵn).
+            3. Chế độ luyện tập cũng hiện, trong khi đúng ra chỉ nên hiện SAU khi
+               trả lời (như phần giải thích).
+
+            Nay: chỉ hiện khi (a) đang ở chế độ luyện tập (revealMode), VÀ
+            (b) người dùng đã trả lời câu này. Thi thử thì không bao giờ hiện
+            trong lúc làm — chỉ xem lại sau khi nộp.
+          */}
+          {hasAudioScript && !hasImage && showTranscript ? (
+            <p className="stimulus__script" data-testid={TID.transcript}>
+              {stimulus.audioScript}
+            </p>
           ) : null}
         </div>
       ) : null}
@@ -302,6 +322,15 @@ export function SessionPage({ session, index }: SessionPageProps) {
   const isPart1 = question.part === 1
 
   /**
+   * Có được in lời thoại ra màn hình hay không.
+   *
+   * Chỉ khi: đang luyện tập (revealMode) VÀ đã trả lời câu này. Thi thử thì
+   * KHÔNG BAO GIỜ — hiện transcript trong lúc thi là biến bài nghe thành bài đọc.
+   * Xem lại sau khi nộp thì màn `#/review` hiện đầy đủ.
+   */
+  const showTranscript = session.revealMode && chosen != null
+
+  /**
    * Nhóm câu hỏi theo PART cho bảng điều hướng.
    *
    * Giữ `position` là vị trí trong `questionIds` (số thứ tự thật của câu trong
@@ -375,6 +404,7 @@ export function SessionPage({ session, index }: SessionPageProps) {
             audioEnabled={settings.audioEnabled}
             showChoiceText={showChoiceText}
             onToggleChoiceText={() => setShowChoiceText((prev) => !prev)}
+            showTranscript={showTranscript}
           />
         ) : null}
 

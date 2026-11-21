@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { MOCK_SETS, MOCK_DURATION_SECONDS, loadHistory } from '../lib'
+import { MOCK_SETS, MOCK_DURATION_SECONDS, loadHistory, SCORING_VERSION } from '../lib'
 import type { HistoryEntry } from '../lib/contract'
 import { ROUTES, TID, mockSetRoute } from '../testids'
 import { useSession } from './sessionContext'
 
 /**
- * MÀN HÌNH CHỌN ĐỀ THI THỬ — 10 đề, mỗi đề đúng 200 câu như đề thật.
+ * MÀN HÌNH CHỌN ĐỀ THI THỬ — 15 đề, mỗi đề đúng 200 câu như đề thật.
  *
  * Khác màn "20 đề" (dùng để luyện hằng ngày, chia ba cỡ): ở đây mọi đề đều đủ
  * 200 câu và có giới hạn 120 phút, để biết mình đang ở đâu nếu đi thi thật.
@@ -23,7 +23,9 @@ function collectStats(history: HistoryEntry[]): Map<number, SetStat> {
     const match = /^mock(\d{1,2})-/u.exec(entry.id)
     if (!match) continue
     const id = Number(match[1])
-    if (!Number.isInteger(id) || id < 1 || id > 10) continue
+    if (!Number.isInteger(id) || id < 1 || id > 15) continue
+    // Bo qua ban ghi tinh theo cong thuc cu.
+    if (entry.scoringVersion !== SCORING_VERSION) continue
     const current = map.get(id) ?? { attempts: 0, best: null }
     map.set(id, {
       attempts: current.attempts + 1,
@@ -47,7 +49,7 @@ export function MockSetsPage() {
     <div data-testid={TID.mockSets} className="stack stack--loose">
       <header className="page-head">
         <span className="section-label">Thi thử</span>
-        <h1>10 đề thi thử — 200 câu, 120 phút</h1>
+        <h1>15 đề thi thử — 200 câu, 120 phút</h1>
         <p className="page-head__lead">
           Mỗi đề đủ 200 câu và chia đúng như đề thật: nghe 100 câu (Part 1–4), đọc 100 câu
           (Part 5–7). Làm liền mạch, không xem đáp án, hết giờ tự nộp.
@@ -115,3 +117,6 @@ export function MockSetsPage() {
     </div>
   )
 }
+
+
+

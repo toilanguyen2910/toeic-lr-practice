@@ -264,8 +264,8 @@ def concat_mp3(parts: list[Path], out_file: Path) -> bool:
     cmd = [
         "ffmpeg", "-y", "-loglevel", "error",
         "-f", "concat", "-safe", "0",
-        "-i", str(list_file),
-        "-c", "copy", str(out_file),
+        "-i", str(list_file.resolve()),
+        "-c", "copy", str(out_file.resolve()),
     ]
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=out_file.parent)
     for p in parts:
@@ -465,3 +465,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+

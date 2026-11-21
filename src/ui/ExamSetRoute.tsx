@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { buildExamSet, findExamSet } from '../lib'
+import { buildExamSet, findExamSet, MOCK_DURATION_SECONDS } from '../lib'
 import { ROUTES, TID } from '../testids'
 import { SessionPage } from './SessionPage'
 import { useSession } from './sessionContext'
@@ -35,7 +35,16 @@ export function ExamSetRoute({ id, index }: { id: number; index: BankIndex }) {
 
     // Tạo thẳng phiên của đề rồi nạp vào provider — không đi qua `start()` để giữ
     // nguyên danh sách câu đã xếp theo part mà `buildExamSet` tính sẵn.
-    adopt(buildExamSet(bank, set))
+    //
+    // Thời lượng tính từ SỐ CÂU THẬT của đề, không phải từ danh sách part. Trước
+    // đây cả đề 52 câu và đề 200 câu đều hiện 57:00 vì cùng dùng `suggestSeconds`
+    // của 7 part. Nay: 36 giây mỗi câu (nhịp đề thật), tối thiểu 60 giây.
+    const built = buildExamSet(bank, set)
+    const seconds = Math.min(
+      MOCK_DURATION_SECONDS,
+      Math.max(60, built.questionIds.length * 36),
+    )
+    adopt({ ...built, durationSeconds: seconds })
   }, [adopt, alreadyOnThisSet, bank, id])
 
   if (!findExamSet(id)) {
@@ -65,3 +74,4 @@ export function ExamSetRoute({ id, index }: { id: number; index: BankIndex }) {
 
   return <SessionPage key={session.id} session={session} index={index} />
 }
+

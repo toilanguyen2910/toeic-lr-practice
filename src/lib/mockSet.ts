@@ -19,13 +19,13 @@ import { buildExamSet } from './examSet'
 import type { ExamSetDef, ExamSetMix } from './examSet'
 import type { Session } from './contract'
 
-export const MOCK_SET_COUNT = 10
+export const MOCK_SET_COUNT = 15
 
 /** Đề thi thử dùng đúng cơ cấu chính thức, luôn 200 câu. */
 const MOCK_MIX: ExamSetMix = 'official'
 
 export interface MockSetDef {
-  /** Số hiệu đề thi thử, 1..10. */
+  /** Số hiệu đề thi thử, 1..15. */
   id: number
   /** Nhãn hiển thị, ví dụ "Đề thi thử 03". */
   label: string
@@ -36,10 +36,13 @@ export interface MockSetDef {
 }
 
 /**
- * 10 đề thi thử.
+ * 15 đề thi thử, mỗi đề đúng 200 câu theo cơ cấu đề thật.
  *
- * Seed bắt đầu từ 2001 để không trùng với dải 1001–1020 của bộ 20 đề luyện:
- * nếu trùng, một đề thi thử và một đề luyện sẽ chọn ra cùng bộ câu.
+ * Seed bắt đầu từ 2001 để không trùng dải 1001–1020 của bộ 20 đề luyện: nếu
+ * trùng, một đề thi thử và một đề luyện sẽ chọn ra cùng bộ câu.
+ *
+ * Mỗi seed cho ra một bộ câu khác nhau. Kiểm bằng `mockSet.test.ts`: mọi cặp đề
+ * phải có ít nhất một câu khác nhau, và không đề nào trùng đề nào.
  */
 export const MOCK_SETS: MockSetDef[] = [
   { id: 1, label: 'Đề thi thử 01', name: 'Bản chuẩn A', seed: 2001 },
@@ -52,6 +55,11 @@ export const MOCK_SETS: MockSetDef[] = [
   { id: 8, label: 'Đề thi thử 08', name: 'Bản chuẩn H', seed: 2008 },
   { id: 9, label: 'Đề thi thử 09', name: 'Bản chuẩn I', seed: 2009 },
   { id: 10, label: 'Đề thi thử 10', name: 'Bản chuẩn J', seed: 2010 },
+  { id: 11, label: 'Đề thi thử 11', name: 'Bản mở rộng K', seed: 2011 },
+  { id: 12, label: 'Đề thi thử 12', name: 'Bản mở rộng L', seed: 2012 },
+  { id: 13, label: 'Đề thi thử 13', name: 'Bản mở rộng M', seed: 2013 },
+  { id: 14, label: 'Đề thi thử 14', name: 'Bản mở rộng N', seed: 2014 },
+  { id: 15, label: 'Đề thi thử 15', name: 'Bản mở rộng O', seed: 2015 },
 ]
 
 /** Thời gian làm bài của một đề thi thử: 45 phút nghe + 75 phút đọc = 120 phút. */
@@ -69,7 +77,7 @@ function asExamSetDef(def: MockSetDef): ExamSetDef {
   }
 }
 
-/** Tìm đề thi thử theo số hiệu; `undefined` nếu ngoài 1..10. */
+/** Tìm đề thi thử theo số hiệu; `undefined` nếu ngoài 1..15. */
 export function findMockSet(id: number): MockSetDef | undefined {
   return MOCK_SETS.find((set) => set.id === id)
 }
@@ -92,3 +100,4 @@ export function buildMockSet(bank: QuestionBank, def: MockSetDef, now?: number):
 export function mockSetSize(bank: QuestionBank, def: MockSetDef): number {
   return buildExamSet(bank, { ...asExamSetDef(def), seed: def.seed }, 0).questionIds.length
 }
+

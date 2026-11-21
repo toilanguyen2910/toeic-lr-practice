@@ -133,7 +133,19 @@ export function HomePage() {
                   {entry.mode === 'mock' ? 'Thi thử' : 'Luyện tập'}
                 </span>
                 <span className="home-recent__parts">{describeParts(entry.parts)}</span>
-                <span className="home-recent__score">{entry.estimateTotal} điểm</span>
+                {/*
+                  Bản ghi dùng công thức chấm điểm cũ thì không hiện số điểm — hiện
+                  "cách tính cũ" để người dùng biết nó không so sánh được. Trước đây
+                  dòng này in thẳng `estimateTotal`, nên trang chủ vừa nói "chưa có
+                  điểm hợp lệ" vừa khoe 495 ở ngay dưới.
+                */}
+                {entry.scoringVersion === SCORING_VERSION ? (
+                  <span className="home-recent__score">{entry.estimateTotal} điểm</span>
+                ) : (
+                  <span className="home-recent__score home-recent__score--legacy">
+                    cách tính cũ
+                  </span>
+                )}
                 <span className="home-recent__meta">
                   {entry.correct}/{entry.total} đúng
                 </span>

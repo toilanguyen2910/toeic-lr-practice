@@ -43,7 +43,7 @@ export function parseMockSetRoute(hash: string): number | null {
   const match = /^#\/mock\/(\d{1,2})$/.exec(hash)
   if (!match) return null
   const id = Number(match[1])
-  return Number.isInteger(id) && id >= 1 && id <= 10 ? id : null
+  return Number.isInteger(id) && id >= 1 && id <= 15 ? id : null
 }
 
 export const TID = {
@@ -97,6 +97,7 @@ export const TID = {
   questionCounter: 'question-counter',
   prompt: 'prompt',
   stimulus: 'stimulus',
+  transcript: 'transcript',
   passage: 'passage',
   timer: 'timer',
   progress: 'progress',
@@ -146,3 +147,4 @@ export const TID = {
   settingCount: 'setting-count',
   clearHistory: 'clear-history',
 } as const
+

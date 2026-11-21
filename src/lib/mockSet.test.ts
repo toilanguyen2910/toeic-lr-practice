@@ -12,14 +12,14 @@ import { PART_META } from '../types'
 
 const NOW = 1_700_000_000_000
 
-describe('10 đề thi thử — cấu hình', () => {
-  it('có đúng 10 đề', () => {
+describe('15 đề thi thử — cấu hình', () => {
+  it('có đúng 15 đề', () => {
     expect(MOCK_SETS).toHaveLength(MOCK_SET_COUNT)
-    expect(MOCK_SET_COUNT).toBe(10)
+    expect(MOCK_SET_COUNT).toBe(15)
   })
 
-  it('id chạy liên tục 1..10, không trùng', () => {
-    expect(MOCK_SETS.map((s) => s.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  it('id chạy liên tục 1..15, không trùng', () => {
+    expect(MOCK_SETS.map((s) => s.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
   })
 
   it('mỗi đề có seed riêng, không trùng đề nào khác', () => {
@@ -36,7 +36,8 @@ describe('10 đề thi thử — cấu hình', () => {
   it('findMockSet trả đúng đề và undefined khi ngoài khoảng', () => {
     expect(findMockSet(3)?.seed).toBe(2003)
     expect(findMockSet(0)).toBeUndefined()
-    expect(findMockSet(11)).toBeUndefined()
+    expect(findMockSet(16)).toBeUndefined()
+    expect(findMockSet(15)?.seed).toBe(2015)
   })
 
   it('thời lượng đúng 120 phút (45 nghe + 75 đọc)', () => {
@@ -44,7 +45,7 @@ describe('10 đề thi thử — cấu hình', () => {
   })
 })
 
-describe('10 đề thi thử — mỗi đề đúng 200 câu', () => {
+describe('15 đề thi thử — mỗi đề đúng 200 câu', () => {
   it('MỌI đề có đúng 200 câu', () => {
     for (const set of MOCK_SETS) {
       const size = mockSetSize(FULL_BANK, set)
@@ -111,7 +112,7 @@ describe('10 đề thi thử — mỗi đề đúng 200 câu', () => {
   })
 })
 
-describe('10 đề thi thử — tất định và khác nhau', () => {
+describe('15 đề thi thử — tất định và khác nhau', () => {
   it('cùng đề dựng hai lần cho cùng bộ câu, cùng thứ tự', () => {
     for (const set of MOCK_SETS) {
       const a = buildMockSet(FULL_BANK, set, NOW)
@@ -120,11 +121,30 @@ describe('10 đề thi thử — tất định và khác nhau', () => {
     }
   })
 
-  it('mười đề cho mười bộ câu KHÁC nhau', () => {
+  it('mỗi đề cho một bộ câu KHÁC nhau — không cặp nào trùng', () => {
     const signatures = MOCK_SETS.map((set) =>
       buildMockSet(FULL_BANK, set, NOW).questionIds.join(','),
     )
-    expect(new Set(signatures).size).toBe(10)
+    expect(new Set(signatures).size).toBe(15)
+  })
+
+  it('hai đề bất kỳ phải khác nhau ít nhất 20 câu (không phải chỉ đổi thứ tự)', () => {
+    // Kiểm này mạnh hơn "bộ câu khác nhau": hai đề có thể khác thứ tự mà trùng
+    // nội dung. Ở đây so sánh TẬP câu, và đòi chênh lệch thật đáng kể.
+    const sets = MOCK_SETS.map((set) => new Set(buildMockSet(FULL_BANK, set, NOW).questionIds))
+    for (let i = 0; i < sets.length; i += 1) {
+      for (let j = i + 1; j < sets.length; j += 1) {
+        const a = sets[i]!
+        const b = sets[j]!
+        let shared = 0
+        for (const id of a) if (b.has(id)) shared += 1
+        const different = a.size - shared
+        expect(
+          different,
+          `Đề ${i + 1} và đề ${j + 1} chỉ khác ${different} câu — quá giống nhau`,
+        ).toBeGreaterThanOrEqual(20)
+      }
+    }
   })
 
   it('id phiên có tiền tố mock<N>- để phân biệt với đề luyện', () => {
@@ -147,3 +167,4 @@ describe('10 đề thi thử — tất định và khác nhau', () => {
     expect(Object.keys(session.answers)).toHaveLength(200)
   })
 })
+

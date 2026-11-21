@@ -193,7 +193,7 @@ export async function runVerifyCore() {
           `[...document.querySelectorAll('[data-testid]')]
              .filter((el) => /^mock-set-\\d+$/.test(el.getAttribute('data-testid'))).length`,
         )
-        report.check('B1.1 có đúng 10 đề thi thử', cards === 10, `nhận ${cards}`)
+        report.check('B1.1 có đúng 15 đề thi thử', cards === 15, `nhận ${cards}`)
 
         const text1 = await page.text('[data-testid="mock-set-1"]')
         report.check('B1.2 mỗi đề ghi 200 câu', text1.includes('200 câu'), text1.slice(0, 80))

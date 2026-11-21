@@ -56,3 +56,7 @@ final-*.png
 .env
 .env.local
 .env.*.local
+
+# Python
+__pycache__/
+*.pyc

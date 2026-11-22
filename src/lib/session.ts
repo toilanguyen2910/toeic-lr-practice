@@ -182,10 +182,11 @@ export function createSession(bank: QuestionBank, options: SessionOptions): Sess
   const answers: Record<string, Letter | null> = {}
   for (const id of questionIds) answers[id] = null
 
-  // Thi thử không bao giờ lộ đáp án trong lúc làm, kể cả khi caller truyền nhầm.
-  const revealMode = options.mode === 'mock' ? false : (options.revealMode ?? true)
+  // Thi thử không bao giờ lộ đáp án. Luyện tập mặc định tắt (chỉ hiện đáp án sau khi nộp bài),
+  // trừ khi caller yêu cầu rõ ràng (revealMode = true).
+  const revealMode = options.mode === 'mock' ? false : (options.revealMode ?? false)
 
-  return {
+  const session: Session = {
     id: `session-${createdAt.toString(36)}-${hashString(`${seed}:${questionIds.join(',')}`).toString(36)}`,
     mode: options.mode,
     parts,
@@ -198,6 +199,11 @@ export function createSession(bank: QuestionBank, options: SessionOptions): Sess
     status: 'active',
     elapsedSeconds: 0,
   }
+  if (options.revealMode !== undefined) {
+    session.revealExplicit = true
+  }
+
+  return session
 }
 
 /**

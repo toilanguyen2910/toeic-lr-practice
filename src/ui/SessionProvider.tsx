@@ -28,7 +28,17 @@ import type { SessionContextValue } from './sessionContext'
  */
 export function SessionProvider({ bank, children }: { bank: QuestionBank; children: ReactNode }) {
   // Đọc phiên đang dở (hoặc phiên vừa nộp) từ localStorage ngay lần render đầu.
-  const [session, setSessionState] = useState<Session | null>(loadSession)
+  // Nếu có phiên luyện tập cũ đang dở bị bật revealMode do mặc định cũ, tự động tắt
+  // để người dùng không bị lộ đáp án khi mở lại trang.
+  const [session, setSessionState] = useState<Session | null>(() => {
+    const loaded = loadSession()
+    if (loaded && loaded.status === 'active' && loaded.revealMode && !loaded.revealExplicit) {
+      const updated = { ...loaded, revealMode: false }
+      saveSession(updated)
+      return updated
+    }
+    return loaded
+  })
   const sessionRef = useRef<Session | null>(session)
 
   /** Ghi phiên mới vào state + ref + localStorage trong một bước. */
@@ -123,6 +133,16 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
 
   const reset = useCallback(() => commit(null), [commit])
 
+  const setRevealMode = useCallback(
+    (enabled: boolean) => {
+      const current = sessionRef.current
+      if (!current) return
+      const next: Session = { ...current, revealMode: enabled, revealExplicit: true }
+      commit(next)
+    },
+    [commit],
+  )
+
   /** Nạp thẳng một phiên đã dựng sẵn (dùng cho bộ 20 đề). */
   const adopt = useCallback((next: Session) => commit(next), [commit])
 
@@ -159,10 +179,11 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
       finish,
       reset,
       adopt,
+      setRevealMode,
       examSetId,
       bank,
     }),
-    [session, result, availableParts, start, answer, flag, syncElapsed, finish, reset, adopt, examSetId, bank],
+    [session, result, availableParts, start, answer, flag, syncElapsed, finish, reset, adopt, setRevealMode, examSetId, bank],
   )
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>

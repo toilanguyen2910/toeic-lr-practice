@@ -30,7 +30,7 @@ function clampCount(raw: number, fallback: number, max = COUNT_MAX): number {
 /** Màn hình chọn part cho chế độ luyện tập. */
 export function PartSelectPage() {
   const { availableParts, start, bank } = useSession()
-  const { settings } = useAppSettings()
+  const { settings, update } = useAppSettings()
 
   // Mặc định chọn cả 7 part (đúng như hợp đồng kiểm thử: A1.3 mong đợi 7 nút bật).
   const [selected, setSelected] = useState<Set<Part>>(() => new Set(ALL_PARTS))
@@ -287,6 +287,32 @@ export function PartSelectPage() {
             Thời gian gợi ý: {Math.round(suggestedDurationSeconds(chosen) / 60)} phút. Luyện tập
             không giới hạn thời gian — đồng hồ chỉ đếm để bạn biết mình làm nhanh hay chậm.
           </p>
+
+          <div
+            className="switch-row"
+            style={{
+              marginTop: '12px',
+              paddingTop: '12px',
+              borderTop: '1px solid var(--line)',
+            }}
+          >
+            <div className="switch-row__text">
+              <strong>Hiện giải thích ngay khi chọn đáp án</strong>
+              <span>
+                Mặc định tắt: làm xong nộp bài mới xem đáp án. Bật nếu muốn xem giải thích ngay khi chọn.
+              </span>
+            </div>
+            <button
+              type="button"
+              className="switch"
+              role="switch"
+              aria-checked={settings.revealMode}
+              data-checked={settings.revealMode ? 'true' : 'false'}
+              onClick={() => update({ revealMode: !settings.revealMode })}
+            >
+              <span className="switch__knob" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
         <div className="btn-row">

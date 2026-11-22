@@ -43,8 +43,7 @@ export function SettingsPage() {
           <div className="switch-row__text">
             <strong id="reveal-label">Hiện giải thích ngay khi chọn đáp án</strong>
             <span>
-              Bật: mỗi lần chọn đáp án bạn thấy ngay đúng/sai kèm giải thích và bản dịch. Tắt: làm
-              như thi thật rồi xem lại sau.
+              Mặc định tắt: làm xong nộp bài mới xem đáp án và giải thích. Bật: mỗi lần chọn đáp án bạn thấy ngay đúng/sai kèm giải thích và bản dịch.
             </span>
           </div>
           <button

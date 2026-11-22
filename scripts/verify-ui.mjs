@@ -277,6 +277,11 @@ export async function runVerifyUi() {
           feedbackOn === 1,
           `thấy ${feedbackOn} ô feedback`,
         )
+
+        // Trả lại trạng thái mặc định (tắt) để các bước sau không bị lộ đáp án
+        await page.goto(`${url}#/settings`)
+        await page.waitFor(sel('settings'), 20000)
+        await ensureToggle(page, sel('setting-reveal'), 'off')
       })
 
       // ── B. BÀN PHÍM ──────────────────────────────────────────────────────

@@ -83,12 +83,11 @@ export async function runVerifyCore() {
             `câu ${i + 1} ghi nhận đáp án A`,
             8000,
           )
-          // Chế độ luyện tập: phải hiện phản hồi + giải thích ngay.
-          await page.waitFor(sel('feedback'), 8000)
-          const feedbackText = await page.text(sel('feedback'))
-          report.check(`A5.${i + 1}b có phản hồi đúng/sai`, feedbackText.length > 0)
-          const explanation = await page.count(sel('feedback-explanation'))
-          report.check(`A5.${i + 1}c có ô giải thích đáp án`, explanation === 1)
+          // Chế độ luyện tập: mặc định KHÔNG lộ đáp án/giải thích trong lúc làm bài, chỉ hiện khi nộp bài.
+          const feedbackCount = await page.count(sel('feedback'))
+          report.check(`A5.${i + 1}b không lộ phản hồi khi đang làm bài`, feedbackCount === 0)
+          const leakedMarks = await page.count('.choice--correct, .choice--wrong')
+          report.check(`A5.${i + 1}c không lộ đúng/sai trên các nút đáp án`, leakedMarks === 0)
           if (i < totalQuestions - 1) await page.click(sel('next-question'))
         }
         await page.waitFor(sel('submit-session'), 10000)

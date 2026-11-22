@@ -36,6 +36,8 @@ export interface SessionContextValue {
   adopt: (session: Session) => void
   /** Xoá phiên hiện tại khỏi bộ nhớ và localStorage. */
   reset: () => void
+  /** Bật/tắt chế độ hiện đáp án ngay (dành cho chế độ luyện tập). */
+  setRevealMode: (enabled: boolean) => void
   /** Số hiệu đề đang làm (1..20), `null` nếu làm tự do. */
   examSetId: number | null
   /** Ngân hàng câu hỏi thật đang dùng. */

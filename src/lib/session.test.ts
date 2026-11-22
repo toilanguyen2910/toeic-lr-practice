@@ -218,9 +218,10 @@ describe('createSession — khởi tạo trạng thái', () => {
     expect(session.revealMode).toBe(false)
   })
 
-  it('practice tôn trọng revealMode, mặc định bật', () => {
+  it('practice tôn trọng revealMode, mặc định tắt', () => {
+    expect(createSession(SAMPLE_BANK, options({ revealMode: true })).revealMode).toBe(true)
     expect(createSession(SAMPLE_BANK, options({ revealMode: false })).revealMode).toBe(false)
-    expect(createSession(SAMPLE_BANK, options()).revealMode).toBe(true)
+    expect(createSession(SAMPLE_BANK, options()).revealMode).toBe(false)
   })
 })
 

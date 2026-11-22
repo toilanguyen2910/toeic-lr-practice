@@ -184,7 +184,7 @@ function FeedbackBlock({ question, chosen }: { question: Question; chosen: Lette
 
 /** Màn hình làm bài — dùng chung cho `#/practice/session` và `#/mock`. */
 export function SessionPage({ session, index }: SessionPageProps) {
-  const { answer, flag, finish, syncElapsed } = useSession()
+  const { answer, flag, finish, syncElapsed, setRevealMode } = useSession()
   const { settings } = useAppSettings()
 
   const total = session.questionIds.length
@@ -373,6 +373,21 @@ export function SessionPage({ session, index }: SessionPageProps) {
         </div>
 
         <div className="session__bar-right">
+          {!isMock ? (
+            <button
+              type="button"
+              className={`btn btn--sm ${session.revealMode ? 'btn--primary' : 'btn--ghost'}`}
+              data-testid="toggle-reveal"
+              onClick={() => setRevealMode(!session.revealMode)}
+              title={
+                session.revealMode
+                  ? 'Đang hiện đáp án và giải thích ngay khi chọn (bấm để ẩn đến khi nộp bài)'
+                  : 'Đang ẩn đáp án đến khi nộp bài (bấm để hiện giải thích ngay)'
+              }
+            >
+              {session.revealMode ? '👁 Hiện đáp án' : '🔒 Ẩn đáp án'}
+            </button>
+          ) : null}
           <span className="session__counter" data-testid={TID.questionCounter}>
             Câu {safeCursor + 1} / {total}
           </span>

@@ -25,6 +25,8 @@ export interface Session {
   flagged: Record<string, true>
   /** Luyện tập: hiện giải thích ngay sau khi chọn đáp án. */
   revealMode: boolean
+  /** Cờ đánh dấu người dùng đã chủ động chọn chế độ hiện/ẩn giải thích. */
+  revealExplicit?: boolean
   status: SessionStatus
   submittedAt?: number
   /** Thời gian đã dùng (giây), cập nhật bởi UI mỗi giây. */
@@ -164,7 +166,7 @@ export interface EngineApi {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  revealMode: true,
+  revealMode: false,
   audioEnabled: true,
   practiceCountPerPart: 10,
 }

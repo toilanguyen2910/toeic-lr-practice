@@ -206,6 +206,9 @@ export function parseSession(value: unknown): Session | null {
     status: status as Session['status'],
     elapsedSeconds,
   }
+  if (typeof (value as Record<string, unknown>).revealExplicit === 'boolean') {
+    session.revealExplicit = (value as Record<string, unknown>).revealExplicit as boolean
+  }
   if (submittedAt !== undefined) session.submittedAt = submittedAt
   return session
 }

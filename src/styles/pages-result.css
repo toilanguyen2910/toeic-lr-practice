@@ -14,7 +14,7 @@
   flex-direction: column;
   gap: 4px;
   justify-content: center;
-  border-color: #c3d6ee;
+  border-color: var(--primary-line);
   background: var(--primary-soft);
 }
 

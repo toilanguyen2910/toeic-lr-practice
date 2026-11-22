@@ -90,7 +90,7 @@
 
 .nav__link[aria-current='page'] {
   background: var(--primary-soft);
-  border-color: #c3d6ee;
+  border-color: var(--primary-line);
   color: var(--primary);
 }
 

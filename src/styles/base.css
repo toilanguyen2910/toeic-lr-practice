@@ -86,6 +86,19 @@ img {
 
 /* Chỉ bật chuyển động khi người dùng KHÔNG yêu cầu giảm. */
 @media (prefers-reduced-motion: no-preference) {
+  body,
+  .app__header,
+  .app__footer,
+  .card,
+  .session__bar,
+  .session__nav,
+  .palette,
+  .stimulus {
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease;
+  }
+
   .btn,
   .nav__link,
   .choice,

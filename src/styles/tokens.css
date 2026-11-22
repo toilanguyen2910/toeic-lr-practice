@@ -26,6 +26,7 @@ html:root {
   --primary-hover: #163c6d;
   --primary-soft: #e7effa;
   --primary-ink: #ffffff;
+  --primary-line: #c3d6ee;
 
   --ok: #176038;
   --ok-soft: #e4f2ea;
@@ -33,10 +34,12 @@ html:root {
 
   --bad: #982a21;
   --bad-soft: #fbeae8;
+  --bad-soft-hover: #f6dcd9;
   --bad-line: #d9a49e;
 
   --flag: #7a5200;
   --flag-soft: #fcf2d9;
+  --flag-line: #e0c37a;
 
   --focus: #0b5fd0;
   --focus-ring: 0 0 0 3px rgba(11, 95, 208, 0.35);
@@ -75,6 +78,7 @@ html[data-theme='dark'] {
   --primary-hover: #60a5fa;
   --primary-soft: #1b2e4b;
   --primary-ink: #ffffff;
+  --primary-line: #2b4c7e;
 
   --ok: #22c55e;
   --ok-soft: #143222;
@@ -82,14 +86,16 @@ html[data-theme='dark'] {
 
   --bad: #ef4444;
   --bad-soft: #381919;
+  --bad-soft-hover: #482020;
   --bad-line: #8b3232;
 
   --flag: #eab308;
   --flag-soft: #382c10;
+  --flag-line: #6b531a;
 
   --focus: #60a5fa;
   --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.35);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }

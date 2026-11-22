@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Chart,
   LineController,
@@ -37,6 +37,35 @@ function formatChartDate(ts: number): string {
 export function HistoryChart({ entries }: HistoryChartProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const chartInstanceRef = useRef<Chart | null>(null)
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof document === 'undefined') return false
+    return document.documentElement.getAttribute('data-theme') === 'dark'
+  })
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+
+    const checkTheme = () => {
+      setIsDark(document.documentElement.getAttribute('data-theme') === 'dark')
+    }
+
+    checkTheme()
+
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          checkTheme()
+        }
+      }
+    })
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!canvasRef.current || entries.length === 0) return
@@ -61,6 +90,13 @@ export function HistoryChart({ entries }: HistoryChartProps) {
     const ctx = canvasRef.current.getContext('2d')
     if (!ctx) return
 
+    const textColor = isDark ? '#cbd5e1' : '#39424f'
+    const gridColor = isDark ? 'rgba(43, 57, 77, 0.6)' : 'rgba(217, 223, 232, 0.6)'
+    const totalColor = isDark ? '#3b82f6' : '#1c4b87'
+    const totalBg = isDark ? 'rgba(59, 130, 246, 0.12)' : 'rgba(28, 75, 135, 0.08)'
+    const listeningColor = isDark ? '#22c55e' : '#176038'
+    const readingColor = isDark ? '#f97316' : '#c2410c'
+
     chartInstanceRef.current = new Chart(ctx, {
       type: 'line',
       data: {
@@ -69,36 +105,36 @@ export function HistoryChart({ entries }: HistoryChartProps) {
           {
             label: 'Tổng điểm (0–990)',
             data: totalScores,
-            borderColor: '#2563eb',
-            backgroundColor: 'rgba(37, 99, 235, 0.08)',
+            borderColor: totalColor,
+            backgroundColor: totalBg,
             borderWidth: 3,
             pointRadius: 5,
             pointHoverRadius: 7,
-            pointBackgroundColor: '#2563eb',
+            pointBackgroundColor: totalColor,
             tension: 0.3,
             fill: true,
           },
           {
             label: 'Điểm Nghe (0–495)',
             data: listeningScores,
-            borderColor: '#16a34a',
+            borderColor: listeningColor,
             backgroundColor: 'transparent',
             borderWidth: 2,
             pointRadius: 4,
             pointHoverRadius: 6,
-            pointBackgroundColor: '#16a34a',
+            pointBackgroundColor: listeningColor,
             borderDash: [4, 4],
             tension: 0.3,
           },
           {
             label: 'Điểm Đọc (0–495)',
             data: readingScores,
-            borderColor: '#ea580c',
+            borderColor: readingColor,
             backgroundColor: 'transparent',
             borderWidth: 2,
             pointRadius: 4,
             pointHoverRadius: 6,
-            pointBackgroundColor: '#ea580c',
+            pointBackgroundColor: readingColor,
             borderDash: [4, 4],
             tension: 0.3,
           },
@@ -116,6 +152,7 @@ export function HistoryChart({ entries }: HistoryChartProps) {
             position: 'top',
             labels: {
               boxWidth: 14,
+              color: textColor,
               font: {
                 size: 12,
                 weight: 'bold',
@@ -125,6 +162,9 @@ export function HistoryChart({ entries }: HistoryChartProps) {
           tooltip: {
             padding: 10,
             cornerRadius: 8,
+            backgroundColor: isDark ? '#263346' : '#14181f',
+            titleColor: '#ffffff',
+            bodyColor: '#ffffff',
           },
         },
         scales: {
@@ -133,12 +173,16 @@ export function HistoryChart({ entries }: HistoryChartProps) {
             max: 990,
             ticks: {
               stepSize: 100,
+              color: textColor,
             },
             grid: {
-              color: 'rgba(150, 150, 150, 0.15)',
+              color: gridColor,
             },
           },
           x: {
+            ticks: {
+              color: textColor,
+            },
             grid: {
               display: false,
             },
@@ -153,7 +197,7 @@ export function HistoryChart({ entries }: HistoryChartProps) {
         chartInstanceRef.current = null
       }
     }
-  }, [entries])
+  }, [entries, isDark])
 
   return (
     <div className="card history-chart-card" data-testid="history-chart-card">

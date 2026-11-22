@@ -107,11 +107,11 @@
 .tag--half {
   color: var(--flag);
   background: var(--flag-soft);
-  border-color: #e2c281;
+  border-color: var(--flag-line);
 }
 
 .tag--official {
   color: var(--primary);
   background: var(--primary-soft);
-  border-color: #a9c8f5;
+  border-color: var(--primary-line);
 }

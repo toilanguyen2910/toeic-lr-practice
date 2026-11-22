@@ -95,7 +95,7 @@
 }
 
 .btn--danger:hover:not(:disabled) {
-  background: #f6dcd9;
+  background: var(--bad-soft-hover);
 }
 
 .btn--lg {
@@ -259,13 +259,13 @@
 
 .badge--flag {
   background: var(--flag-soft);
-  border-color: #e0c37a;
+  border-color: var(--flag-line);
   color: var(--flag);
 }
 
 .badge--info {
   background: var(--primary-soft);
-  border-color: #c3d6ee;
+  border-color: var(--primary-line);
   color: var(--primary);
 }
 

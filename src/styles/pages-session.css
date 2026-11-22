@@ -430,7 +430,7 @@
 
 .btn--flag {
   background: var(--flag-soft);
-  border-color: #e0c37a;
+  border-color: var(--flag-line);
   color: var(--flag);
 }
 
@@ -561,7 +561,7 @@
 }
 
 .palette__cell.is-flagged {
-  border-color: #e0c37a;
+  border-color: var(--flag-line);
   background: var(--flag-soft);
   color: var(--flag);
 }

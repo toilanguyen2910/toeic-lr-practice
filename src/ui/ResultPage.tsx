@@ -178,7 +178,7 @@ export function ResultPage() {
           </button>
           <button
             type="button"
-            className="btn btn--sm btn--ghost"
+            className={`btn btn--sm ${copied ? 'btn--copy is-copied' : 'btn--ghost'}`}
             data-testid="copy-result"
             onClick={handleCopyResult}
             title="Sao chép tóm tắt kết quả vào bộ nhớ tạm"

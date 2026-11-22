@@ -65,6 +65,11 @@ html:root {
   --glass-bg: rgba(255, 255, 255, 0.88);
   --glass-border: rgba(226, 232, 240, 0.85);
 
+  /* Lucian UX/UI Prompt Motion & Gradients (lucianlabs.dev/uxui-prompt) */
+  --ux-grad: linear-gradient(120deg, #7b61ff, #3d8bff 55%, #1fb89a);
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ux-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+
   --maxw: 1080px;
   --gutter: clamp(16px, 4vw, 32px);
 
@@ -120,4 +125,9 @@ html[data-theme='dark'] {
   --gradient-card: linear-gradient(180deg, #111827 0%, #151e30 100%);
   --glass-bg: rgba(17, 24, 39, 0.88);
   --glass-border: rgba(31, 41, 55, 0.85);
+
+  /* Lucian UX/UI Prompt Motion & Gradients (Dark) */
+  --ux-grad: linear-gradient(120deg, #b7a4ff, #7db4ff 55%, #a5f2d3);
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ux-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
 }

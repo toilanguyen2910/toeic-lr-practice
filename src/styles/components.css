@@ -111,6 +111,40 @@
   border-color: var(--bad);
 }
 
+/* ── Lucian UX/UI Prompt #008 · Copy Button Sweep & Check Morph ── */
+.btn--copy {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s var(--ux-ease);
+}
+
+.btn--copy.is-copied {
+  background: var(--ok-soft) !important;
+  color: var(--ok) !important;
+  border-color: var(--ok-line) !important;
+  box-shadow: 0 0 0 2px var(--ok-line) !important;
+}
+
+.btn--copy::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+
+.btn--copy.is-copied::after {
+  animation: lucianCopySweep 0.65s var(--ux-ease);
+}
+
+@keyframes lucianCopySweep {
+  to { transform: translateX(100%); }
+}
+
 .btn--lg {
   min-height: 54px;
   padding: 14px 24px;

@@ -201,12 +201,48 @@
   font-size: 1.0625rem;
 }
 
+/* ── Lucian UX/UI Prompt #252 · Shining Announcement Pill ── */
 .section-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--primary-line), 0 4px 14px -4px rgba(79, 70, 229, 0.2);
+  color: var(--primary);
   font-size: 0.8125rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--muted);
+  overflow: hidden;
+  cursor: default;
+  transition: box-shadow 0.25s var(--ux-ease), transform 0.25s var(--ux-spring);
+}
+
+.section-label:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1.5px var(--primary), 0 8px 20px -6px rgba(79, 70, 229, 0.35);
+}
+
+.section-label::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  left: -80px;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: lucianShine 3.5s infinite var(--ux-ease);
+}
+
+@keyframes lucianShine {
+  0%, 35% { left: -80px; }
+  65%, 100% { left: 140%; }
 }
 
 @media (max-width: 720px) {

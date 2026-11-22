@@ -14,24 +14,29 @@
   margin-bottom: 8px;
 }
 
+/* ── Lucian UX/UI Prompt #015 · Plan Radio Cards Feel ── */
 .count-mode__option {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 9px;
-  padding: 9px 11px;
-  margin-bottom: 6px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  font-size: 0.875rem;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 0.9375rem;
   line-height: 1.45;
   color: var(--ink-2);
   cursor: pointer;
-  transition: border-color 120ms ease, background-color 120ms ease;
+  transition: all 0.2s var(--ux-ease);
+  box-shadow: var(--shadow-sm);
 }
 
 .count-mode__option:hover {
-  border-color: var(--line-strong);
+  border-color: var(--primary-line);
+  background: var(--surface-2);
+  transform: translateY(-1px);
 }
 
 /* Khi được chọn: viền và nền đổi theo màu chính, kèm dấu hiệu rõ cho người
@@ -40,6 +45,7 @@
   border-color: var(--primary);
   background: var(--primary-soft);
   color: var(--ink);
+  box-shadow: 0 0 0 1.5px var(--primary), 0 4px 14px -4px rgba(79, 70, 229, 0.2);
 }
 
 .count-mode__option:has(input:focus-visible) {

@@ -4,24 +4,52 @@
 
 /* ── Trang chủ ───────────────────────────────────────────────────────────── */
 .home-hero {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: clamp(24px, 4vw, 44px);
+  gap: 16px;
+  padding: clamp(28px, 4.5vw, 48px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -60px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 70%);
+  pointer-events: none;
+  filter: blur(28px);
 }
 
 .home-hero h1 {
-  max-width: 20ch;
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 26ch;
 }
 
 .home-hero__lead {
-  max-width: 60ch;
+  max-width: 62ch;
   color: var(--ink-2);
   font-size: 1.0625rem;
+  line-height: 1.65;
 }
 
 .home-hero__actions {
-  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
 }
 
 .home-resume {
@@ -29,12 +57,13 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  margin-top: 8px;
-  padding: 16px 18px;
-  border: 1px solid var(--primary-line);
-  border-radius: var(--radius);
+  gap: 16px;
+  margin-top: 12px;
+  padding: 18px 22px;
+  border: 1.5px solid var(--primary-line);
+  border-radius: var(--radius-lg);
   background: var(--primary-soft);
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08);
 }
 
 .home-resume__text {
@@ -60,22 +89,47 @@
 }
 
 .stat-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+
+.stat-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .stat-card__label {
   color: var(--muted);
   font-size: 0.9375rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.stat-card__badge {
+  font-size: 1.25rem;
+  opacity: 0.9;
 }
 
 .stat-card__value {
-  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
-  font-weight: 780;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 1.6rem + 2vw, 3rem);
+  font-weight: 850;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: var(--primary);
   font-variant-numeric: tabular-nums;
 }
@@ -83,6 +137,57 @@
 .stat-card__foot {
   color: var(--muted);
   font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* ── 3 Thẻ tính năng nổi bật ──────────────────────────────────────────────── */
+.features-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+
+.feature-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  font-size: 1.35rem;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.12);
+}
+
+.feature-card__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.feature-card__desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-2);
 }
 
 /* ── Danh sách phiên gần đây ─────────────────────────────────────────────── */
@@ -132,23 +237,27 @@
 .part-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 18px;
-  border: 1.5px solid var(--line-strong);
-  border-radius: var(--radius);
+  gap: 10px;
+  padding: 20px 22px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
   background: var(--surface);
   text-align: left;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
 }
 
 .part-card:hover {
   border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .part-card[data-checked='true'] {
   border-color: var(--primary);
   background: var(--primary-soft);
-  box-shadow: inset 0 0 0 1px var(--primary);
+  box-shadow: 0 0 0 1.5px var(--primary), var(--shadow-sm);
 }
 
 .part-card__top {

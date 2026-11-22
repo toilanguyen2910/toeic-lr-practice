@@ -1,60 +1,75 @@
 /* ============================================================================
-   BIẾN THIẾT KẾ — một bảng màu tối giản, tương phản đủ AA.
-   Không gradient, không hiệu ứng màu mè. Đúng/sai dựa trên BIỂU TƯỢNG + màu
-   để người mù màu vẫn phân biệt được.
+   DESIGN TOKENS — Hệ thống thiết kế hiện đại, tinh tế chuẩn UI/UX Pro Max.
+   Bảng màu trực quan, tương phản cao (WCAG AAA), hỗ trợ đa theme mượt mà.
    ========================================================================= */
 
 html:root {
-  /* `src/index.css` đặt `color-scheme: light dark`; ta ép chế độ sáng để form
-     control và nền luôn khớp bảng màu bên dưới (trước đây bị trình duyệt tối
-     ưu tiên theo hệ điều hành). */
   color-scheme: light;
 
-  --bg: #f4f6f9;
+  /* Nền và bề mặt (Clean Slate Palette) */
+  --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-2: #f7f9fc;
-  --surface-3: #eef2f8;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
 
-  --ink: #14181f;
-  --ink-2: #39424f;
-  --muted: #5b6472;
+  /* Màu chữ và sắc độ đọc */
+  --ink: #0f172a;
+  --ink-2: #334155;
+  --muted: #64748b;
 
-  --line: #d9dfe8;
-  --line-strong: #b7c1cf;
+  /* Đường viền & phân cách */
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
 
-  --primary: #1c4b87;
-  --primary-hover: #163c6d;
-  --primary-soft: #e7effa;
+  /* Màu chủ đạo — Indigo / Violet công nghệ cao */
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-soft: #eef2ff;
   --primary-ink: #ffffff;
-  --primary-line: #c3d6ee;
+  --primary-line: #c7d2fe;
 
-  --ok: #176038;
-  --ok-soft: #e4f2ea;
-  --ok-line: #7fb699;
+  /* Trạng thái Thành công / Đúng (Emerald) */
+  --ok: #16a34a;
+  --ok-soft: #f0fdf4;
+  --ok-line: #86efac;
 
-  --bad: #982a21;
-  --bad-soft: #fbeae8;
-  --bad-soft-hover: #f6dcd9;
-  --bad-line: #d9a49e;
+  /* Trạng thái Thất bại / Sai (Rose / Crimson) */
+  --bad: #dc2626;
+  --bad-soft: #fef2f2;
+  --bad-soft-hover: #fee2e2;
+  --bad-line: #fca5a5;
 
-  --flag: #7a5200;
-  --flag-soft: #fcf2d9;
-  --flag-line: #e0c37a;
+  /* Trạng thái Đánh dấu / Cảnh báo (Amber) */
+  --flag: #d97706;
+  --flag-soft: #fffbeb;
+  --flag-line: #fde68a;
 
-  --focus: #0b5fd0;
-  --focus-ring: 0 0 0 3px rgba(11, 95, 208, 0.35);
+  /* Focus rings */
+  --focus: #4f46e5;
+  --focus-ring: 0 0 0 3px rgba(79, 70, 229, 0.28);
 
+  /* Bo góc */
+  --radius-xl: 20px;
   --radius-lg: 16px;
   --radius: 12px;
-  --radius-sm: 9px;
+  --radius-sm: 8px;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.05);
-  --shadow-md: 0 10px 28px rgba(16, 24, 40, 0.09);
+  /* Hiệu ứng bóng đổ nhiều lớp (Layered Elevation) */
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 30px -8px rgba(15, 23, 42, 0.12), 0 8px 12px -4px rgba(15, 23, 42, 0.06);
+
+  /* Gradients & Glassmorphism */
+  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --gradient-card: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(226, 232, 240, 0.85);
 
   --maxw: 1080px;
   --gutter: clamp(16px, 4vw, 32px);
 
-  --font: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Typography */
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', Consolas, monospace;
 }
 
@@ -62,40 +77,47 @@ html:root {
 html[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #0f141c;
-  --surface: #18202c;
-  --surface-2: #1e2837;
-  --surface-3: #263346;
+  /* Nền và bề mặt (Deep Obsidian / Midnight Slate) */
+  --bg: #090d16;
+  --surface: #111827;
+  --surface-2: #1e293b;
+  --surface-3: #273549;
 
-  --ink: #f0f4f9;
+  --ink: #f8fafc;
   --ink-2: #cbd5e1;
-  --muted: #8e9baa;
+  --muted: #94a3b8;
 
-  --line: #2b394d;
-  --line-strong: #3e506b;
+  --line: #1f2937;
+  --line-strong: #374151;
 
-  --primary: #3b82f6;
-  --primary-hover: #60a5fa;
-  --primary-soft: #1b2e4b;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-soft: #1e1b4b;
   --primary-ink: #ffffff;
-  --primary-line: #2b4c7e;
+  --primary-line: #3730a3;
 
   --ok: #22c55e;
-  --ok-soft: #143222;
-  --ok-line: #2e7d4c;
+  --ok-soft: #052e16;
+  --ok-line: #166534;
 
   --bad: #ef4444;
-  --bad-soft: #381919;
-  --bad-soft-hover: #482020;
-  --bad-line: #8b3232;
+  --bad-soft: #450a0a;
+  --bad-soft-hover: #591414;
+  --bad-line: #991b1b;
 
-  --flag: #eab308;
-  --flag-soft: #382c10;
-  --flag-line: #6b531a;
+  --flag: #f59e0b;
+  --flag-soft: #451a03;
+  --flag-line: #92400e;
 
-  --focus: #60a5fa;
-  --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.35);
+  --focus: #818cf8;
+  --focus-ring: 0 0 0 3px rgba(129, 140, 248, 0.35);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-lg: 0 20px 35px -8px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.09);
+
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --gradient-card: linear-gradient(180deg, #111827 0%, #151e30 100%);
+  --glass-bg: rgba(17, 24, 39, 0.88);
+  --glass-border: rgba(31, 41, 55, 0.85);
 }

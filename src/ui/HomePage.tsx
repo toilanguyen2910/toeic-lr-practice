@@ -65,19 +65,19 @@ export function HomePage() {
   return (
     <div data-testid={TID.home} className="stack stack--loose">
       <section data-testid={TID.homeHero} className="card home-hero">
-        <span className="section-label">TOEIC Listening &amp; Reading</span>
-        <h1>Luyện nghe &amp; đọc mỗi ngày, một phiên ngắn mỗi lần.</h1>
+        <span className="section-label">✨ Ngân hàng 1,000+ câu hỏi chuẩn ETS</span>
+        <h1>Luyện nghe &amp; đọc mỗi ngày, bứt phá band điểm.</h1>
         <p className="home-hero__lead">
           Làm bài theo từng part và đọc giải thích ngay khi chọn đáp án, hoặc thi thử có đồng hồ đếm
-          ngược để biết mình đang ở đâu. Mọi câu đều có giải thích và bản dịch tiếng Việt.
+          ngược để biết mình đang ở đâu. Mọi câu đều có giải thích và bản dịch tiếng Việt chi tiết.
         </p>
 
         <div className="btn-row btn-row--stretch home-hero__actions">
           <a className="btn btn--primary btn--lg" href={ROUTES.partSelect} data-testid={TID.homeStartPractice}>
-            Luyện theo part
+            🎯 Luyện theo part
           </a>
           <a className="btn btn--lg" href={ROUTES.mock} data-testid={TID.homeStartMock}>
-            Thi thử
+            ⏱️ Thi thử (120 phút)
           </a>
         </div>
 
@@ -108,7 +108,10 @@ export function HomePage() {
 
       <section className="stats-grid" aria-label="Thống kê luyện tập">
         <div className="card stat-card">
-          <span className="stat-card__label">Số phiên đã làm</span>
+          <div className="stat-card__header">
+            <span className="stat-card__label">Số phiên đã làm</span>
+            <span className="stat-card__badge" aria-hidden="true">🎯</span>
+          </div>
           <strong className="stat-card__value" data-testid={TID.statTotalSessions}>
             {history.length}
           </strong>
@@ -118,7 +121,10 @@ export function HomePage() {
         </div>
 
         <div className="card stat-card">
-          <span className="stat-card__label">Điểm cao nhất (ước lượng)</span>
+          <div className="stat-card__header">
+            <span className="stat-card__label">Điểm cao nhất (ước lượng)</span>
+            <span className="stat-card__badge" aria-hidden="true">🏆</span>
+          </div>
           <strong className="stat-card__value" data-testid={TID.statBestScore}>
             {currentHistory.length === 0 ? '—' : bestScore}
           </strong>
@@ -129,6 +135,31 @@ export function HomePage() {
                 ? 'Các phiên cũ dùng cách tính khác — làm một phiên mới để có điểm'
                 : 'Thang 0–990, tính từ bộ câu rút gọn'}
           </span>
+        </div>
+      </section>
+
+      {/* 3 Thẻ tính năng nổi bật tạo cảm giác đầy đặn, cao cấp */}
+      <section className="features-grid" aria-label="Tính năng nổi bật">
+        <div className="card feature-card">
+          <div className="feature-card__icon" aria-hidden="true">🎧</div>
+          <h3 className="feature-card__title">Đầy đủ 7 Part TOEIC</h3>
+          <p className="feature-card__desc">
+            Từ tranh ảnh Part 1, hỏi đáp Part 2 đến hội thoại và bài đọc dài kèm audio chuẩn giọng bản xứ.
+          </p>
+        </div>
+        <div className="card feature-card">
+          <div className="feature-card__icon" aria-hidden="true">⏱️</div>
+          <h3 className="feature-card__title">Thi thử chuẩn 120 phút</h3>
+          <p className="feature-card__desc">
+            Trải nghiệm áp lực thi thật với 200 câu hỏi, đồng hồ đếm ngược và bảng câu hỏi chuyển nhanh tiện lợi.
+          </p>
+        </div>
+        <div className="card feature-card">
+          <div className="feature-card__icon" aria-hidden="true">📈</div>
+          <h3 className="feature-card__title">Biểu đồ tiến độ trực quan</h3>
+          <p className="feature-card__desc">
+            Ước lượng điểm Listening &amp; Reading, phân tích xu hướng tăng điểm và xem lại từng câu làm sai.
+          </p>
         </div>
       </section>
 

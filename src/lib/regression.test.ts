@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { FULL_BANK } from '../data'
+import { buildExamSet, findExamSet } from './examSet'
 import { buildMockSet, MOCK_DURATION_SECONDS, MOCK_SETS } from './mockSet'
 import { createSession } from './session'
 import { scoreSession } from './scoring'
 import type { Session } from './contract'
 import type { Letter } from '../types'
+import { parseExamSetRoute, parseMockSetRoute } from '../testids'
 
 /**
  * TEST CHỐNG TÁI SINH — mỗi test ở đây khoá lại MỘT lỗi thật đã từng xảy ra và
@@ -168,6 +170,29 @@ describe('Luyện tập — làm lại giữ đúng phân bổ từng part', () 
     expect(byPart.get('2')).toBe(25)
     expect(byPart.get('5')).toBe(30)
     expect(byPart.get('6')).toBe(16)
+  })
+
+  it('20 đề luyện — dựng lại đề giữ đúng id và số câu của đề đó', () => {
+    const set = findExamSet(3)!
+    const built = buildExamSet(FULL_BANK, set, NOW)
+    expect(built.id).toMatch(/^exam3-/)
+    expect(built.questionIds.length).toBe(52)
+  })
+})
+
+describe('Route parsing — route đề nhận số hiệu nguyên hợp lệ', () => {
+  it('parseExamSetRoute nhận mọi số hiệu nguyên dương', () => {
+    expect(parseExamSetRoute('#/de/1')).toBe(1)
+    expect(parseExamSetRoute('#/de/20')).toBe(20)
+    expect(parseExamSetRoute('#/de/99')).toBe(99)
+    expect(parseExamSetRoute('#/de/abc')).toBeNull()
+  })
+
+  it('parseMockSetRoute nhận mọi số hiệu nguyên dương', () => {
+    expect(parseMockSetRoute('#/mock/1')).toBe(1)
+    expect(parseMockSetRoute('#/mock/15')).toBe(15)
+    expect(parseMockSetRoute('#/mock/99')).toBe(99)
+    expect(parseMockSetRoute('#/mock/abc')).toBeNull()
   })
 })
 

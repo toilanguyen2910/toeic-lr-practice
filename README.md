@@ -42,8 +42,8 @@ Các lệnh khác:
 ```bash
 npm run build       # type-check (tsc -b) + build production
 npm run lint        # oxlint
-npm test            # 261 unit test
-npm run verify:core # 50 kiểm thử E2E thật trên Chrome qua CDP
+npm test            # 264 unit test
+npm run verify:core # 59 kiểm thử E2E thật trên Chrome qua CDP
 npm run verify:ui   # 28 kiểm thử giao diện độc lập (do QA viết)
 npm run shots       # chụp 10 ảnh màn hình vào docs/screenshots/
 ```

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { buildMockSet, findMockSet, MOCK_DURATION_SECONDS } from '../lib'
+import { buildMockSet, findMockSet, MOCK_DURATION_SECONDS, MOCK_SET_COUNT } from '../lib'
 import { ROUTES, TID } from '../testids'
 import { SessionPage } from './SessionPage'
 import { useSession } from './sessionContext'
@@ -46,7 +46,7 @@ export function MockSetRoute({ id, index }: { id: number; index: BankIndex }) {
       <div className="stack">
         <div className="empty-state">
           <h3>Không có đề thi thử số {id}</h3>
-          <p>Hiện có 10 đề thi thử, đánh số từ 1 đến 10.</p>
+          <p>Hiện có {MOCK_SET_COUNT} đề thi thử, đánh số từ 1 đến {MOCK_SET_COUNT}.</p>
           <div className="btn-row">
             <a className="btn btn--primary" href={ROUTES.mock}>
               Xem danh sách đề thi thử

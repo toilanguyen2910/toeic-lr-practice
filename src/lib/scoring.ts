@@ -201,9 +201,9 @@ function officialSectionScore(correct: number, official: number): number {
  * Ước lượng điểm TOEIC L-R từ kết quả chấm.
  *
  * Công thức (đúng đặc tả, KHÔNG hard-code):
- *   điểm phần = round((số câu đúng / số câu của section trong phiên) × 495), kẹp 5..495
+ *   điểm phần = round((số câu đúng / 100) × 495), kẹp 0..495
  *   section không có câu nào → 0
- *   total = listening + reading, kẹp 10..990
+ *   total = listening + reading, kẹp 0..990
  *
  * `approximate = true` khi tổng số câu < 200 (đề rút gọn), kèm `note` tiếng Việt.
  */

@@ -30,7 +30,7 @@ export function parseExamSetRoute(hash: string): number | null {
   const match = /^#\/de\/(\d{1,2})$/.exec(hash)
   if (!match) return null
   const id = Number(match[1])
-  return Number.isInteger(id) && id >= 1 && id <= 20 ? id : null
+  return Number.isInteger(id) && id >= 1 ? id : null
 }
 
 /** Route thi thử: `#/mock` là danh sách đề, `#/mock/3` là đề thi thử số 3. */
@@ -43,7 +43,7 @@ export function parseMockSetRoute(hash: string): number | null {
   const match = /^#\/mock\/(\d{1,2})$/.exec(hash)
   if (!match) return null
   const id = Number(match[1])
-  return Number.isInteger(id) && id >= 1 && id <= 15 ? id : null
+  return Number.isInteger(id) && id >= 1 ? id : null
 }
 
 export const TID = {

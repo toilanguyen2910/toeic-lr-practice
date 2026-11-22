@@ -38,7 +38,7 @@ export function ReviewPage({ index }: { index: BankIndex }) {
   const wrongRows = rows.filter((row) => !row.isCorrect)
   const visible = filter === 'wrong' ? wrongRows : rows
 
-  if (!session || rows.length === 0) {
+  if (!session || session.status !== 'submitted' || rows.length === 0) {
     return (
       <div data-testid={TID.review} className="stack">
         <h1>Chưa có bài nào để xem lại</h1>
@@ -47,7 +47,7 @@ export function ReviewPage({ index }: { index: BankIndex }) {
             ↺
           </div>
           <h3>Không có dữ liệu xem lại</h3>
-          <p>Hoàn thành một phiên làm bài rồi mở lại màn hình này để xem đáp án và giải thích.</p>
+          <p>Hoàn thành và nộp một phiên làm bài rồi mở lại màn hình này để xem đáp án và giải thích.</p>
           <div className="btn-row">
             <a className="btn btn--primary" href={ROUTES.partSelect}>
               Luyện theo part
@@ -113,6 +113,10 @@ export function ReviewPage({ index }: { index: BankIndex }) {
           }
 
           const meta = PART_META[question.part]
+          const stimulus = question.stimulusId ? index.stimulusById.get(question.stimulusId) : undefined
+          const hasImage = Boolean(stimulus?.imageUrl)
+          const hasPassages = Boolean(stimulus?.passages && stimulus.passages.length > 0)
+          const hasAudioScript = Boolean(stimulus?.audioScript)
           const chosenText = question.choices.find((choice) => choice.letter === row.chosen)?.text
           const correctText = question.choices.find((choice) => choice.letter === question.answer)?.text
           const statusClass = row.isCorrect ? 'review-item--ok' : 'review-item--bad'
@@ -133,6 +137,38 @@ export function ReviewPage({ index }: { index: BankIndex }) {
                 </span>
                 {session.flagged[question.id] ? <span className="badge badge--flag">★ Đã đánh dấu</span> : null}
               </header>
+
+              {stimulus ? (
+                <details className="review-item__stimulus" open={hasImage || hasPassages}>
+                  <summary className="review-item__stimulus-summary">
+                    {hasImage ? 'Xem bức ảnh' : hasPassages ? 'Xem đoạn văn / bài đọc' : 'Xem lời thoại'}
+                  </summary>
+                  <div className="review-item__stimulus-body">
+                    {hasImage ? (
+                      <figure className="stimulus__figure">
+                        <img
+                          className="stimulus__img"
+                          src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${stimulus.imageUrl}`}
+                          alt={`Hình minh hoạ cho ${meta.label}`}
+                        />
+                      </figure>
+                    ) : null}
+
+                    {hasPassages
+                      ? stimulus.passages?.map((passage, pIdx) => (
+                          <article className="passage" key={`${stimulus.id}-p-${pIdx}`}>
+                            {passage.label ? <span className="passage__label">{passage.label}</span> : null}
+                            <p className="passage__text">{passage.text}</p>
+                          </article>
+                        ))
+                      : null}
+
+                    {hasAudioScript && !hasImage ? (
+                      <p className="stimulus__script">{stimulus.audioScript}</p>
+                    ) : null}
+                  </div>
+                </details>
+              ) : null}
 
               <p className="review-item__prompt">
                 {question.prompt

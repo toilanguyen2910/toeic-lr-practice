@@ -3,7 +3,7 @@ import { loadHistory, SCORING_VERSION } from '../lib'
 import type { HistoryEntry } from '../lib/contract'
 import { PART_META } from '../types'
 import type { Part } from '../types'
-import { ROUTES, TID } from '../testids'
+import { ROUTES, TID, examSetRoute, mockSetRoute } from '../testids'
 import { useSession } from './sessionContext'
 
 function formatDate(timestamp: number): string {
@@ -48,6 +48,20 @@ export function HomePage() {
   const resumable = session && session.status === 'active' ? session : null
   const lastFinished = history[0]
 
+  const resumeHref = resumable
+    ? resumable.id.startsWith('mock')
+      ? (() => {
+          const m = /^mock(\d{1,2})-/u.exec(resumable.id)
+          return m ? mockSetRoute(Number(m[1])) : ROUTES.mock
+        })()
+      : resumable.id.startsWith('exam')
+        ? (() => {
+            const m = /^exam(\d{1,2})-/u.exec(resumable.id)
+            return m ? examSetRoute(Number(m[1])) : ROUTES.examSets
+          })()
+        : ROUTES.practice
+    : ROUTES.home
+
   return (
     <div data-testid={TID.home} className="stack stack--loose">
       <section data-testid={TID.homeHero} className="card home-hero">
@@ -79,7 +93,7 @@ export function HomePage() {
             <div className="btn-row">
               <a
                 className="btn btn--primary"
-                href={resumable.mode === 'mock' ? ROUTES.mock : ROUTES.practice}
+                href={resumeHref}
                 data-testid={TID.homeResume}
               >
                 Tiếp tục bài đang làm

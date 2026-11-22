@@ -36,7 +36,8 @@ export function AppHeader({ route }: { route: string }) {
             const isCurrent =
               route === item.route ||
               (item.route === ROUTES.partSelect && route === ROUTES.practice) ||
-              (item.route === ROUTES.examSets && route.startsWith(`${ROUTES.examSets}/`))
+              (item.route === ROUTES.examSets && route.startsWith(`${ROUTES.examSets}/`)) ||
+              (item.route === ROUTES.mock && route.startsWith(`${ROUTES.mock}/`))
 
             return (
               <a

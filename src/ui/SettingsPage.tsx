@@ -63,9 +63,9 @@ export function SettingsPage() {
 
         <div className="switch-row">
           <div className="switch-row__text">
-            <strong id="audio-label">Đọc lời thoại bằng giọng của trình duyệt</strong>
+            <strong id="audio-label">Phát âm thanh lời thoại</strong>
             <span>
-              Bật: hiện nút nghe để đọc phần lời thoại tiếng Anh. Tắt: ẩn nút nghe hoàn toàn.
+              Bật: hiện thanh phát âm thanh cho các câu nghe (MP3 / giọng đọc). Tắt: ẩn phát âm thanh hoàn toàn.
             </span>
           </div>
           <button

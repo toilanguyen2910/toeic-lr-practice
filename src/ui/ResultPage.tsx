@@ -1,5 +1,5 @@
-import { ROUTES, TID } from '../testids'
-import { buildMockSet, findMockSet, MOCK_DURATION_SECONDS } from '../lib'
+import { ROUTES, TID, examSetRoute } from '../testids'
+import { buildExamSet, buildMockSet, findExamSet, findMockSet, MOCK_DURATION_SECONDS } from '../lib'
 import type { Part } from '../types'
 import { navigate } from '../hooks/useHashRoute'
 import { useSession } from './sessionContext'
@@ -54,6 +54,25 @@ export function ResultPage() {
         return
       }
       navigate(ROUTES.mock)
+      return
+    }
+
+    // 20 đề luyện: dựng lại đúng đề với seed và thời lượng tương ứng.
+    const examMatch = /^exam(\d{1,2})-/u.exec(session.id)
+    if (examMatch) {
+      const id = Number(examMatch[1])
+      const set = findExamSet(id)
+      if (set) {
+        const built = buildExamSet(bank, set)
+        const seconds = Math.min(
+          MOCK_DURATION_SECONDS,
+          Math.max(60, built.questionIds.length * 36),
+        )
+        adopt({ ...built, durationSeconds: seconds })
+        navigate(examSetRoute(id))
+        return
+      }
+      navigate(ROUTES.examSets)
       return
     }
 
@@ -261,13 +280,4 @@ export function ResultPage() {
     </div>
   )
 }
-
-/**
- * Số câu mỗi part của phiên vừa làm — dùng để "Làm lại" với đúng cấu hình cũ.
- * Id câu hỏi theo quy ước `p{part}-{4 số}` trong `src/types.ts`, nên tiền tố
- * trước dấu `-` chính là part. Ở chế độ luyện tập mọi part có cùng số câu, nên
- */
-
-
-
 

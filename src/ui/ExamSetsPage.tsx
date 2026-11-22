@@ -41,9 +41,14 @@ function collectStats(history: HistoryEntry[]): Map<number, SetStat> {
 }
 
 export function ExamSetsPage() {
-  const { bank } = useSession()
+  const { session, bank } = useSession()
   const history = useMemo<HistoryEntry[]>(() => loadHistory(), [])
   const stats = useMemo(() => collectStats(history), [history])
+
+  // Phiên đang làm dở (nếu là trong bộ 20 đề) — để hiện nút "Tiếp tục".
+  const resumableExam = session && session.status === 'active' && session.id.startsWith('exam') ? session : null
+  const resumableMatch = resumableExam ? /^exam(\d{1,2})-/u.exec(resumableExam.id) : null
+  const resumableId = resumableMatch ? Number(resumableMatch[1]) : null
 
   const sizes = useMemo(
     () => new Map(EXAM_SETS.map((set) => [set.id, examSetSize(bank, set)])),
@@ -60,6 +65,21 @@ export function ExamSetsPage() {
           nhau. Càng làm nhiều đề, bạn càng gặp lại câu từng sai — đó là chủ ý.
         </p>
       </header>
+
+      {resumableExam && resumableId != null ? (
+        <div className="card mock-resume">
+          <div>
+            <strong>Bạn đang làm dở đề {resumableId}</strong>
+            <p className="field__hint">
+              Đã trả lời {Object.values(resumableExam.answers).filter((a) => a !== null).length} /{' '}
+              {resumableExam.questionIds.length} câu.
+            </p>
+          </div>
+          <a className="btn btn--primary" href={examSetRoute(resumableId)} data-testid={TID.homeResume}>
+            Tiếp tục đề {resumableId}
+          </a>
+        </div>
+      ) : null}
 
       <div className="exam-grid">
         {EXAM_SETS.map((set) => {

@@ -69,6 +69,27 @@
   white-space: pre-line;
 }
 
+.review-item__stimulus {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.review-item__stimulus-summary {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.review-item__stimulus-body {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .review-item__answers {
   display: grid;
   gap: 10px;

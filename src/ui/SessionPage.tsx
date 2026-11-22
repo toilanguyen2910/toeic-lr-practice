@@ -206,15 +206,18 @@ export function SessionPage({ session, index }: SessionPageProps) {
   // Đồng hồ: đếm lên khi luyện tập, đếm ngược khi thi thử.
   // `SessionPage` luôn được mount với `key={session.id}` nên mỗi phiên có đồng hồ
   // riêng; khởi tạo từ `elapsedSeconds` đã lưu là đủ, không cần đồng bộ lại.
+  // Tính theo `Date.now()` để tránh trôi giờ khi tab chạy nền (background throttling).
   const [elapsed, setElapsed] = useState(() => Math.max(0, session.elapsedSeconds))
   const submittedRef = useRef(false)
 
   useEffect(() => {
+    const startedAt = Date.now() - session.elapsedSeconds * 1000
     const timer = window.setInterval(() => {
-      setElapsed((prev) => prev + 1)
-    }, 1000)
+      const realElapsed = Math.max(0, Math.floor((Date.now() - startedAt) / 1000))
+      setElapsed(realElapsed)
+    }, 500)
     return () => window.clearInterval(timer)
-  }, [])
+  }, [session.elapsedSeconds])
 
   // Ghi thời gian vào phiên để "Tiếp tục" sau khi tải lại vẫn đúng.
   useEffect(() => {
@@ -286,7 +289,11 @@ export function SessionPage({ session, index }: SessionPageProps) {
         return
       }
 
-      const letter = letterAt(Number.parseInt(event.key, 10) - 1)
+      const keyUpper = event.key.toUpperCase()
+      const letter =
+        keyUpper === 'A' || keyUpper === 'B' || keyUpper === 'C' || keyUpper === 'D'
+          ? (keyUpper as Letter)
+          : letterAt(Number.parseInt(event.key, 10) - 1)
       if (!letter) return
       if (!question?.choices.some((choice) => choice.letter === letter)) return
       event.preventDefault()

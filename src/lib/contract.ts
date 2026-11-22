@@ -61,10 +61,10 @@ export interface PartBreakdown {
 }
 
 export interface ScoreEstimate {
-  /** Điểm ước lượng mỗi phần trên thang 5–495. */
+  /** Điểm ước lượng mỗi phần trên thang 0–495. */
   listening: number
   reading: number
-  /** Tổng trên thang 10–990 = listening + reading. */
+  /** Tổng trên thang 0–990 = listening + reading. */
   total: number
   /** `true` khi ước lượng dựa trên bộ câu rút gọn, không phải đề 200 câu. */
   approximate: boolean

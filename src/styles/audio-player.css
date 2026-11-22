@@ -181,6 +181,40 @@
   box-shadow: var(--focus-ring);
 }
 
+.audio-player__speed {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.audio-player__speed:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.audio-player__speed:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.audio-player__speed:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
 /* ── PART 1: nút A/B/C/D khi ẩn chữ ─────────────────────────────────────── */
 
 /*

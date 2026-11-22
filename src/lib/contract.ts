@@ -94,6 +94,10 @@ export interface HistoryEntry {
   correct: number
   total: number
   estimateTotal: number
+  /** Điểm nghe ước lượng (0-495). */
+  listeningScore?: number
+  /** Điểm đọc ước lượng (0-495). */
+  readingScore?: number
   elapsedSeconds: number
   /**
    * Số hiệu đề (1..20) nếu phiên này làm từ bộ đề, `undefined` nếu làm tự do.

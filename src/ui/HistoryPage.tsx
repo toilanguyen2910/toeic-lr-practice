@@ -1,7 +1,8 @@
 import { ROUTES, TID } from '../testids'
-import { clearHistory, loadHistory, SCORING_VERSION } from '../lib'
-import { useState } from 'react'
+import { clearHistory, loadHistory, removeHistoryEntry, SCORING_VERSION } from '../lib'
+import { useMemo, useState } from 'react'
 import { describeParts } from './partHelpers'
+import { HistoryChart } from './HistoryChart'
 
 function formatDate(timestamp: number): string {
   try {
@@ -27,11 +28,26 @@ function formatDuration(seconds: number): string {
 /** Màn hình lịch sử luyện tập. */
 export function HistoryPage() {
   const [history, setHistory] = useState(loadHistory)
+  const [filterMode, setFilterMode] = useState<'all' | 'mock' | 'practice'>('all')
 
   const handleClear = () => {
     clearHistory()
     setHistory([])
   }
+
+  const handleDelete = (id: string) => {
+    const updated = removeHistoryEntry(id)
+    setHistory(updated)
+  }
+
+  const mockCount = useMemo(() => history.filter((e) => e.mode === 'mock').length, [history])
+  const practiceCount = useMemo(() => history.filter((e) => e.mode === 'practice').length, [history])
+
+  const filtered = useMemo(() => {
+    if (filterMode === 'mock') return history.filter((e) => e.mode === 'mock')
+    if (filterMode === 'practice') return history.filter((e) => e.mode === 'practice')
+    return history
+  }, [history, filterMode])
 
   return (
     <div data-testid={TID.history} className="stack">
@@ -62,6 +78,40 @@ export function HistoryPage() {
         </div>
       ) : (
         <>
+          {/* Biểu đồ tiến độ điểm số Chart.js */}
+          <HistoryChart entries={filtered} />
+
+          {/* Bộ lọc lịch sử */}
+          <div className="filter-bar" role="group" aria-label="Bộ lọc lịch sử">
+            <button
+              type="button"
+              className="filter-chip"
+              data-checked={filterMode === 'all' ? 'true' : 'false'}
+              aria-pressed={filterMode === 'all'}
+              onClick={() => setFilterMode('all')}
+            >
+              Tất cả ({history.length})
+            </button>
+            <button
+              type="button"
+              className="filter-chip"
+              data-checked={filterMode === 'mock' ? 'true' : 'false'}
+              aria-pressed={filterMode === 'mock'}
+              onClick={() => setFilterMode('mock')}
+            >
+              Thi thử ({mockCount})
+            </button>
+            <button
+              type="button"
+              className="filter-chip"
+              data-checked={filterMode === 'practice' ? 'true' : 'false'}
+              aria-pressed={filterMode === 'practice'}
+              onClick={() => setFilterMode('practice')}
+            >
+              Luyện tập ({practiceCount})
+            </button>
+          </div>
+
           <div className="history-table" role="table" aria-label="Lịch sử luyện tập">
             <div className="history-table__head" role="row">
               <span role="columnheader">Thời điểm</span>
@@ -70,9 +120,10 @@ export function HistoryPage() {
               <span role="columnheader">Đúng</span>
               <span role="columnheader">Điểm</span>
               <span role="columnheader">Thời gian</span>
+              <span role="columnheader" style={{ textAlign: 'right' }}>Xoá</span>
             </div>
 
-            {history.map((entry) => (
+            {filtered.map((entry) => (
               <div className="history-row" data-testid={TID.historyRow} role="row" key={entry.id}>
                 <span className="history-row__date" role="cell">
                   {formatDate(entry.finishedAt)}
@@ -89,11 +140,6 @@ export function HistoryPage() {
                   {entry.correct}/{entry.total}
                 </span>
                 <span className="history-row__score" role="cell">
-                  {/*
-                    Bản ghi cũ (phiên bản công thức khác hiện tại) vẫn hiện điểm
-                    nhưng kèm dấu "cũ" và chú thích, không thì người dùng thấy con
-                    số 495 vô lý mà không hiểu vì sao.
-                  */}
                   {entry.scoringVersion === SCORING_VERSION ? (
                     entry.estimateTotal
                   ) : (
@@ -108,6 +154,18 @@ export function HistoryPage() {
                 </span>
                 <span className="history-row__num" role="cell">
                   {formatDuration(entry.elapsedSeconds)}
+                </span>
+                <span role="cell" style={{ textAlign: 'right' }}>
+                  <button
+                    type="button"
+                    className="btn btn--sm btn--ghost"
+                    data-testid={`del-hist-${entry.id}`}
+                    onClick={() => handleDelete(entry.id)}
+                    title="Xoá bản ghi này"
+                    style={{ padding: '2px 8px', fontSize: '0.8125rem' }}
+                  >
+                    ✕
+                  </button>
                 </span>
               </div>
             ))}

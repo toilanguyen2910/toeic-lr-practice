@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { ROUTES, TID, examSetRoute } from '../testids'
-import { buildExamSet, buildMockSet, findExamSet, findMockSet, MOCK_DURATION_SECONDS } from '../lib'
+import { buildExamSet, buildMockSet, findExamSet, findMockSet, formatClock, MOCK_DURATION_SECONDS } from '../lib'
 import type { Part } from '../types'
 import { navigate } from '../hooks/useHashRoute'
 import { useSession } from './sessionContext'
@@ -16,6 +17,7 @@ function percent(value: number): string {
 export function ResultPage() {
   const { session, result, reset, start, adopt, bank } = useSession()
   const questionById = useBankIndex(bank).questionById
+  const [copied, setCopied] = useState(false)
 
   /**
    * "Làm lại" — dựng lại ĐÚNG phiên cũ, không tạo phiên mới tuỳ ý.
@@ -120,14 +122,70 @@ export function ResultPage() {
   const accuracyValue = Math.round(result.accuracy)
   const total = result.total
 
+  const isTimedOut =
+    session.mode === 'mock' &&
+    session.durationSeconds != null &&
+    session.elapsedSeconds >= session.durationSeconds
+
+  const handleCopyResult = async () => {
+    const lines = [
+      '🎯 KẾT QUẢ TOEIC LISTENING & READING',
+      `• Điểm ước lượng: ${estimate.total}/990 (Nghe: ${estimate.listening} | Đọc: ${estimate.reading})`,
+      `• Độ chính xác: ${result.correct}/${total} (${accuracyValue}%)`,
+      `• Thời gian: ${formatClock(session.elapsedSeconds)}`,
+      result.byPart.length > 0
+        ? `• Từng Part: ${result.byPart.map((p) => `P${p.part}: ${p.correct}/${p.total} (${Math.round(p.accuracy)}%)`).join(' · ')}`
+        : '',
+      '👉 Luyện thi cá nhân TOEIC LR Practice',
+    ]
+      .filter(Boolean)
+      .join('\n')
+
+    try {
+      await navigator.clipboard.writeText(lines)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      /* bỏ qua */
+    }
+  }
+
   return (
     <div data-testid={TID.result} className="stack stack--loose">
-      <div className="page-head">
-        <span className="section-label">
-          {session.mode === 'mock' ? 'Kết quả thi thử' : 'Kết quả luyện tập'}
-        </span>
-        <h1>Bài làm đã được chấm</h1>
-        <p className="page-head__lead">{describeParts(session.parts)}</p>
+      {isTimedOut ? (
+        <div className="banner banner--warn">
+          ⏱️ Bài thi đã được tự động nộp do hết thời gian làm bài.
+        </div>
+      ) : null}
+
+      <div className="page-head page-head--with-action">
+        <div>
+          <span className="section-label">
+            {session.mode === 'mock' ? 'Kết quả thi thử' : 'Kết quả luyện tập'}
+          </span>
+          <h1>Bài làm đã được chấm</h1>
+          <p className="page-head__lead">{describeParts(session.parts)}</p>
+        </div>
+        <div className="btn-row no-print" style={{ alignSelf: 'flex-start' }}>
+          <button
+            type="button"
+            className="btn btn--sm btn--ghost"
+            data-testid="print-result"
+            onClick={() => window.print()}
+            title="In hoặc lưu phiếu điểm ra file PDF"
+          >
+            🖨️ In / Lưu PDF
+          </button>
+          <button
+            type="button"
+            className="btn btn--sm btn--ghost"
+            data-testid="copy-result"
+            onClick={handleCopyResult}
+            title="Sao chép tóm tắt kết quả vào bộ nhớ tạm"
+          >
+            {copied ? '✓ Đã sao chép!' : '📋 Sao chép kết quả'}
+          </button>
+        </div>
       </div>
 
       <section className="score-hero">
@@ -277,6 +335,12 @@ export function ResultPage() {
           Về trang chủ
         </a>
       </div>
+
+      {copied ? (
+        <div className="toast toast--bottom" role="status">
+          ✓ Đã sao chép tóm tắt kết quả vào bộ nhớ tạm!
+        </div>
+      ) : null}
     </div>
   )
 }

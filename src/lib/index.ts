@@ -75,6 +75,7 @@ export {
   parseSession,
   parseSettings,
   pushHistory,
+  removeHistoryEntry,
   saveSession,
   saveSettings,
 } from './storage'

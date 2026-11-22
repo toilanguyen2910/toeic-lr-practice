@@ -189,6 +189,10 @@ await withBrowser(
       const reached = await skipToLast(page, practiceTotal || 20)
       if (!reached) throw new Error('không tới được nút nộp bài ở câu cuối')
       await page.click(sel('submit-session'))
+      await sleep(300)
+      if (await page.count(sel('submit-confirm-btn')) > 0) {
+        await page.click(sel('submit-confirm-btn'))
+      }
       await page.waitFor(sel('result'), 20000)
     })
 
@@ -210,6 +214,10 @@ await withBrowser(
       await page.goto(`${url}#/`)
       await page.waitFor(sel('home'), 20000)
       await page.click(sel('home-start-mock'))
+      await sleep(400)
+      if ((await page.count('[data-testid="mock-set-1"] a')) > 0) {
+        await page.click('[data-testid="mock-set-1"] a')
+      }
       await page.waitFor(sel('session'), 20000)
       await page.waitFor(sel('question'), 10000)
       await page.click(sel('choice-A'))

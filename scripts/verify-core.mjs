@@ -250,6 +250,11 @@ export async function runVerifyCore() {
         report.check('B3.1 đã ghi nhận đúng 1 đáp án', answered === 1, `nhận ${answered}`)
 
         await page.click(sel('submit-session'))
+        await new Promise((r) => setTimeout(r, 300))
+        if (await page.count(sel('submit-confirm-btn')) > 0) {
+          report.check('B3.1b modal cảnh báo câu chưa làm xuất hiện', true)
+          await page.click(sel('submit-confirm-btn'))
+        }
         await page.waitFor(sel('result'), 25000)
 
         const total = Number((await page.text(sel('score-total'))).replace(/[^\d]/g, ''))

@@ -118,6 +118,8 @@ export function SessionProvider({ bank, children }: { bank: QuestionBank; childr
         correct: scored.correct,
         total: scored.total,
         estimateTotal: scored.estimate.total,
+        listeningScore: scored.estimate.listening,
+        readingScore: scored.estimate.reading,
         elapsedSeconds: submitted.elapsedSeconds,
         // Đánh dấu công thức đã dùng. Bản ghi cũ không có trường này (mặc định
         // là phiên bản 1) nên UI biết mà loại khỏi thống kê và so sánh điểm.

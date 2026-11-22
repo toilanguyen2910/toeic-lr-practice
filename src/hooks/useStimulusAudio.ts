@@ -24,6 +24,10 @@ export interface AudioHandle {
   currentTime: number
   /** Tổng thời lượng (giây), 0 khi chưa biết. */
   duration: number
+  /** Tốc độ phát hiện tại (mặc định 1.0). */
+  playbackRate: number
+  /** Thay đổi tốc độ phát. */
+  setPlaybackRate: (rate: number) => void
   play: () => void
   stop: () => void
   /** Tua tới vị trí (giây). */
@@ -46,6 +50,8 @@ export function useStimulusAudio(
   const [usingFallback, setUsingFallback] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [playbackRate, setPlaybackRateState] = useState(1.0)
+  const playbackRateRef = useRef(1.0)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
   /** Tăng mỗi lần play/stop; callback cũ thấy số khác thì tự bỏ. */
@@ -251,6 +257,11 @@ export function useStimulusAudio(
       setLoading(false)
       setUsingFallback(false)
       if (audio.duration && Number.isFinite(audio.duration)) setDuration(audio.duration)
+      try {
+        audio.playbackRate = playbackRateRef.current
+      } catch {
+        /* bỏ qua */
+      }
       void audio
         .play()
         .then(() => {
@@ -314,6 +325,18 @@ export function useStimulusAudio(
     }
   }, [])
 
+  const setPlaybackRate = useCallback((rate: number) => {
+    playbackRateRef.current = rate
+    setPlaybackRateState(rate)
+    if (audioRef.current) {
+      try {
+        audioRef.current.playbackRate = rate
+      } catch {
+        /* bỏ qua */
+      }
+    }
+  }, [])
+
   return {
     supported: supported && enabled,
     playing,
@@ -321,6 +344,8 @@ export function useStimulusAudio(
     usingFallback,
     currentTime,
     duration,
+    playbackRate,
+    setPlaybackRate,
     play,
     stop,
     seek,

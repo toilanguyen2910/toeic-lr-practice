@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { Question } from '../types'
 import { PART_META } from '../types'
 import { ROUTES, TID } from '../testids'
@@ -6,6 +6,51 @@ import { useSession } from './sessionContext'
 import { getPreferredReviewFilter } from './reviewFilter'
 import type { ReviewFilter } from './reviewFilter'
 import type { BankIndex } from '../hooks/useBankIndex'
+import { AudioPlayer } from './AudioPlayer'
+import { useStimulusAudio } from '../hooks/useStimulusAudio'
+import { useAppSettings } from './settingsContext'
+
+interface ReviewAudioItemProps {
+  stimulusId: string
+  scriptText?: string
+  activeStimulusId: string | null
+  onPlay: (id: string) => void
+  audioEnabled: boolean
+}
+
+function ReviewAudioItem({
+  stimulusId,
+  scriptText,
+  activeStimulusId,
+  onPlay,
+  audioEnabled,
+}: ReviewAudioItemProps) {
+  const isCurrentActive = activeStimulusId === stimulusId
+  const audio = useStimulusAudio(stimulusId, scriptText, audioEnabled)
+
+  useEffect(() => {
+    if (!isCurrentActive && audio.playing) {
+      audio.stop()
+    }
+  }, [isCurrentActive, audio])
+
+  const wrappedAudio = useMemo(
+    () => ({
+      ...audio,
+      play: () => {
+        onPlay(stimulusId)
+        audio.play()
+      },
+    }),
+    [audio, onPlay, stimulusId],
+  )
+
+  return (
+    <div className="review-item__audio" style={{ margin: '8px 0' }}>
+      <AudioPlayer audio={wrappedAudio} stimulusId={stimulusId} allowSpeedControl={true} />
+    </div>
+  )
+}
 
 interface ReviewRow {
   questionId: string
@@ -18,7 +63,9 @@ interface ReviewRow {
 /** Màn hình xem lại bài làm, có bộ lọc "chỉ câu sai". */
 export function ReviewPage({ index }: { index: BankIndex }) {
   const { session } = useSession()
+  const { settings } = useAppSettings()
   const [filter, setFilter] = useState<ReviewFilter>(getPreferredReviewFilter)
+  const [activeAudioId, setActiveAudioId] = useState<string | null>(null)
 
   const rows = useMemo<ReviewRow[]>(() => {
     if (!session) return []
@@ -163,7 +210,17 @@ export function ReviewPage({ index }: { index: BankIndex }) {
                         ))
                       : null}
 
-                    {hasAudioScript && !hasImage ? (
+                    {hasAudioScript ? (
+                      <ReviewAudioItem
+                        stimulusId={stimulus.id}
+                        scriptText={stimulus.audioScript}
+                        activeStimulusId={activeAudioId}
+                        onPlay={setActiveAudioId}
+                        audioEnabled={settings.audioEnabled}
+                      />
+                    ) : null}
+
+                    {hasAudioScript ? (
                       <p className="stimulus__script">{stimulus.audioScript}</p>
                     ) : null}
                   </div>

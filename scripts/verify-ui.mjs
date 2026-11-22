@@ -357,6 +357,10 @@ export async function runVerifyUi() {
         )
 
         await page.click(sel('submit-session'))
+        await sleep(300)
+        if (await page.count(sel('submit-confirm-btn')) > 0) {
+          await page.click(sel('submit-confirm-btn'))
+        }
         await page.waitFor(sel('result'), 25000)
         await sleep(400)
         const blank = num(await page.text(sel('result-blank')))

@@ -268,6 +268,16 @@ export function parseHistoryEntry(value: unknown): HistoryEntry | null {
     entry.examSetId = Math.floor(rawSetId)
   }
 
+  const rawListening = (value as Record<string, unknown>).listeningScore
+  if (isFiniteNumber(rawListening) && rawListening >= 0) {
+    entry.listeningScore = Math.floor(rawListening)
+  }
+
+  const rawReading = (value as Record<string, unknown>).readingScore
+  if (isFiniteNumber(rawReading) && rawReading >= 0) {
+    entry.readingScore = Math.floor(rawReading)
+  }
+
   return entry
 }
 
@@ -351,6 +361,14 @@ export function pushHistory(entry: HistoryEntry): HistoryEntry[] {
 /** Xoá sạch lịch sử. */
 export function clearHistory(): void {
   removeRaw(STORAGE_KEYS.history)
+}
+
+/** Xoá một bản ghi khỏi lịch sử theo id. */
+export function removeHistoryEntry(id: string): HistoryEntry[] {
+  const current = loadHistory()
+  const next = current.filter((entry) => entry.id !== id)
+  writeHistory(next)
+  return next
 }
 
 /* ──────────────────────────────────── Cài đặt ──────────────────────────────────── */

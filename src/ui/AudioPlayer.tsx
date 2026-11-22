@@ -15,6 +15,8 @@ interface AudioPlayerProps {
   audio: AudioHandle
   /** Câu đang làm — dùng làm key để thanh tiến trình reset khi đổi câu. */
   stimulusId: string
+  /** Cho phép chỉnh tốc độ phát âm thanh hay không (mặc định true, tắt ở thi thử). */
+  allowSpeedControl?: boolean
 }
 
 /** Định dạng `m:ss` cho thời gian âm thanh. */
@@ -26,9 +28,16 @@ function formatAudioTime(seconds: number): string {
   return `${minutes}:${String(rest).padStart(2, '0')}`
 }
 
-export function AudioPlayer({ audio, stimulusId }: AudioPlayerProps) {
-  const { playing, loading, duration, currentTime, usingFallback } = audio
+export function AudioPlayer({ audio, stimulusId, allowSpeedControl = true }: AudioPlayerProps) {
+  const { playing, loading, duration, currentTime, usingFallback, playbackRate, setPlaybackRate } = audio
   const percent = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0
+
+  const handleCycleSpeed = () => {
+    const SPEEDS = [1.0, 1.2, 1.5, 0.8]
+    const currentIdx = SPEEDS.indexOf(playbackRate)
+    const nextIdx = currentIdx >= 0 ? (currentIdx + 1) % SPEEDS.length : 0
+    setPlaybackRate(SPEEDS[nextIdx]!)
+  }
 
   return (
     <div className="audio-player" key={stimulusId}>
@@ -94,6 +103,20 @@ export function AudioPlayer({ audio, stimulusId }: AudioPlayerProps) {
       >
         <span aria-hidden="true">↺</span>
       </button>
+
+      {allowSpeedControl ? (
+        <button
+          type="button"
+          className="audio-player__speed"
+          onClick={handleCycleSpeed}
+          disabled={!audio.supported}
+          aria-label={`Tốc độ phát: ${playbackRate}x`}
+          data-testid="audio-speed"
+          title="Đổi tốc độ phát âm thanh (1.0x → 1.2x → 1.5x → 0.8x)"
+        >
+          {playbackRate}x
+        </button>
+      ) : null}
     </div>
   )
 }

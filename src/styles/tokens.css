@@ -54,3 +54,42 @@ html:root {
   --font: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
   --mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', Consolas, monospace;
 }
+
+/* ── GIAO DIỆN TỐI (DARK MODE) ────────────────────────────────────────────── */
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0f141c;
+  --surface: #18202c;
+  --surface-2: #1e2837;
+  --surface-3: #263346;
+
+  --ink: #f0f4f9;
+  --ink-2: #cbd5e1;
+  --muted: #8e9baa;
+
+  --line: #2b394d;
+  --line-strong: #3e506b;
+
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-soft: #1b2e4b;
+  --primary-ink: #ffffff;
+
+  --ok: #22c55e;
+  --ok-soft: #143222;
+  --ok-line: #2e7d4c;
+
+  --bad: #ef4444;
+  --bad-soft: #381919;
+  --bad-line: #8b3232;
+
+  --flag: #eab308;
+  --flag-soft: #382c10;
+
+  --focus: #60a5fa;
+  --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.35);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+}

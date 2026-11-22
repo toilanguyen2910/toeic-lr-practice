@@ -11,6 +11,7 @@ import {
   loadSession,
   loadSettings,
   pushHistory,
+  removeHistoryEntry,
   saveSession,
   saveSettings,
 } from './storage'
@@ -257,6 +258,15 @@ describe('loadHistory / pushHistory / clearHistory', () => {
 
   it('clearHistory khi chưa có gì không throw', () => {
     expect(() => clearHistory()).not.toThrow()
+  })
+
+  it('removeHistoryEntry xoá đúng bản ghi theo id', () => {
+    pushHistory(makeEntry({ id: 'h-1' }))
+    pushHistory(makeEntry({ id: 'h-2' }))
+    const remaining = removeHistoryEntry('h-1')
+    expect(remaining).toHaveLength(1)
+    expect(remaining[0]!.id).toBe('h-2')
+    expect(loadHistory().map((e) => e.id)).toEqual(['h-2'])
   })
 })
 

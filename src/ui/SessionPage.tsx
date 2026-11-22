@@ -7,6 +7,7 @@ import { ROUTES, TID } from '../testids'
 import { navigate } from '../hooks/useHashRoute'
 import { suggestedDurationSeconds } from '../hooks/sessionDuration'
 import { useStimulusAudio } from '../hooks/useStimulusAudio'
+import type { AudioHandle } from '../hooks/useStimulusAudio'
 import { AudioPlayer } from './AudioPlayer'
 import { useAppSettings } from './settingsContext'
 import { useSession } from './sessionContext'
@@ -29,24 +30,24 @@ function letterAt(position: number): Letter | null {
 function StimulusBlock({
   stimulus,
   part,
-  audioEnabled,
+  audio,
   showChoiceText,
   onToggleChoiceText,
   showTranscript,
+  allowSpeedControl = true,
 }: {
   stimulus: Stimulus
   part: Question['part']
-  audioEnabled: boolean
+  audio: AudioHandle
   /** Chỉ dùng cho Part 1: đang hiện chữ đáp án hay ẩn. */
   showChoiceText: boolean
   onToggleChoiceText: () => void
   /** Có được in lời thoại ra màn hình hay không (xem giải thích ở nơi render). */
   showTranscript: boolean
+  allowSpeedControl?: boolean
 }) {
   // Part 3/4/6/7 có ngữ liệu dài: mặc định mở, nhưng bấm được để thu gọn.
   const [open, setOpen] = useState(true)
-  // Nguồn âm thanh ưu tiên file MP3 sinh sẵn; thiếu file thì rơi về giọng trình duyệt.
-  const audio = useStimulusAudio(stimulus.id, stimulus.audioScript, audioEnabled)
   const meta = PART_META[part]
 
   const hasPassages = Boolean(stimulus.passages && stimulus.passages.length > 0)
@@ -107,7 +108,9 @@ function StimulusBlock({
             ảnh, nghe mô tả, chọn đáp án. Trước đây nút nghe nằm trên tiêu đề ngữ
             liệu nên người dùng phải mắt lên góc mới thấy.
           */}
-          {hasAudioScript ? <AudioPlayer audio={audio} stimulusId={stimulus.id} /> : null}
+          {hasAudioScript ? (
+            <AudioPlayer audio={audio} stimulusId={stimulus.id} allowSpeedControl={allowSpeedControl} />
+          ) : null}
 
           {hasPassages
             ? stimulus.passages?.map((passage, passageIndex) => (
@@ -199,9 +202,15 @@ export function SessionPage({ session, index }: SessionPageProps) {
   const safeCursor = Math.min(Math.max(cursor, 0), Math.max(total - 1, 0))
   const questionId = session.questionIds[safeCursor]
   const question = questionId ? index.questionById.get(questionId) : undefined
+  const stimulus = question?.stimulusId ? index.stimulusById.get(question.stimulusId) : undefined
+  const audio = useStimulusAudio(stimulus?.id, stimulus?.audioScript, settings.audioEnabled)
 
   const isMock = session.mode === 'mock'
   const duration = session.durationSeconds ?? suggestedDurationSeconds(session.parts)
+
+  const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
+  const [showMobilePalette, setShowMobilePalette] = useState(false)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
 
   // Đồng hồ: đếm lên khi luyện tập, đếm ngược khi thi thử.
   // `SessionPage` luôn được mount với `key={session.id}` nên mỗi phiên có đồng hồ
@@ -209,6 +218,18 @@ export function SessionPage({ session, index }: SessionPageProps) {
   // Tính theo `Date.now()` để tránh trôi giờ khi tab chạy nền (background throttling).
   const [elapsed, setElapsed] = useState(() => Math.max(0, session.elapsedSeconds))
   const submittedRef = useRef(false)
+
+  // Bảo vệ phiên làm bài: ngăn việc vô tình bấm F5 / tắt tab làm gián đoạn
+  useEffect(() => {
+    if (session.status !== 'active') return
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (submittedRef.current) return
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [session.status])
 
   useEffect(() => {
     const startedAt = Date.now() - session.elapsedSeconds * 1000
@@ -264,11 +285,42 @@ export function SessionPage({ session, index }: SessionPageProps) {
     [answer, questionId],
   )
 
+  const unansweredCount = total - answeredCount
   const handleSubmit = useCallback(() => {
-    goToResult(elapsed)
-  }, [elapsed, goToResult])
+    if (unansweredCount > 0) {
+      setShowSubmitConfirm(true)
+    } else {
+      goToResult(elapsed)
+    }
+  }, [elapsed, goToResult, unansweredCount])
 
-  // Bàn phím: 1–4 chọn A–D, ← → chuyển câu.
+  // Cử chỉ vuốt tay (Swipe) trên màn hình cảm ứng: vuốt trái sang câu kế, vuốt phải về câu trước
+  const handleTouchStart = (event: React.TouchEvent) => {
+    const touch = event.touches[0]
+    if (touch) {
+      touchStartRef.current = { x: touch.clientX, y: touch.clientY }
+    }
+  }
+
+  const handleTouchEnd = (event: React.TouchEvent) => {
+    if (!touchStartRef.current) return
+    const touch = event.changedTouches[0]
+    if (!touch) return
+    const deltaX = touch.clientX - touchStartRef.current.x
+    const deltaY = touch.clientY - touchStartRef.current.y
+    touchStartRef.current = null
+
+    // Ngưỡng vuốt ngang dứt khoát > 60px và độ lệch ngang gấp đôi độ lệch dọc
+    if (Math.abs(deltaX) > 60 && Math.abs(deltaX) > Math.abs(deltaY) * 1.8) {
+      if (deltaX < 0 && safeCursor < total - 1) {
+        goTo(safeCursor + 1)
+      } else if (deltaX > 0 && safeCursor > 0) {
+        goTo(safeCursor - 1)
+      }
+    }
+  }
+
+  // Bàn phím: 1–4 chọn A–D, ← → chuyển câu, Space/P bật-dừng audio, R phát lại.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return
@@ -289,6 +341,21 @@ export function SessionPage({ session, index }: SessionPageProps) {
         return
       }
 
+      if (stimulus?.audioScript && audio.supported) {
+        if (event.key === 'p' || event.key === 'P' || event.key === ' ') {
+          event.preventDefault()
+          if (audio.playing) audio.stop()
+          else audio.play()
+          return
+        }
+        if (event.key === 'r' || event.key === 'R') {
+          event.preventDefault()
+          audio.stop()
+          audio.play()
+          return
+        }
+      }
+
       const keyUpper = event.key.toUpperCase()
       const letter =
         keyUpper === 'A' || keyUpper === 'B' || keyUpper === 'C' || keyUpper === 'D'
@@ -302,7 +369,7 @@ export function SessionPage({ session, index }: SessionPageProps) {
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [goTo, safeCursor, handleSelect, question])
+  }, [goTo, safeCursor, handleSelect, question, audio, stimulus])
 
   if (!question) {
     return (
@@ -320,7 +387,6 @@ export function SessionPage({ session, index }: SessionPageProps) {
     )
   }
 
-  const stimulus = question.stimulusId ? index.stimulusById.get(question.stimulusId) : undefined
   const isFlagged = session.flagged[question.id] === true
   const chosen = session.answers[question.id] ?? null
   const revealFeedback = session.revealMode && chosen != null
@@ -361,7 +427,12 @@ export function SessionPage({ session, index }: SessionPageProps) {
   })()
 
   return (
-    <div className="session" data-testid={TID.session}>
+    <div
+      className="session"
+      data-testid={TID.session}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <header className="session__bar">
         <div className="session__bar-left">
           <span className={`badge ${isMock ? 'badge--info' : ''}`}>
@@ -423,10 +494,11 @@ export function SessionPage({ session, index }: SessionPageProps) {
           <StimulusBlock
             stimulus={stimulus}
             part={question.part}
-            audioEnabled={settings.audioEnabled}
+            audio={audio}
             showChoiceText={showChoiceText}
             onToggleChoiceText={() => setShowChoiceText((prev) => !prev)}
             showTranscript={showTranscript}
+            allowSpeedControl={!isMock}
           />
         ) : null}
 
@@ -602,6 +674,153 @@ export function SessionPage({ session, index }: SessionPageProps) {
           ))}
         </div>
       </details>
+
+      {/* Nút nổi mở bảng câu hỏi nhanh trên màn hình nhỏ */}
+      <button
+        type="button"
+        className="mobile-palette-toggle"
+        data-testid="mobile-palette-toggle"
+        onClick={() => setShowMobilePalette(true)}
+        aria-label="Mở bảng câu hỏi nhanh"
+      >
+        📋 {safeCursor + 1}/{total}
+      </button>
+
+      {/* Drawer trượt từ dưới lên (Bottom Sheet) trên điện thoại */}
+      {showMobilePalette ? (
+        <div
+          className="mobile-drawer-backdrop"
+          onClick={() => setShowMobilePalette(false)}
+          data-testid="mobile-palette-drawer"
+        >
+          <div
+            className="mobile-drawer"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Bảng câu hỏi nhanh"
+          >
+            <div className="mobile-drawer__head">
+              <h3 className="mobile-drawer__title">
+                Bảng câu hỏi ({answeredCount}/{total})
+              </h3>
+              <button
+                type="button"
+                className="btn btn--sm btn--ghost"
+                onClick={() => setShowMobilePalette(false)}
+                aria-label="Đóng bảng câu hỏi"
+              >
+                ✕ Đóng
+              </button>
+            </div>
+            <div className="mobile-drawer__content">
+              {paletteGroups.map((group, groupIndex) => (
+                <section className="palette__group" key={`m-${group.part}-${groupIndex}`}>
+                  <h4 className="palette__group-title">
+                    <span className="palette__group-name">{PART_META[group.part].label}</span>
+                    <span className="palette__group-range">
+                      câu {group.from + 1}–{group.to + 1}
+                    </span>
+                  </h4>
+                  <div className="palette__grid">
+                    {group.items.map(({ id, position }) => {
+                      const isCurrent = position === safeCursor
+                      const isAnswered = session.answers[id] != null
+                      const flagged = session.flagged[id] === true
+                      const classes = [
+                        'palette__cell',
+                        isCurrent ? 'is-current' : '',
+                        isAnswered ? 'is-answered' : '',
+                        flagged ? 'is-flagged' : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')
+
+                      return (
+                        <button
+                          key={`m-btn-${id}`}
+                          type="button"
+                          className={classes}
+                          onClick={() => {
+                            goTo(position)
+                            setShowMobilePalette(false)
+                          }}
+                        >
+                          {position + 1}
+                          {flagged ? <span aria-hidden="true">★</span> : null}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Hộp thoại xác nhận trước khi nộp bài nếu còn câu chưa làm */}
+      {showSubmitConfirm ? (
+        <div
+          className="modal-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="submit-modal-title"
+          data-testid="submit-confirm-modal"
+          onClick={() => setShowSubmitConfirm(false)}
+        >
+          <div className="modal-card" onClick={(event) => event.stopPropagation()}>
+            <h3 id="submit-modal-title" className="modal-card__title">
+              Xác nhận nộp bài thi
+            </h3>
+            <p className="modal-card__desc">
+              Bạn còn <strong>{unansweredCount}</strong> câu chưa trả lời trên tổng số {total} câu.
+            </p>
+            <div className="modal-card__stats">
+              <span className="badge badge--ok">Đã trả lời: {answeredCount}</span>
+              <span className="badge badge--bad">Bỏ trống: {unansweredCount}</span>
+              <span className="badge badge--flag">
+                Đánh dấu: {Object.keys(session.flagged).length}
+              </span>
+            </div>
+            <div className="modal-card__actions">
+              <button
+                type="button"
+                className="btn btn--primary"
+                data-testid="submit-jump-unanswered"
+                onClick={() => {
+                  setShowSubmitConfirm(false)
+                  const firstBlankIdx = session.questionIds.findIndex(
+                    (id) => session.answers[id] == null,
+                  )
+                  if (firstBlankIdx >= 0) goTo(firstBlankIdx)
+                }}
+              >
+                Đến câu chưa làm đầu tiên
+              </button>
+              <button
+                type="button"
+                className="btn btn--danger"
+                data-testid="submit-confirm-btn"
+                onClick={() => {
+                  setShowSubmitConfirm(false)
+                  goToResult(elapsed)
+                }}
+              >
+                Vẫn nộp bài
+              </button>
+              <button
+                type="button"
+                className="btn btn--ghost"
+                data-testid="submit-cancel-btn"
+                onClick={() => setShowSubmitConfirm(false)}
+              >
+                Quay lại làm tiếp
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

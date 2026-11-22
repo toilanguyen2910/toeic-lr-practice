@@ -1,5 +1,6 @@
 import { ROUTES, TID } from '../testids'
 import { setPreferredReviewFilter } from './reviewFilter'
+import { useTheme } from '../hooks/useTheme'
 
 interface NavItem {
   route: string
@@ -18,6 +19,11 @@ const NAV_ITEMS: NavItem[] = [
 
 /** Thanh đầu trang: thương hiệu + điều hướng chính. */
 export function AppHeader({ route }: { route: string }) {
+  const { theme, cycleTheme } = useTheme()
+  const themeLabel =
+    theme === 'dark' ? 'Giao diện: Tối' : theme === 'light' ? 'Giao diện: Sáng' : 'Giao diện: Tự động'
+  const themeIcon = theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '⚙️'
+
   return (
     <header className="app__header">
       <div className="app__header-inner">
@@ -55,6 +61,16 @@ export function AppHeader({ route }: { route: string }) {
               </a>
             )
           })}
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={cycleTheme}
+            title={`${themeLabel} (Bấm để chuyển đổi)`}
+            aria-label={themeLabel}
+            data-testid="theme-toggle"
+          >
+            <span aria-hidden="true">{themeIcon}</span>
+          </button>
         </nav>
       </div>
     </header>

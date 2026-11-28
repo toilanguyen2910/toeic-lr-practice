@@ -4,6 +4,7 @@ import type { HistoryEntry } from '../lib/contract'
 import { PART_META } from '../types'
 import type { Part } from '../types'
 import { ROUTES, TID, examSetRoute, mockSetRoute } from '../testids'
+import { FULL_BANK } from '../data'
 import { useSession } from './sessionContext'
 
 function formatDate(timestamp: number): string {
@@ -65,7 +66,16 @@ export function HomePage() {
   return (
     <div data-testid={TID.home} className="stack stack--loose">
       <section data-testid={TID.homeHero} className="card home-hero">
-        <span className="section-label">✨ Ngân hàng 1,000+ câu hỏi chuẩn ETS</span>
+        {/*
+          Số câu lấy từ ngân hàng THẬT, không viết cứng.
+
+          Bản trước ghi "Ngân hàng 1.000+ câu hỏi chuẩn ETS" — sai cả hai điểm:
+          ngân hàng có 425 câu, và câu hỏi do dự án tự viết chứ không phải của ETS.
+          Ghi "chuẩn ETS" còn có thể bị hiểu là hàng nhái. Nay hiện đúng số câu.
+        */}
+        <span className="section-label">
+          ✨ Ngân hàng {FULL_BANK.questions.length} câu hỏi tự biên soạn
+        </span>
         <h1>Luyện nghe &amp; đọc mỗi ngày, bứt phá band điểm.</h1>
         <p className="home-hero__lead">
           Làm bài theo từng part và đọc giải thích ngay khi chọn đáp án, hoặc thi thử có đồng hồ đếm
@@ -203,3 +213,4 @@ export function HomePage() {
     </div>
   )
 }
+

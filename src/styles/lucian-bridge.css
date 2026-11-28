@@ -1,0 +1,129 @@
+/* ============================================================================
+   ÁNH XẠ TOKEN LUCIAN → TOKEN CỦA DỰ ÁN
+   ---------------------------------------------------------------------------
+   Vì sao cần file này:
+
+   Lucian UX/UI (480 phần tử) đọc màu từ token `--ux-*`. Nếu nhúng thẳng
+   `tokens.css` của Lucian vào, dự án sẽ có HAI bảng màu song song, và tệ hơn:
+
+   - Lucian chọn dark bằng `@media (prefers-color-scheme: dark)` và dùng
+     `:root:not([data-theme="light"])`.
+   - Dự án chọn dark bằng `html[data-theme='dark']` do `useTheme` gán.
+
+   Hai cách NGƯỢC NHAU: khi người dùng bấm nút đổi theme trong app, Lucian
+   không biết (nó chỉ nhìn cài đặt hệ điều hành), nên phần tử Lucian sẽ sáng
+   trong khi phần còn lại tối — vỡ giao diện.
+
+   Cách sửa: KHÔNG dùng token gốc của Lucian. Thay vào đó, định nghĩa `--ux-*`
+   bằng chính biến của dự án. Nhờ vậy phần tử Lucian tự theo `data-theme` của
+   app, và chỉ có MỘT nguồn màu duy nhất.
+
+   Quy tắc: mọi `--ux-*` phải trỏ tới một biến `--…` của dự án. Không viết mã
+   màu trực tiếp ở đây.
+   ========================================================================= */
+
+/* ── LUCIAN TOKENS = TOKEN DỰ ÁN ───────────────────────────────────────────── */
+
+html:root {
+  /* Nền */
+  --ux-page: var(--bg);
+  --ux-surface: var(--surface);
+  --ux-surface-2: var(--surface-2);
+  --ux-surface-3: var(--surface-3);
+
+  /* Chữ */
+  --ux-ink: var(--ink);
+  --ux-ink-2: var(--ink-2);
+  --ux-ink-3: var(--muted);
+
+  /* Đường kẻ */
+  --ux-line: var(--line);
+  --ux-line-2: var(--line-strong);
+
+  /* Màu nhấn — Lucian gọi là accent, dự án gọi là primary */
+  --ux-accent: var(--primary);
+  --ux-accent-2: var(--primary-hover);
+  --ux-accent-soft: var(--primary-soft);
+  --ux-accent-ink: var(--primary-ink);
+
+  /* Màu trạng thái */
+  --ux-mint: var(--ok);
+  --ux-warn: var(--flag);
+  --ux-danger: var(--bad);
+
+  /* Kính mờ — dùng bề mặt có alpha nhẹ để hợp cả hai theme */
+  --ux-glass: var(--glass-bg);
+  --ux-glass-line: var(--glass-border);
+
+  /* Bóng đổ — Lucian cần hai mức; dự án có ba, lấy sm và lg */
+  --ux-shadow: var(--shadow-sm);
+  --ux-shadow-strong: var(--shadow-lg);
+
+  /* Chuyển động — giữ nguyên giá trị của Lucian vì đây là "design" của họ,
+     không phải màu. Đổi sẽ làm sai chuyển động gốc. */
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ux-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+
+  /* Dải màu chuyển sắc — lấy từ bảng màu dự án thay vì tím/xanh của Lucian,
+     để không lệch tông. */
+  --ux-grad: linear-gradient(120deg, var(--primary), var(--primary-hover) 55%, var(--ok));
+}
+
+/*
+  Ghi đè media query của Lucian.
+
+  Lucian có khối `@media (prefers-color-scheme: dark)` tự đổi token khi hệ điều
+  hành bật dark. Nhưng app đã có công tắc riêng, nên để media query đó chạy sẽ
+  có lúc app sáng mà phần tử Lucian tối.
+
+  Vì ta KHÔNG nhúng `tokens.css` của Lucian vào, khối media đó không tồn tại.
+  Các dòng dưới chỉ để chắc chắn: nếu sau này ai đó nhúng file gốc, biến dự án
+  vẫn thắng nhờ độ ưu tiên `html:root` + `html[data-theme]`.
+*/
+
+html:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+html:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* ── BASE RULES CỦA LUCIAN ─────────────────────────────────────────────────── */
+
+/*
+  Lucian yêu cầu mọi phần tử bọc trong `.ux`. Các quy tắc dưới lấy từ tài liệu
+  của họ, giữ nguyên để phần tử hiển thị đúng.
+
+  Lưu ý về `[hidden]`: Lucian dùng thuộc tính này để ẩn phần tử tạm thời. Không
+  có dòng này thì phần tử ẩn vẫn chiếm chỗ.
+*/
+.ux,
+.ux *,
+.ux *::before,
+.ux *::after {
+  box-sizing: border-box;
+}
+
+.ux[hidden] {
+  display: none !important;
+}
+
+.ux {
+  /* Phần tử Lucian tự đặt font riêng; kế thừa font dự án để không lệch. */
+  font-family: inherit;
+  color: var(--ux-ink);
+}
+
+/* Tôn trọng người dùng tắt hiệu ứng chuyển động. */
+@media (prefers-reduced-motion: reduce) {
+  .ux,
+  .ux *,
+  .ux *::before,
+  .ux *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

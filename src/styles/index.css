@@ -7,6 +7,11 @@
    ========================================================================= */
 
 @import './tokens.css';
+/*
+  Bridge phải nạp NGAY SAU tokens: nó định nghĩa `--ux-*` bằng biến của dự án,
+  nên cần tokens có trước. Và phải đứng trước các file có dùng phần tử Lucian.
+*/
+@import './lucian-bridge.css';
 @import './base.css';
 @import './layout.css';
 @import './components.css';

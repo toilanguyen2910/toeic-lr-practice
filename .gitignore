@@ -60,3 +60,7 @@ final-*.png
 # Python
 __pycache__/
 *.pyc
+
+# Skill CLI tao ra nhieu thu muc trung lap; chi giu .agents/
+.claude/
+agent/

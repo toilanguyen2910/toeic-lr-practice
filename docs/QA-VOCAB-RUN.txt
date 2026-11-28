@@ -1,0 +1,309 @@
+Ngân hàng đọc từ mã: 600 từ, 12 chủ đề
+Trình duyệt: Chrome/158.0.8127.88
+ok   0.1 đủ 600 từ
+ok   0.2 đúng 12 chủ đề
+ok   0.3 mỗi chủ đề đúng 50 từ
+ok   0.4 exampleEn chứa đúng từ của nó
+ok   0.5 không trường nào rỗng
+ok   0.6 phiên âm đúng dạng /…/
+ok   0.7 không từ nào trùng
+    [thấp] Hai từ khác nhau dùng chung một nghĩa tiếng Việt — “quyền truy cập” (v-0528:permission, v-0539:access); “chứng nhận” (v-0496:certify, v-0387:certification)
+    nghĩa trùng: “quyền truy cập” (v-0528:permission, v-0539:access); “chứng nhận” (v-0496:certify, v-0387:certification)
+    20 từ ngẫu nhiên để đọc bằng mắt:
+      v-0174 [travel] rebook /ˌriːˈbʊk/ = đặt lại vé
+          ex: The airline rebooked us on the evening flight at no charge.
+          vi: Hãng bay đặt lại cho chúng tôi chuyến tối mà không thu phí.
+      v-0588 [daily] catering /ˈkeɪtərɪŋ/ = dịch vụ cung cấp đồ ăn
+          ex: Catering for the workshop was ordered for fifteen people.
+          vi: Đồ ăn cho buổi tập huấn được đặt cho mười lăm người.
+      v-0344 [shipping] mileage /ˈmaɪlɪdʒ/ = số dặm đã đi
+          ex: Drivers record mileage at the start and end of each run.
+          vi: Tài xế ghi số dặm đã đi lúc bắt đầu và kết thúc mỗi chuyến.
+      v-0233 [meeting] clarification /ˌklærəfɪˈkeɪʃn/ = sự giải thích rõ hơn
+          ex: Ask for clarification before you sign the summary.
+          vi: Hỏi cho rõ trước khi bạn ký bản tóm tắt.
+      v-0589 [daily] parcel /ˈpɑːrsl/ = bưu kiện
+          ex: The parcel arrived two days before the promised date.
+          vi: Bưu kiện đến sớm hai ngày so với ngày đã hứa.
+      v-0566 [daily] guest /ɡest/ = khách
+          ex: Each guest receives a welcome card at check-in.
+          vi: Mỗi khách nhận thiệp chào mừng khi nhận phòng.
+      v-0002 [office] photocopier /ˈfoʊtoʊkɑːpiər/ = máy photocopy
+          ex: The photocopier on the third floor is out of toner again.
+          vi: Máy photocopy ở tầng ba lại hết mực rồi.
+      v-0013 [office] memo /ˈmemoʊ/ = bản ghi nhớ nội bộ
+          ex: The director sent a memo about the new parking rules.
+          vi: Giám đốc gửi một bản ghi nhớ về quy định gửi xe mới.
+      v-0026 [office] flipchart /ˈflɪptʃɑːrt/ = bảng giấy lật
+          ex: The facilitator wrote the three options on a flipchart.
+          vi: Người điều hành viết ba phương án lên bảng giấy lật.
+      v-0443 [marketing] sample /ˈsæmpl/ = lấy mẫu thử
+          ex: Sample the new blend before it goes on sale.
+          vi: Lấy mẫu thử hỗn hợp mới trước khi đưa ra bán.
+      v-0361 [production] machinery /məˈʃiːnəri/ = máy móc
+          ex: The new machinery needs a reinforced floor.
+          vi: Máy móc mới cần một nền nhà được gia cố.
+      v-0227 [meeting] handout /ˈhændaʊt/ = tài liệu phát tay
+          ex: The handout includes the contact list for each supplier.
+          vi: Tài liệu phát tay gồm danh sách liên hệ của từng nhà cung cấp.
+      v-0074 [finance] surplus /ˈsɜːrpləs/ = khoản dư, thặng dư
+          ex: A small surplus from last year was moved into training.
+          vi: Khoản thặng dư nhỏ của năm ngoái được chuyển sang đào tạo.
+      v-0108 [hr] probation /proʊˈbeɪʃn/ = thời gian thử việc
+          ex: The probation period lasts three months for all new staff.
+          vi: Thời gian thử việc kéo dài ba tháng với mọi nhân viên mới.
+      v-0170 [travel] commute /kəˈmjuːt/ = đi lại hằng ngày
+          ex: He commutes by train because parking downtown is expensive.
+          vi: Anh ấy đi lại bằng tàu vì đỗ xe trong trung tâm đắt đỏ.
+      v-0148 [hr] staffing /ˈstæfɪŋ/ = việc bố trí nhân sự
+          ex: Weekend staffing is tight during the summer holidays.
+          vi: Việc bố trí nhân sự cuối tuần khá căng trong kỳ nghỉ hè.
+      v-0433 [marketing] market leader /ˈmɑːrkɪt ˈliːdər/ = doanh nghiệp dẫn đầu thị trường
+          ex: The market leader cut prices across the whole range.
+          vi: Doanh nghiệp dẫn đầu thị trường giảm giá toàn bộ dòng sản phẩm.
+      v-0313 [shipping] tariff /ˈtærɪf/ = biểu thuế quan
+          ex: The new tariff adds six percent to imported parts.
+          vi: Biểu thuế quan mới cộng thêm sáu phần trăm cho linh kiện nhập khẩu.
+      v-0297 [commerce] margin /ˈmɑːrdʒɪn/ = biên lợi nhuận
+          ex: The margin on this line is too thin to absorb another discount.
+          vi: Biên lợi nhuận của mặt hàng này quá mỏng để chịu thêm chiết khấu.
+      v-0586 [daily] slot /slɑːt/ = khung giờ trống
+          ex: The next available slot is Thursday at four.
+          vi: Khung giờ trống gần nhất là bốn giờ thứ Năm.
+    khớp tiền tố "vocab-topic-": 24, trong đó thẻ thật: 12
+ok   A1 đúng 12 thẻ chủ đề (không đếm nhầm nhãn tiến độ)
+ok   A2 tên chủ đề tiếng Việt đúng
+ok   A3 mỗi thẻ hiện 0 / 50 từ
+ok   A4 tổng quan 600 cần ôn / 0 đã thuộc
+ok   A5 khối chuỗi ngày có mặt
+ok   B1 bấm thẻ chủ đề vào màn ôn
+ok   B2 phiên có đúng 20 thẻ
+ok   B3 tiêu đề ghi đúng chủ đề
+ok   B4 mặt trước là một từ có trong ngân hàng
+ok   B5 bấm "Xem nghĩa" thì thẻ lật
+    thẻ đầu "stationery":
+      nghĩa: văn phòng phẩm
+      định nghĩa: paper, pens and other small supplies used for writing
+      ví dụ: The office manager ordered new stationery for the front desk.
+      dịch: Quản lý văn phòng đã đặt văn phòng phẩm mới cho quầy lễ tân.
+ok   B6 nghĩa khớp ngân hàng
+ok   B7 định nghĩa khớp ngân hàng
+ok   B8 câu ví dụ khớp ngân hàng
+ok   B9 bản dịch ví dụ khớp ngân hàng
+ok   B10 nghĩa tiếng Việt không rỗng và không phải tiếng Anh
+ok   K0 phiên office đúng 20 thẻ
+    đo 20 thẻ:
+      mặt trước tràn chữ: 0
+      mặt sau tràn chữ: 0 (phải cuộn: 0)
+      ví dụ thẻ "stationery": khung 252px, chữ 236px, dư 16px
+      mặt sau thẻ đó: khung 257px, chữ 159px
+ok   K1 mặt trước không cắt chữ
+ok   K2 mặt sau không phải cuộn mới đọc hết
+ok   K3 nội dung 20 thẻ khớp ngân hàng
+ok   K4 phiên chạy hết 20 thẻ
+    thẻ nội dung dài nhất "tort": mặt trước 236/252px, mặt sau 199/264px
+ok   K5 thẻ nội dung dài nhất không tràn mặt trước
+ok   K6 thẻ nội dung dài nhất không tràn mặt sau
+ok   C0 phiên finance đúng 20 thẻ
+ok   C1 trả lời xong sang thẻ kế
+ok   C2 bộ đếm phiên ghi 1 đã thuộc
+ok   C3 localStorage có đúng 1 bản ghi
+ok   C4 bản ghi đúng hình dạng (hộp 2, hẹn 3 ngày tới)
+    từ vừa đánh dấu: invoice (v-0051)
+ok   C5 tải lại trang: tiến độ vẫn nằm trong localStorage
+ok   C6 tải lại: màn chủ đề đọc lại được, cần ôn còn 599
+ok   C7 thẻ finance vẫn 0/50 (hộp 2 chưa phải đã thuộc)
+    sau tải lại, thẻ đầu phiên kế: "receipt"
+ok   C8 từ vừa thuộc không quay lại phiên kế
+ok   C9 phiên kế vẫn 20 thẻ
+    30 cú bấm dồn trong 4ms → 1 bản ghi, màn tổng kết: false, long task: []
+ok   L1 bấm dồn 30 lần không làm sập trang
+ok   L2 không có long task > 50ms
+ok   L3 bấm trùng một nhịp chỉ ghi 1 lần (chống bấm đúp)
+    nhịp 250ms: trả lời 20 thẻ hết 6851ms (343ms/thẻ), 20 bản ghi, long task: []
+ok   L4 nhịp 250ms không mất thẻ (đủ 20 bản ghi)
+ok   L5 mỗi thẻ trung bình dưới 400ms
+    bấm liên tiếp 30 lần (qua nhiều phiên): node 86 → 86, heap 13470260 → 14091227
+ok   L6 số node DOM không phình sau nhiều lượt
+ok   D1 hiện màn tổng kết sau 20 thẻ
+    màn tổng kết: "Phiên ôn đã xongKết quả20 thẻHoàn thành lượt ônĐã thuộc 12 từ · chưa thuộc 8 từ1 ngày liên tụcLượt ôn mới"
+ok   D2 tổng kết ghi đúng 12 đã thuộc
+ok   D3 tổng kết ghi đúng 8 chưa thuộc
+ok   D4 tổng kết ghi 20 thẻ
+    hộp sau phiên: [2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1]
+ok   D5 8 từ "chưa thuộc" đều về hộp 1
+ok   D6 bấm "Lượt ôn mới" mở phiên mới
+ok   E1 hiện đủ 600 dòng
+ok   E2 dòng đếm ghi 600 từ
+ok   E3 lọc chủ đề finance ra đúng 50
+ok   E4 tìm "invoice" ra kết quả
+ok   E5 tìm "hoá đơn" (đúng chính tả trong dữ liệu) ra kết quả
+    "hóa đơn" → 0 dòng | "hoa don" → 0 | "HOA DON" → 0
+    [trung bình] Tìm kiếm không chuẩn hoá tiếng Việt (không dấu / chính tả mới) — "hoá đơn" ra 2 dòng, nhưng "hóa đơn" ra 0 và "hoa don" ra 0. Chuẩn hoá NFD + bỏ dấu (và gộp oà/oá…) là thứ người Việt gõ thật hằng ngày; thiếu nó thì ô tìm kiếm báo "không có từ nào" trong khi từ có trong ngân hàng.
+FAIL E6 tìm không dấu ra kết quả — "hoa don" → 0 dòng
+FAIL E7 tìm chữ HOA ra kết quả — "HOA DON" → 0 dòng
+ok   E8 chuỗi rác → 0 dòng
+ok   E9 chuỗi rác → hiện trạng thái rỗng
+ok   E10 dòng đếm ghi 0 từ
+ok   E11 có nút xoá bộ lọc
+ok   E12 tìm chuỗi rác không sinh lỗi console
+ok   E13 "Xoá tất cả bộ lọc" trả lại 600 dòng
+ok   F1 có đúng 4 lựa chọn
+    câu hỏi: "stationery/ˈsteɪʃəneri/Nghĩa tiếng Việt của từ này là gì?"
+    4 lựa chọn: ["hệ thống chiếu sáng","văn phòng phẩm","cán màng, ép nhựa","gọn gàng"]
+ok   F2 bốn lựa chọn không trùng chữ
+ok   F3 cả 4 lựa chọn đều là nghĩa có trong ngân hàng
+ok   F4 bấm lựa chọn thì có phản hồi
+ok   F5 phản hồi đọc được, nêu đáp án
+ok   F6 đánh dấu đúng đáp án đúng
+    nhãn vòng tiến độ sau khi trả lời: "Đã trả lời 1 trên 20 câu"
+ok   F7 "Câu tiếp" sang câu sau
+ok   I1 Space lật thẻ
+ok   I2 phím 2 đánh dấu đã thuộc và sang thẻ kế
+ok   I3 Space trên nút "Chưa thuộc" kích hoạt nút đó
+    Tab: button:vocab-know → body:Bỏ qua điều hướn → a:Bỏ qua điều hướn → a:L&RTOEIC Listeni → a:nav-home → a:nav-practice → a:nav-exam-sets → a:nav-mock → a:nav-vocab → a:nav-history
+ok   I4 Tab đi qua được ≥5 phần tử
+ok   I5 Tab có đi qua nút trong màn ôn
+    kéo chậm 140px (14 bước × 10px): false → true
+ok   I6 kéo ngang chậm để lật thẻ
+    kéo nhanh 210px (3 bước × 70px), từ mặt trước: false → false
+FAIL I7 kéo ngang nhanh cũng lật thẻ — vẫn false
+    (một mức tốc độ không lật — xem bảng quét bên dưới để biết quy luật)
+    quét dải tốc độ vuốt:
+      vuốt 80px/10 bước (vx≈8): lật
+      vuốt 96px/8 bước (vx≈12): lật
+      vuốt 108px/6 bước (vx≈18): lật
+      vuốt 120px/5 bước (vx≈24): KHÔNG lật
+      vuốt 136px/4 bước (vx≈34): KHÔNG lật
+      vuốt 150px/3 bước (vx≈50): lật
+      vuốt 210px/3 bước (vx≈70): KHÔNG lật
+      vuốt 200px/2 bước (vx≈100): lật
+FAIL I8 mọi tốc độ vuốt hợp lý đều lật được thẻ — 3/8 mức tốc độ không lật
+    [trung bình] Vuốt thẻ bị "nuốt" ở 3/8 mức tốc độ — Quét vuốt từ chậm tới nhanh trên cùng một thẻ: vuốt 80px/10 bước (vx≈8): lật; vuốt 96px/8 bước (vx≈12): lật; vuốt 108px/6 bước (vx≈18): lật; vuốt 120px/5 bước (vx≈24): KHÔNG lật; vuốt 136px/4 bước (vx≈34): KHÔNG lật; vuốt 150px/3 bước (vx≈50): lật; vuốt 210px/3 bước (vx≈70): KHÔNG lật; vuốt 200px/2 bước (vx≈100): lật. Công thức thả trong `LucianFlipCard.finishDrag` là `start + dx*0.9 + vx*8` rồi làm tròn về bội số 180°; quán tính vx*8 đẩy tổng vượt 540° thì kết quả rơi vào bội số 360° — mặt cũ — và cú vuốt bị bỏ. Vuốt chậm 80–108px lật đúng, vuốt nhanh 120px và 136px thì không. Người dùng không thể đoán mức nào ăn, nên trên điện thoại thẻ có lúc "đứng im".
+    dark body: nền rgb(9, 13, 22) (lum 0.05), chữ rgb(248, 250, 252)
+    dark topicCard: nền rgb(17, 24, 39) (lum 0.09), chữ rgb(248, 250, 252)
+    dark topicIcon: nền rgb(30, 41, 59) (lum 0.16), chữ rgb(248, 250, 252)
+    dark streakCard: nền rgb(17, 24, 39) (lum 0.09), chữ rgb(248, 250, 252)
+    dark progressBar: nền rgb(39, 53, 73) (lum 0.20), chữ rgb(248, 250, 252)
+ok   G1 dark: không khối nào nền sáng chói
+ok   G2 data-theme thật sự là dark
+    dark mặt sau: nền rgb(30, 41, 59) chữ rgb(248, 250, 252); khối ví dụ rgb(17, 24, 39)
+ok   G3 dark: mặt sau thẻ không phải nền trắng
+ok   G4 dark: khối ví dụ cũng tối
+ok   G5 dark: chênh sáng chữ/nền > 0.35
+    dark bảng: thân bảng rgb(17, 24, 39), dòng rgba(0, 0, 0, 0)
+ok   G6 dark: bảng từ không phải nền trắng
+ok   H light #/vocab không tràn ngang
+ok   H light #/vocab/study không tràn ngang
+    375px light study: thẻ 343px, chữ mặt sau 191/246px, nền rgb(241, 245, 249)
+ok   H 375px + light: thẻ không rộng quá khung
+ok   H light #/vocab/browse không tràn ngang
+ok   H light #/vocab/quiz không tràn ngang
+ok   H dark #/vocab không tràn ngang
+ok   H #/vocab 375px + dark: nền trang vẫn tối
+ok   H dark #/vocab/study không tràn ngang
+ok   H #/vocab/study 375px + dark: nền trang vẫn tối
+    375px dark study: thẻ 343px, chữ mặt sau 191/246px, nền rgb(30, 41, 59)
+ok   H 375px + dark: thẻ không rộng quá khung
+ok   H9 375px + dark: mặt sau thẻ vẫn tối
+ok   H dark #/vocab/browse không tràn ngang
+ok   H #/vocab/browse 375px + dark: nền trang vẫn tối
+ok   H dark #/vocab/quiz không tràn ngang
+ok   H #/vocab/quiz 375px + dark: nền trang vẫn tối
+ok   M #/vocab không trắng trang sau khi xoá localStorage
+ok   M #/vocab/study không trắng trang sau khi xoá localStorage
+ok   M #/vocab/browse không trắng trang sau khi xoá localStorage
+ok   M #/vocab/quiz không trắng trang sau khi xoá localStorage
+ok   M1 xoá localStorage không sinh lỗi console
+ok   M2 JSON rác không làm sập màn chủ đề
+ok   M3 JSON rác không sinh lỗi console
+ok   M4 JSON rác → coi như chưa học gì (due = 600)
+ok   M5 đã thuộc hết 600 → màn ôn hiện trạng thái rỗng
+ok   M6 trạng thái rỗng không bày nút trả lời
+    tiêu đề trạng thái rỗng: "Chưa có từ nào cần ôn"
+ok   M7 chủ đề: 600 đã thuộc, 0 cần ôn
+    tab khác ghi 1 từ hộp 5: trước due=600/mastered=0 → sau due=600/mastered=0
+FAIL N1 tab đang mở tự cập nhật khi tab khác ghi tiến độ — due 600→600, mastered 0→0
+    [trung bình] Không đồng bộ giữa hai tab (không nghe sự kiện storage) — Tab B ghi tiến độ thì tab A vẫn hiện số cũ (due 600 → 600, mastered 0 → 0). Người mở hai tab phải tải lại mới thấy tiến độ mới; tệ hơn, xem N2.
+    sau khi tab kia ghi v-0600 rồi tab này bấm "Đã thuộc": khoá còn lại = v-0001
+FAIL N2 ghi tiến độ không xoá mất bản ghi của tab khác — còn: v-0001
+    [cao] Hai tab cùng mở: tab ghi sau xoá mất tiến độ của tab ghi trước — Tab B ghi một từ (v-0600) vào localStorage; tab A (mở từ trước, giữ bản đồ tiến độ cũ trong state) bấm "Đã thuộc" rồi ghi lại TOÀN BỘ bản đồ — bản ghi v-0600 biến mất không cảnh báo. Mất dữ liệu thật, không phải chỉ chậm cập nhật.
+    localStorage sessionSize=5 → phiên thật 20 thẻ ("Thẻ 1 / 20")
+FAIL O1 sessionSize=5 được tôn trọng — phiên 20 thẻ
+    [trung bình] Cài đặt số từ mỗi lượt bị bỏ qua hoàn toàn — localStorage có sessionSize=5 nhưng phiên vẫn 20 thẻ: ba màn hình đều dùng hằng DEFAULT_VOCAB_SETTINGS.sessionSize, không nơi nào gọi loadVocabSettings(). saveVocabSettings/loadVocabSettings có trong engine nhưng không có UI nào dùng — cài đặt là mã chết.
+    nút phát âm trong màn ôn: 0
+FAIL O2 có nút phát âm (SpeechSynthesis) — không thấy nút nào
+    [thấp] Không có phát âm từ dù kế hoạch có — PLAN-VOCAB mục 4.5 hứa dùng SpeechSynthesis cho từng từ và có cài đặt speechEnabled; trong mã không chỗ nào gọi tới `speechSynthesis` cho từ vựng. Người học thấy phiên âm IPA nhưng không nghe được.
+    trang chủ: liên kết từ vựng = true, đoạn chữ = null
+ok   P1 trang chủ có lối vào từ vựng
+    màn cài đặt có mục từ vựng: false
+FAIL P2 màn cài đặt có mục cho từ vựng — không thấy
+    [thấp] Màn Cài đặt không có mục từ vựng — Kế hoạch mục 4.4 hứa thêm số từ mỗi lượt và bật/tắt phát âm vào Cài đặt; màn Cài đặt hiện không nhắc gì tới từ vựng, nên hai cài đặt đó không có đường nào để người dùng đổi.
+    dựng cảnh: finance có 20 từ đến hạn + 30 từ hẹn xa; phiên = 20 thẻ
+ok   Q0 phiên chỉ lấy 20 từ đến hạn
+    sau khi trả lời thẻ cuối: màn tổng kết=false, ô rỗng=true, tiêu đề="Chưa có từ nào cần ôn"
+FAIL Q1 trả lời xong cả phiên vẫn thấy màn tổng kết — tổng kết=false, ô rỗng=true, tiêu đề "Chưa có từ nào cần ôn"
+    [trung bình] Học xong cả chủ đề thì màn tổng kết bị thay bằng "Chưa có từ nào cần ôn" — Người học vừa trả lời thẻ thứ 20 (thẻ cuối của phiên) thì ngay lập tức thấy ô rỗng thay cho màn hoàn thành: mất phần "Đã thuộc 20 · chưa thuộc 0", mất chuỗi ngày, mất lời chúc. Lý do trong mã: khối `if (dueInScope === 0) return <LucianEmptyState …>` đứng TRƯỚC nhánh `finished`, nên khi phiên vừa dọn sạch phần đến hạn thì trạng thái rỗng thắng.
+    đổi hash sang ?topic=finance: tiêu đề "Ôn từ đến hạn" → "Ôn chủ đề: Tài chính & kế toán", bộ đếm "Thẻ 1 / 20"
+ok   R1 đổi ?topic= trên cùng route thì tiêu đề đổi theo
+    cảnh: office có 10 từ đến hạn + 40 từ hẹn xa; phiên = 20 thẻ
+ok   S1 phiên vẫn bù đủ 20 thẻ (10 đến hạn + 10 hẹn xa)
+    trả lời 10 thẻ thì màn đổi: tổng kết=false, ô rỗng=true, tiêu đề="Chưa có từ nào cần ôn"
+FAIL S2 phiên 20 thẻ chạy hết 20, không bị cắt ngang — dừng ở thẻ 10
+FAIL S3 trả lời xong vẫn thấy màn tổng kết — tổng kết=false, ô rỗng=true, tiêu đề "Chưa có từ nào cần ôn"
+    [cao] Phiên ôn bị cắt ngang khi vừa dọn hết số từ đến hạn — Chủ đề còn 10 từ đến hạn: màn ôn mở phiên 20 thẻ (10 đến hạn + 10 bù từ hẹn xa). Trả lời hết 10 thẻ đầu thì màn hình nhảy sang “Chưa có từ nào cần ôn” — 10 thẻ còn lại của phiên biến mất, không có màn tổng kết, không báo gì. Người học tưởng đã xong nhưng thực ra bỏ dở nửa phiên. Đây là cùng gốc với lỗi "học xong cả chủ đề mất màn tổng kết": khối `if (dueInScope === 0) return <LucianEmptyState/>` đứng trước cả nhánh `finished` lẫn nhánh đang học.
+    5 thẻ đã trả lời: itinerary, destination, departure, arrival, boarding pass
+    trước tải lại "Thẻ 6 / 20" → sau tải lại "Thẻ 1 / 20", thẻ đầu "layover"
+ok   T1 tải lại giữa phiên: cả 5 câu trả lời còn trong localStorage
+ok   T2 tải lại: từ vừa học không bị hỏi lại
+ok   T3 tải lại: phiên mới vẫn đủ 20 thẻ
+    (phiên đếm lại từ 1 — chấp nhận được vì tiến độ từng từ đã lưu)
+    bảng ở 375px: {"found":true,"overflowX":"hidden","overflowY":"hidden","clientWidth":341,"scrollWidth":620,"rowScrollWidth":620,"cellCount":5,"lastHeaderText":"Trạng thái","lastHeaderRight":621,"lastHeaderVisible":false,"viewport":375}
+FAIL U1 bảng cuộn ngang được (overflow-x auto/scroll) — overflow-x=hidden
+FAIL U2 cột cuối ("Trạng thái") vẫn nằm trong tầm nhìn — cột "Trạng thái" kết thúc ở 621px, bảng rộng 341px
+    [cao] Bảng 600 từ ở 375px bị cắt mất hai cột, không cuộn được — `.vocab-table` đặt `overflow: hidden` trong khi dòng có `min-width: 620px` — nội dung rộng 620px nằm trong khung 341px và bị CẮT, không có thanh cuộn. Chú thích ngay trên quy tắc đó ghi "Cuộn ngang RIÊNG cho bảng", nhưng mã lại dùng `hidden` chứ không phải `auto`. Người dùng điện thoại mất hẳn cột "Mức độ" và "Trạng thái" — không có cách nào xem. Bộ kiểm cũ chỉ đo `documentElement.scrollWidth` nên vẫn xanh.
+    lỗi bắt trong trang: 0, CDP: 0
+ok   J1 không lỗi JS / promise bị từ chối
+ok   J2 CDP không ghi console.error / ngoại lệ
+
+Lỗi tìm được (theo mức độ):
+  [cao] Hai tab cùng mở: tab ghi sau xoá mất tiến độ của tab ghi trước
+      Tab B ghi một từ (v-0600) vào localStorage; tab A (mở từ trước, giữ bản đồ tiến độ cũ trong state) bấm "Đã thuộc" rồi ghi lại TOÀN BỘ bản đồ — bản ghi v-0600 biến mất không cảnh báo. Mất dữ liệu thật, không phải chỉ chậm cập nhật.
+  [cao] Phiên ôn bị cắt ngang khi vừa dọn hết số từ đến hạn
+      Chủ đề còn 10 từ đến hạn: màn ôn mở phiên 20 thẻ (10 đến hạn + 10 bù từ hẹn xa). Trả lời hết 10 thẻ đầu thì màn hình nhảy sang “Chưa có từ nào cần ôn” — 10 thẻ còn lại của phiên biến mất, không có màn tổng kết, không báo gì. Người học tưởng đã xong nhưng thực ra bỏ dở nửa phiên. Đây là cùng gốc với lỗi "học xong cả chủ đề mất màn tổng kết": khối `if (dueInScope === 0) return <LucianEmptyState/>` đứng trước cả nhánh `finished` lẫn nhánh đang học.
+  [cao] Bảng 600 từ ở 375px bị cắt mất hai cột, không cuộn được
+      `.vocab-table` đặt `overflow: hidden` trong khi dòng có `min-width: 620px` — nội dung rộng 620px nằm trong khung 341px và bị CẮT, không có thanh cuộn. Chú thích ngay trên quy tắc đó ghi "Cuộn ngang RIÊNG cho bảng", nhưng mã lại dùng `hidden` chứ không phải `auto`. Người dùng điện thoại mất hẳn cột "Mức độ" và "Trạng thái" — không có cách nào xem. Bộ kiểm cũ chỉ đo `documentElement.scrollWidth` nên vẫn xanh.
+  [trung bình] Tìm kiếm không chuẩn hoá tiếng Việt (không dấu / chính tả mới)
+      "hoá đơn" ra 2 dòng, nhưng "hóa đơn" ra 0 và "hoa don" ra 0. Chuẩn hoá NFD + bỏ dấu (và gộp oà/oá…) là thứ người Việt gõ thật hằng ngày; thiếu nó thì ô tìm kiếm báo "không có từ nào" trong khi từ có trong ngân hàng.
+  [trung bình] Vuốt thẻ bị "nuốt" ở 3/8 mức tốc độ
+      Quét vuốt từ chậm tới nhanh trên cùng một thẻ: vuốt 80px/10 bước (vx≈8): lật; vuốt 96px/8 bước (vx≈12): lật; vuốt 108px/6 bước (vx≈18): lật; vuốt 120px/5 bước (vx≈24): KHÔNG lật; vuốt 136px/4 bước (vx≈34): KHÔNG lật; vuốt 150px/3 bước (vx≈50): lật; vuốt 210px/3 bước (vx≈70): KHÔNG lật; vuốt 200px/2 bước (vx≈100): lật. Công thức thả trong `LucianFlipCard.finishDrag` là `start + dx*0.9 + vx*8` rồi làm tròn về bội số 180°; quán tính vx*8 đẩy tổng vượt 540° thì kết quả rơi vào bội số 360° — mặt cũ — và cú vuốt bị bỏ. Vuốt chậm 80–108px lật đúng, vuốt nhanh 120px và 136px thì không. Người dùng không thể đoán mức nào ăn, nên trên điện thoại thẻ có lúc "đứng im".
+  [trung bình] Không đồng bộ giữa hai tab (không nghe sự kiện storage)
+      Tab B ghi tiến độ thì tab A vẫn hiện số cũ (due 600 → 600, mastered 0 → 0). Người mở hai tab phải tải lại mới thấy tiến độ mới; tệ hơn, xem N2.
+  [trung bình] Cài đặt số từ mỗi lượt bị bỏ qua hoàn toàn
+      localStorage có sessionSize=5 nhưng phiên vẫn 20 thẻ: ba màn hình đều dùng hằng DEFAULT_VOCAB_SETTINGS.sessionSize, không nơi nào gọi loadVocabSettings(). saveVocabSettings/loadVocabSettings có trong engine nhưng không có UI nào dùng — cài đặt là mã chết.
+  [trung bình] Học xong cả chủ đề thì màn tổng kết bị thay bằng "Chưa có từ nào cần ôn"
+      Người học vừa trả lời thẻ thứ 20 (thẻ cuối của phiên) thì ngay lập tức thấy ô rỗng thay cho màn hoàn thành: mất phần "Đã thuộc 20 · chưa thuộc 0", mất chuỗi ngày, mất lời chúc. Lý do trong mã: khối `if (dueInScope === 0) return <LucianEmptyState …>` đứng TRƯỚC nhánh `finished`, nên khi phiên vừa dọn sạch phần đến hạn thì trạng thái rỗng thắng.
+  [thấp] Hai từ khác nhau dùng chung một nghĩa tiếng Việt
+      “quyền truy cập” (v-0528:permission, v-0539:access); “chứng nhận” (v-0496:certify, v-0387:certification)
+  [thấp] Không có phát âm từ dù kế hoạch có
+      PLAN-VOCAB mục 4.5 hứa dùng SpeechSynthesis cho từng từ và có cài đặt speechEnabled; trong mã không chỗ nào gọi tới `speechSynthesis` cho từ vựng. Người học thấy phiên âm IPA nhưng không nghe được.
+  [thấp] Màn Cài đặt không có mục từ vựng
+      Kế hoạch mục 4.4 hứa thêm số từ mỗi lượt và bật/tắt phát âm vào Cài đặt; màn Cài đặt hiện không nhắc gì tới từ vựng, nên hai cài đặt đó không có đường nào để người dùng đổi.
+
+Phép kiểm thất bại:
+  - E6 tìm không dấu ra kết quả — "hoa don" → 0 dòng
+  - E7 tìm chữ HOA ra kết quả — "HOA DON" → 0 dòng
+  - I7 kéo ngang nhanh cũng lật thẻ — vẫn false
+  - I8 mọi tốc độ vuốt hợp lý đều lật được thẻ — 3/8 mức tốc độ không lật
+  - N1 tab đang mở tự cập nhật khi tab khác ghi tiến độ — due 600→600, mastered 0→0
+  - N2 ghi tiến độ không xoá mất bản ghi của tab khác — còn: v-0001
+  - O1 sessionSize=5 được tôn trọng — phiên 20 thẻ
+  - O2 có nút phát âm (SpeechSynthesis) — không thấy nút nào
+  - P2 màn cài đặt có mục cho từ vựng — không thấy
+  - Q1 trả lời xong cả phiên vẫn thấy màn tổng kết — tổng kết=false, ô rỗng=true, tiêu đề "Chưa có từ nào cần ôn"
+  - S2 phiên 20 thẻ chạy hết 20, không bị cắt ngang — dừng ở thẻ 10
+  - S3 trả lời xong vẫn thấy màn tổng kết — tổng kết=false, ô rỗng=true, tiêu đề "Chưa có từ nào cần ôn"
+  - U1 bảng cuộn ngang được (overflow-x auto/scroll) — overflow-x=hidden
+  - U2 cột cuối ("Trạng thái") vẫn nằm trong tầm nhìn — cột "Trạng thái" kết thúc ở 621px, bảng rộng 341px
+
+Xác minh từ vựng trên Chrome (QA độc lập): 116 passed, 14 failed

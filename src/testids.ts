@@ -18,7 +18,58 @@ export const ROUTES = {
   review: '#/review',
   history: '#/history',
   settings: '#/settings',
+  vocab: '#/vocab',
+  vocabStudy: '#/vocab/study',
+  vocabBrowse: '#/vocab/browse',
+  vocabQuiz: '#/vocab/quiz',
 } as const
+
+/** Bốn màn con của khu từ vựng. */
+export type VocabRouteName = 'topics' | 'study' | 'browse' | 'quiz'
+
+/**
+ * Nhận diện route từ vựng từ hash.
+ *
+ * Vì sao tách khỏi `switch` trong `App.tsx`: khu từ vựng có tham số truy vấn
+ * (`#/vocab/study?topic=finance`). Nếu để `switch` so khớp chuỗi tuyệt đối thì
+ * hash có `?…` sẽ rơi vào 404. Hàm này bỏ phần truy vấn rồi so khớp đường dẫn.
+ */
+export function parseVocabRoute(hash: string): VocabRouteName | null {
+  const path = hash.split('?')[0] ?? ''
+  switch (path) {
+    case ROUTES.vocab:
+      return 'topics'
+    case ROUTES.vocabStudy:
+      return 'study'
+    case ROUTES.vocabBrowse:
+      return 'browse'
+    case ROUTES.vocabQuiz:
+      return 'quiz'
+    default:
+      return null
+  }
+}
+
+/** Đọc tham số truy vấn trên hash: `#/vocab/study?topic=finance` → `topic=finance`. */
+export function vocabQuery(hash: string): URLSearchParams {
+  const at = hash.indexOf('?')
+  return new URLSearchParams(at >= 0 ? hash.slice(at + 1) : '')
+}
+
+/** Route ôn tập, kèm chủ đề nếu có. */
+export function vocabStudyRoute(topic?: string | null): string {
+  return topic ? `${ROUTES.vocabStudy}?topic=${encodeURIComponent(topic)}` : ROUTES.vocabStudy
+}
+
+/** Route trắc nghiệm, kèm chủ đề nếu có. */
+export function vocabQuizRoute(topic?: string | null): string {
+  return topic ? `${ROUTES.vocabQuiz}?topic=${encodeURIComponent(topic)}` : ROUTES.vocabQuiz
+}
+
+/** Route danh sách từ, kèm chủ đề nếu có. */
+export function vocabBrowseRoute(topic?: string | null): string {
+  return topic ? `${ROUTES.vocabBrowse}?topic=${encodeURIComponent(topic)}` : ROUTES.vocabBrowse
+}
 
 /** Route kèm tham số đề: `#/de/7` là đề số 7. */
 export function examSetRoute(id: number): string {
@@ -150,6 +201,56 @@ export const TID = {
   settingReveal: 'setting-reveal',
   settingAudio: 'setting-audio',
   settingCount: 'setting-count',
+  settingVocabSize: 'setting-vocab-size',
+  settingVocabSpeech: 'setting-vocab-speech',
   clearHistory: 'clear-history',
+
+  // ── Từ vựng ──────────────────────────────────────────────────────────────
+  navVocab: 'nav-vocab',
+
+  // Màn chọn chủ đề
+  vocabTopics: 'vocab-topics',
+  vocabTopicCard: (topic: string) => `vocab-topic-${topic}`,
+  vocabTopicProgress: (topic: string) => `vocab-topic-progress-${topic}`,
+  vocabSummary: 'vocab-summary',
+  vocabSummaryMastered: 'vocab-summary-mastered',
+  vocabSummaryDue: 'vocab-summary-due',
+  vocabStreak: 'vocab-streak',
+  vocabStartStudy: 'vocab-start-study',
+  vocabStartQuiz: 'vocab-start-quiz',
+  vocabBrowseLink: 'vocab-browse-link',
+
+  // Màn ôn flashcard
+  vocabStudy: 'vocab-study',
+  vocabFlashcard: 'vocab-flashcard',
+  vocabCardFront: 'vocab-card-front',
+  vocabCardBack: 'vocab-card-back',
+  vocabFlipButton: 'vocab-flip-button',
+  vocabKnow: 'vocab-know',
+  vocabDontKnow: 'vocab-dont-know',
+  vocabStudyProgress: 'vocab-study-progress',
+  vocabStudyCounter: 'vocab-study-counter',
+  vocabStudyEmpty: 'vocab-study-empty',
+  vocabStudyDone: 'vocab-study-done',
+
+  // Màn danh sách
+  vocabBrowse: 'vocab-browse',
+  vocabSearch: 'vocab-search',
+  vocabFilterTopic: 'vocab-filter-topic',
+  vocabFilterDifficulty: 'vocab-filter-difficulty',
+  vocabFilterStatus: 'vocab-filter-status',
+  vocabCount: 'vocab-count',
+  vocabRow: 'vocab-row',
+  vocabNoResults: 'vocab-no-results',
+
+  // Màn trắc nghiệm
+  vocabQuiz: 'vocab-quiz',
+  vocabQuizPrompt: 'vocab-quiz-prompt',
+  vocabQuizChoice: (index: number) => `vocab-quiz-choice-${index}`,
+  vocabQuizFeedback: 'vocab-quiz-feedback',
+  vocabQuizNext: 'vocab-quiz-next',
+  vocabQuizProgress: 'vocab-quiz-progress',
+  vocabQuizDone: 'vocab-quiz-done',
 } as const
+
 

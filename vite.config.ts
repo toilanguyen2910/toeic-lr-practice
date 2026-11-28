@@ -18,9 +18,35 @@ export default defineConfig({
   base: process.env.VITE_BASE ?? '/',
   plugins: [react()],
   build: {
-    // Bundle hiện ~670 kB do chứa toàn bộ 425 câu hỏi dưới dạng dữ liệu tĩnh.
-    // Nâng ngưỡng cảnh báo để log build không nhiễu; đây là dữ liệu, không phải
-    // mã chết, và toàn bộ nằm sau một lần tải (offline-first, không cần mạng).
-    chunkSizeWarningLimit: 900,
+    /*
+     * Bundle chính giờ ~1,12 MB vì chứa TOÀN BỘ dữ liệu tĩnh:
+     * - 425 câu hỏi TOEIC + giải thích + bản dịch
+     * - 600 từ vựng + phiên âm + định nghĩa + ví dụ hai thứ tiếng
+     *
+     * Đây là dữ liệu, không phải mã chết, và toàn bộ nằm trong một lần tải
+     * (offline-first, không cần mạng sau khi mở). Nhưng 1,12 MB là quá lớn để
+     * tải hết trước khi thấy màn hình đầu tiên, nên tách làm ba phần:
+     *
+     *   1. `vendor`  — React + chart.js, đổi rất ít, cache lâu dài
+     *   2. `questions` — 425 câu hỏi, chỉ cần khi vào phần luyện/thi
+     *   3. phần còn lại — khung ứng dụng, tải ngay
+     *
+     * `manualChunks` chỉ tách file; ứng dụng vẫn cần dữ liệu lúc render, nên
+     * đây là cải thiện về cache và thứ tự tải, không phải lazy-load thật.
+     */
+    chunkSizeWarningLimit: 950,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) {
+            // Dữ liệu câu hỏi tách riêng để trình duyệt cache độc lập với mã.
+            if (id.includes('/src/data/')) return 'questions'
+            return undefined
+          }
+          if (id.includes('chart.js') || id.includes('@kurkle')) return 'charts'
+          return 'vendor'
+        },
+      },
+    },
   },
 })

@@ -13,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
   { route: ROUTES.partSelect, testId: TID.navPractice, label: 'Luyện tập' },
   { route: ROUTES.examSets, testId: TID.navExamSets, label: '20 đề' },
   { route: ROUTES.mock, testId: TID.navMock, label: 'Thi thử' },
+  { route: ROUTES.vocab, testId: TID.navVocab, label: 'Từ vựng' },
   { route: ROUTES.history, testId: TID.navHistory, label: 'Lịch sử' },
   { route: ROUTES.settings, testId: TID.navSettings, label: 'Cài đặt' },
 ]
@@ -43,7 +44,10 @@ export function AppHeader({ route }: { route: string }) {
               route === item.route ||
               (item.route === ROUTES.partSelect && route === ROUTES.practice) ||
               (item.route === ROUTES.examSets && route.startsWith(`${ROUTES.examSets}/`)) ||
-              (item.route === ROUTES.mock && route.startsWith(`${ROUTES.mock}/`))
+              (item.route === ROUTES.mock && route.startsWith(`${ROUTES.mock}/`)) ||
+              // Ba màn con của từ vựng đều có `?topic=…`, nên so bằng tiền tố đã
+              // cắt truy vấn — nếu so tuyệt đối thì mục "Từ vựng" sẽ mất trạng thái.
+              (item.route === ROUTES.vocab && route.split('?')[0]?.startsWith(`${ROUTES.vocab}/`) === true)
 
             return (
               <a

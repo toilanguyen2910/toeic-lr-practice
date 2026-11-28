@@ -1,6 +1,6 @@
 import './styles/index.css'
 import { FULL_BANK } from './data'
-import { ROUTES, TID, parseExamSetRoute, parseMockSetRoute } from './testids'
+import { ROUTES, TID, parseExamSetRoute, parseMockSetRoute, parseVocabRoute } from './testids'
 import { useBankIndex } from './hooks/useBankIndex'
 import { useHashRoute } from './hooks/useHashRoute'
 import { AppFooter, AppHeader } from './ui/AppLayout'
@@ -18,6 +18,10 @@ import { SessionProvider } from './ui/SessionProvider'
 import { PracticeSessionRoute } from './ui/SessionRoutes'
 import { SettingsPage } from './ui/SettingsPage'
 import { SettingsProvider } from './ui/SettingsProvider'
+import { VocabBrowsePage } from './ui/vocab/VocabBrowsePage'
+import { VocabQuizPage } from './ui/vocab/VocabQuizPage'
+import { VocabStudyPage } from './ui/vocab/VocabStudyPage'
+import { VocabTopicsPage } from './ui/vocab/VocabTopicsPage'
 import type { BankIndex } from './hooks/useBankIndex'
 
 /**
@@ -63,6 +67,24 @@ function AppRoutes({ route, index }: { route: string; index: BankIndex }) {
   const mockSetId = parseMockSetRoute(route)
   if (mockSetId != null) {
     return <MockSetRoute id={mockSetId} index={index} />
+  }
+
+  /*
+    Khu từ vựng nhận diện TRƯỚC `switch`: route của nó có tham số truy vấn
+    (`#/vocab/study?topic=finance`), nên so khớp chuỗi tuyệt đối trong `switch`
+    sẽ trượt và rơi vào 404. `parseVocabRoute` đã bỏ phần `?…` rồi mới so.
+  */
+  switch (parseVocabRoute(route)) {
+    case 'topics':
+      return <VocabTopicsPage />
+    case 'study':
+      return <VocabStudyPage />
+    case 'browse':
+      return <VocabBrowsePage />
+    case 'quiz':
+      return <VocabQuizPage />
+    default:
+      break
   }
 
   switch (route) {

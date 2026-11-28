@@ -22,3 +22,8 @@
 @import './pages-result.css';
 @import './pages-exams.css';
 @import './pages-misc.css';
+/*
+  Từ vựng nạp CUỐI: tệp này chứa cả CSS sáu phần tử Lucian, và cần `--ux-*` từ
+  bridge ở trên. Đặt sau cùng để không bị quy tắc chung nào đè lên.
+*/
+@import './vocab.css';

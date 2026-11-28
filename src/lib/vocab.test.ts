@@ -296,6 +296,29 @@ describe('filterWords', () => {
     expect(filterWords(bank, progress, { query: 'HOÁ' }).map((w) => w.id)).toEqual(['v-0001'])
   })
 
+  it('tìm tiếng Việt KHÔNG DẤU vẫn ra kết quả', () => {
+    // LỖI TỪNG CÓ: gõ "hoá đơn" ra 2 dòng, nhưng "hóa đơn" (dấu sắc thay dấu
+    // huyền) và "hoa don" (không dấu) đều ra 0. Người Việt gõ ba cách như nhau
+    // là chuyện thường, nên tìm kiếm phải chuẩn hoá dấu.
+    expect(filterWords(bank, progress, { query: 'hoa don' }).map((w) => w.id)).toEqual(['v-0001'])
+    expect(filterWords(bank, progress, { query: 'HOA DON' }).map((w) => w.id)).toEqual(['v-0001'])
+    expect(filterWords(bank, progress, { query: 'hoá đơn' }).map((w) => w.id)).toEqual(['v-0001'])
+    expect(filterWords(bank, progress, { query: 'hóa đơn' }).map((w) => w.id)).toEqual(['v-0001'])
+  })
+
+  it('tìm "ngan sach" (không dấu) ra "ngân sách"', () => {
+    expect(filterWords(bank, progress, { query: 'ngan sach' }).map((w) => w.id)).toEqual(['v-0002'])
+  })
+
+  it('tìm có chữ đ vẫn khớp khi gõ d', () => {
+    const bank2: VocabBank = {
+      version: 1,
+      words: [makeWord(1, { meaningVi: 'đường dây' })],
+    }
+    expect(filterWords(bank2, {}, { query: 'duong day' })).toHaveLength(1)
+    expect(filterWords(bank2, {}, { query: 'đường dây' })).toHaveLength(1)
+  })
+
   it('tìm theo nghĩa tiếng Anh', () => {
     expect(filterWords(bank, progress, { query: 'definition 3' }).map((w) => w.id)).toEqual(['v-0003'])
   })

@@ -201,6 +201,26 @@ export function buildQuizChoices(
   return shuffle(choices)
 }
 
+/**
+ * Chuẩn hoá chuỗi để tìm kiếm tiếng Việt.
+ *
+ * Vì sao cần: người Việt gõ cùng một từ theo nhiều cách — "hoá đơn", "hóa đơn",
+ * "hoa don", "HOA DON" đều là một. `toLowerCase()` không xử lý được: dấu thanh
+ * trong tiếng Việt là ký tự tổ hợp (NFD) hoặc ký tự dựng sẵn (NFC), và "đ" không
+ * có dạng ASCII.
+ *
+ * Cách làm: tách dấu (NFD) → bỏ khối Combining Diacritical Marks → đổi "đ"/"Đ"
+ * thành "d" → về chữ thường. Nhờ vậy cả bốn cách gõ trên cho cùng một chuỗi.
+ */
+function normalizeForSearch(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .replace(/đ/gu, 'd')
+    .replace(/Đ/gu, 'D')
+    .toLowerCase()
+}
+
 /** Lọc từ cho màn danh sách. */
 export function filterWords(
   bank: VocabBank,
@@ -212,7 +232,7 @@ export function filterWords(
     query?: string
   },
 ): VocabWord[] {
-  const query = (filter.query ?? '').trim().toLowerCase()
+  const query = normalizeForSearch((filter.query ?? '').trim())
 
   return bank.words.filter((word) => {
     if (filter.topic && word.topic !== filter.topic) return false
@@ -226,7 +246,9 @@ export function filterWords(
     }
 
     if (query) {
-      const haystack = `${word.word} ${word.meaningVi} ${word.definitionEn}`.toLowerCase()
+      const haystack = normalizeForSearch(
+        `${word.word} ${word.meaningVi} ${word.definitionEn}`,
+      )
       if (!haystack.includes(query)) return false
     }
 

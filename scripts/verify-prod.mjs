@@ -46,7 +46,7 @@ export async function runVerifyProd() {
         const h1 = await page.text('h1')
         report.check('P2.1 có tiêu đề trang chủ', h1.length > 10, `nhận "${h1}"`)
         const nav = await page.count('[data-testid^="nav-"]')
-        report.check('P2.2 đủ 6 mục điều hướng', nav === 6, `nhận ${nav}`)
+        report.check('P2.2 đủ 7 mục điều hướng', nav === 7, `nhận ${nav}`)
       })
 
       await report.step('P3 ảnh Part 1 tải được từ /images/', async () => {

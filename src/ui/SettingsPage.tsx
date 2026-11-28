@@ -1,16 +1,41 @@
 import { useState } from 'react'
 import { clearHistory, loadSettings } from '../lib'
+import { loadVocabSettings, saveVocabSettings } from '../lib/vocab'
 import { ROUTES, TID } from '../testids'
 import { useAppSettings } from './settingsContext'
 
 const COUNT_MIN = 1
 const COUNT_MAX = 30
 
+/** Giới hạn số từ mỗi lượt ôn — khớp với `loadVocabSettings` trong `lib/vocab`. */
+const VOCAB_SIZE_MIN = 5
+const VOCAB_SIZE_MAX = 100
+
 /** Màn hình cài đặt. */
 export function SettingsPage() {
   const { settings, update } = useAppSettings()
   const [countText, setCountText] = useState(String(settings.practiceCountPerPart))
   const [cleared, setCleared] = useState(false)
+  const [vocabSizeText, setVocabSizeText] = useState(() =>
+    String(loadVocabSettings().sessionSize),
+  )
+  const [vocabSpeech, setVocabSpeech] = useState(() => loadVocabSettings().speechEnabled)
+
+  /**
+   * Chốt số từ mỗi lượt ôn.
+   *
+   * Kẹp về 5..100 và làm tròn về bội số của 5 — người dùng hiếm khi cần 37 từ,
+   * và bước 5 giữ ô nhập gọn. Giá trị sai kiểu thì quay về cài đặt đang lưu.
+   */
+  const commitVocabSize = () => {
+    const parsed = Number.parseInt(vocabSizeText, 10)
+    const clamped = Number.isFinite(parsed)
+      ? Math.min(VOCAB_SIZE_MAX, Math.max(VOCAB_SIZE_MIN, parsed))
+      : loadVocabSettings().sessionSize
+    const rounded = Math.round(clamped / 5) * 5
+    setVocabSizeText(String(rounded))
+    saveVocabSettings({ ...loadVocabSettings(), sessionSize: rounded })
+  }
 
   const commitCount = () => {
     const parsed = Number.parseInt(countText, 10)
@@ -102,6 +127,60 @@ export function SettingsPage() {
             onChange={(event) => setCountText(event.target.value)}
             onBlur={commitCount}
           />
+        </div>
+      </section>
+
+      <section className="card">
+        <h2>Từ vựng</h2>
+        <p className="card__hint">
+          Áp dụng cho màn ôn thẻ và màn kiểm tra từ vựng. Thay đổi có hiệu lực từ lượt ôn tiếp theo.
+        </p>
+
+        <div className="switch-row">
+          <div className="switch-row__text">
+            <strong id="vocab-size-label">Số từ mỗi lượt ôn</strong>
+            <span>Mỗi lượt lấy tối đa chừng này từ. Chọn ít để học kỹ, nhiều để ôn nhanh.</span>
+          </div>
+          <div className="settings__count">
+            <input
+              type="number"
+              className="input input--count"
+              min={5}
+              max={100}
+              step={5}
+              aria-labelledby="vocab-size-label"
+              data-testid={TID.settingVocabSize}
+              value={vocabSizeText}
+              onChange={(event) => setVocabSizeText(event.target.value)}
+              onBlur={commitVocabSize}
+            />
+          </div>
+        </div>
+
+        <div className="switch-row">
+          <div className="switch-row__text">
+            <strong id="vocab-speech-label">Phát âm từ khi ôn</strong>
+            <span>
+              Dùng giọng đọc sẵn có của trình duyệt. Không cần mạng, không gửi dữ liệu đi đâu. Chất
+              lượng giọng tuỳ máy.
+            </span>
+          </div>
+          <button
+            type="button"
+            className="switch"
+            role="switch"
+            aria-checked={vocabSpeech}
+            aria-labelledby="vocab-speech-label"
+            data-testid={TID.settingVocabSpeech}
+            data-checked={vocabSpeech ? 'true' : 'false'}
+            onClick={() => {
+              const next = !vocabSpeech
+              setVocabSpeech(next)
+              saveVocabSettings({ ...loadVocabSettings(), speechEnabled: next })
+            }}
+          >
+            <span className="switch__knob" aria-hidden="true" />
+          </button>
         </div>
       </section>
 

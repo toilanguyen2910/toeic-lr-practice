@@ -271,6 +271,94 @@
   max-width: 240px;
 }
 
+/* ── Bốn mức tự đánh giá ─────────────────────────────────────────────────────
+   Lưới 4 cột đều nhau, mỗi nút mang một tông màu riêng để phân biệt bằng mắt
+   trước khi đọc chữ. Tông đi qua `--tone` để không hard-code màu ở đây. */
+.vocab-grades {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  flex: 1 1 100%;
+}
+
+.vocab-grade {
+  --tone: var(--primary);
+  --tone-soft: var(--primary-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 8px 10px;
+  border: 1.5px solid color-mix(in srgb, var(--tone) 35%, var(--line));
+  border-radius: var(--radius);
+  background: var(--tone-soft);
+  color: var(--tone);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    transform 140ms var(--ux-spring);
+}
+
+.vocab-grade[data-tone='bad'] {
+  --tone: var(--bad);
+  --tone-soft: var(--bad-soft);
+}
+
+.vocab-grade[data-tone='warn'] {
+  --tone: var(--flag);
+  --tone-soft: var(--flag-soft);
+}
+
+.vocab-grade[data-tone='ok'] {
+  --tone: var(--ok);
+  --tone-soft: var(--ok-soft);
+}
+
+.vocab-grade[data-tone='accent'] {
+  --tone: var(--primary);
+  --tone-soft: var(--primary-soft);
+}
+
+.vocab-grade:hover {
+  border-color: var(--tone);
+  transform: translateY(-1px);
+}
+
+.vocab-grade:active {
+  transform: scale(0.97);
+}
+
+.vocab-grade:focus-visible {
+  outline: 2px solid var(--tone);
+  outline-offset: 2px;
+}
+
+.vocab-grade__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vocab-grade kbd {
+  flex: none;
+  border-color: color-mix(in srgb, var(--tone) 40%, transparent);
+  background: color-mix(in srgb, var(--tone) 14%, var(--surface));
+  color: var(--tone);
+  font-size: 0.75rem;
+  padding: 0 4px;
+}
+
+@media (max-width: 560px) {
+  .vocab-grades {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 kbd {
   display: inline-block;
   min-width: 1.35em;
@@ -1697,6 +1785,85 @@ kbd {
   height: 18px;
 }
 
+/* ── Bảng chi tiết bốn mức ở màn tổng kết ────────────────────────────────────
+   Hiện số từ theo từng mức tự đánh giá. Chỉ hiện mức có ít nhất một từ. */
+.lx-done__grades {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 320px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lx-done__grade {
+  --tone: var(--primary);
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: var(--ux-surface-2);
+  font-size: 0.8125rem;
+  text-align: left;
+}
+
+.lx-done__grade[data-tone='bad'] {
+  --tone: var(--bad);
+}
+
+.lx-done__grade[data-tone='warn'] {
+  --tone: var(--flag);
+}
+
+.lx-done__grade[data-tone='ok'] {
+  --tone: var(--ok);
+}
+
+.lx-done__grade[data-tone='accent'] {
+  --tone: var(--primary);
+}
+
+.lx-done__grade-count {
+  display: grid;
+  place-items: center;
+  height: 22px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--tone) 18%, transparent);
+  color: var(--tone);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.lx-done__grade-label {
+  font-weight: 700;
+  color: var(--ux-ink);
+  white-space: nowrap;
+}
+
+.lx-done__grade-hint {
+  color: var(--ux-ink-3);
+  font-size: 0.75rem;
+  /* Không cắt bằng ellipsis: lời giải thích ngắn, xuống dòng vẫn đọc được, còn
+     cắt thì mất đúng phần nói vì sao mức đó hẹn ôn sớm hay muộn. */
+  line-height: 1.35;
+}
+
+@media (max-width: 420px) {
+  .lx-done__grade {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .lx-done__grade-hint {
+    display: none;
+  }
+}
+
 .u093-again.lx-done__again {
   margin-top: auto;
   width: 100%;
@@ -1770,3 +1937,4 @@ kbd {
     animation: none;
   }
 }
+

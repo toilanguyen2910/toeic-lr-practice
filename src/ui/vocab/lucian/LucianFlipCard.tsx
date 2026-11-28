@@ -138,6 +138,16 @@ export function LucianFlipCard({ word, flipped, onFlip }: Props) {
     // Bản gốc lật ở sự kiện `click`; nếu vừa kéo xong thì bỏ qua cú click đó để
     // không lật thêm lần nữa.
     const onClick = (event: MouseEvent) => {
+      /*
+       * Bỏ qua cú click phát sinh từ NÚT BÊN TRONG thẻ.
+       *
+       * Nút phát âm 🔊 nằm trong thẻ. `stopPropagation` của React KHÔNG chặn được
+       * listener native gắn ở đây, nên bấm 🔊 vừa đọc từ vừa lật thẻ — đúng lỗi
+       * người dùng báo. Phải tự kiểm `event.target` và đi lên tìm `[data-no-flip]`.
+       */
+      const target = event.target as HTMLElement | null
+      if (target?.closest('[data-no-flip]')) return
+
       if (d.moved) {
         event.preventDefault()
         d.moved = false
@@ -215,6 +225,7 @@ export function LucianFlipCard({ word, flipped, onFlip }: Props) {
               type="button"
               className="lx-flip__speak"
               data-testid="vocab-speak"
+              data-no-flip
               aria-label={`Phát âm từ ${word.word}`}
               onClick={(event) => {
                 event.stopPropagation()
@@ -250,5 +261,6 @@ export function LucianFlipCard({ word, flipped, onFlip }: Props) {
     </div>
   )
 }
+
 
 

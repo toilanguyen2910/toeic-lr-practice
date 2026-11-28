@@ -27,6 +27,8 @@
  *   StrictMode sẽ để lại một vòng vẽ mồ côi.
  */
 import { useEffect, useRef } from 'react'
+import type { VocabGrade } from '../../../types-vocab'
+import { VOCAB_GRADES, VOCAB_GRADE_META } from '../../../types-vocab'
 
 const COLORS = ['#22C3A6', '#10B981', '#FFB547', '#FF6B8B', '#7B61FF', '#3D8BFF']
 
@@ -43,6 +45,8 @@ interface Props {
   onRestart: () => void
   /** Nhãn nút. */
   restartLabel: string
+  /** Số từ theo từng mức tự đánh giá. Bỏ trống thì không hiện bảng chi tiết. */
+  grades?: Partial<Record<VocabGrade, number>>
 }
 
 export function LucianSessionDone({
@@ -52,6 +56,7 @@ export function LucianSessionDone({
   streak,
   onRestart,
   restartLabel,
+  grades,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -151,6 +156,30 @@ export function LucianSessionDone({
           Đã thuộc <strong>{known}</strong> từ · chưa thuộc <strong>{unknown}</strong> từ
         </p>
 
+        {/*
+          Bảng chi tiết bốn mức.
+
+          Vì sao cần: người dùng ôn xong 20 thẻ nhưng chỉ thấy "đã thuộc 20 · chưa
+          thuộc 0" — không biết mình vừa đánh dấu bao nhiêu từ ở mức nào, cũng không
+          thấy được từ nào sẽ quay lại sớm. Bảng này trả lời đúng câu đó.
+
+          Chỉ hiện mức có ít nhất một từ, để không có dòng "0 từ" vô nghĩa.
+        */}
+        {grades ? (
+          <ul className="lx-done__grades">
+            {VOCAB_GRADES.filter((grade) => (grades[grade] ?? 0) > 0).map((grade) => {
+              const meta = VOCAB_GRADE_META[grade]
+              return (
+                <li key={grade} className="lx-done__grade" data-tone={meta.tone}>
+                  <span className="lx-done__grade-count">{grades[grade]}</span>
+                  <span className="lx-done__grade-label">{meta.label}</span>
+                  <span className="lx-done__grade-hint">{meta.hint}</span>
+                </li>
+              )
+            })}
+          </ul>
+        ) : null}
+
         {streak > 0 ? (
           <span className="u093-st lx-done__streak">
             <svg viewBox="0 0 18 18" aria-hidden="true">
@@ -172,4 +201,5 @@ export function LucianSessionDone({
     </div>
   )
 }
+
 

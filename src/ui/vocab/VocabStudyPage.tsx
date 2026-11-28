@@ -1,7 +1,7 @@
 /**
  * MÀN ÔN FLASHCARD — `#/vocab/study` (kèm `?topic=…`).
  *
- * Luồng: chọn từ đến hạn → lật thẻ → đánh dấu đã thuộc / chưa thuộc → sang thẻ sau
+ * Luồng: chọn từ đến hạn → lật thẻ → chọn mức độ nhớ (4 mức) → sang thẻ sau
  * → hết phiên thì hiện màn hoàn thành.
  *
  * Ba quyết định đáng ghi lại:
@@ -20,8 +20,8 @@
  * 3. `answer` ghi qua engine rồi mới sang thẻ sau; không tự sửa state tiến độ.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { VocabBank, VocabWord } from '../../types-vocab'
-import { VOCAB_TOPIC_META } from '../../types-vocab'
+import type { VocabBank, VocabGrade, VocabWord } from '../../types-vocab'
+import { VOCAB_GRADES, VOCAB_GRADE_META, VOCAB_TOPIC_META } from '../../types-vocab'
 import { loadVocabSettings } from '../../lib/vocab'
 import { pickDueWords, summarizeProgress } from '../../lib/vocab'
 import { ROUTES, TID, vocabQuery } from '../../testids'
@@ -79,7 +79,7 @@ export function VocabStudyPage() {
   )
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
-  const [stats, setStats] = useState({ known: 0, unknown: 0 })
+  const [stats, setStats] = useState({ known: 0, unknown: 0, again: 0, hard: 0, good: 0, easy: 0 })
 
   /**
    * Chặn ghi hai lần cho cùng một từ trong cùng một nhịp (bấm đúp, hoặc giữ phím).
@@ -103,13 +103,24 @@ export function VocabStudyPage() {
   const flip = useCallback(() => setFlipped((previous) => !previous), [])
 
   const record = useCallback(
-    (known: boolean) => {
+    (grade: VocabGrade) => {
       if (!current || lockRef.current || finished) return
       lockRef.current = true
-      answer(current.id, known)
+      answer(current.id, grade)
+      /*
+       * Thống kê phiên theo bốn mức.
+       *
+       * `again` tính là "chưa thuộc"; ba mức còn lại tính là "đã thuộc" — người
+       * học đã nhớ ra từ, khác nhau ở độ chắc. Tách riêng `easy` để màn tổng kết
+       * khoe được "N từ đã quá dễ".
+       */
       setStats((previous) => ({
-        known: previous.known + (known ? 1 : 0),
-        unknown: previous.unknown + (known ? 0 : 1),
+        known: previous.known + (grade === 'again' ? 0 : 1),
+        unknown: previous.unknown + (grade === 'again' ? 1 : 0),
+        again: previous.again + (grade === 'again' ? 1 : 0),
+        hard: previous.hard + (grade === 'hard' ? 1 : 0),
+        good: previous.good + (grade === 'good' ? 1 : 0),
+        easy: previous.easy + (grade === 'easy' ? 1 : 0),
       }))
       setFlipped(false)
       setIndex((previous) => previous + 1)
@@ -127,7 +138,7 @@ export function VocabStudyPage() {
     )
     setIndex(0)
     setFlipped(false)
-    setStats({ known: 0, unknown: 0 })
+    setStats({ known: 0, unknown: 0, again: 0, hard: 0, good: 0, easy: 0 })
     lockRef.current = false
   }, [now, progress, topic, sessionSize])
 
@@ -149,12 +160,19 @@ export function VocabStudyPage() {
         return
       }
 
+      // Bốn phím cho bốn mức: 1 chưa thuộc, 2 hơi hơi, 3 cũng thuộc, 4 dễ.
       if (event.key === '1') {
         event.preventDefault()
-        record(false)
+        record('again')
       } else if (event.key === '2') {
         event.preventDefault()
-        record(true)
+        record('hard')
+      } else if (event.key === '3') {
+        event.preventDefault()
+        record('good')
+      } else if (event.key === '4') {
+        event.preventDefault()
+        record('easy')
       }
     }
 
@@ -242,8 +260,9 @@ export function VocabStudyPage() {
         <span className="section-label">{topicLabel ?? 'Từ vựng'}</span>
         <h1>{topicLabel ? `Ôn chủ đề: ${topicLabel}` : 'Ôn từ đến hạn'}</h1>
         <p className="page-head__lead">
-          Nhấn <kbd>Space</kbd> để lật thẻ, <kbd>1</kbd> nếu chưa thuộc, <kbd>2</kbd> nếu đã
-          thuộc. Từ đã thuộc được hẹn ôn lại sau 60 ngày.
+          Nhấn <kbd>Space</kbd> để lật thẻ, rồi chọn mức độ nhớ: <kbd>1</kbd> chưa thuộc,{' '}
+          <kbd>2</kbd> hơi hơi, <kbd>3</kbd> cũng thuộc, <kbd>4</kbd> dễ. Từ đã thuộc được hẹn
+          ôn lại theo hộp Leitner — càng chắc thì càng lâu gặp lại.
         </p>
       </div>
 
@@ -255,6 +274,7 @@ export function VocabStudyPage() {
           streak={streak.streak}
           onRestart={restart}
           restartLabel="Lượt ôn mới"
+          grades={stats}
         />
       ) : (
         <section className="vocab-study" aria-label="Thẻ ôn tập">
@@ -304,28 +324,51 @@ export function VocabStudyPage() {
             <button type="button" className="btn" data-testid={TID.vocabFlipButton} onClick={flip}>
               {flipped ? 'Xem lại từ' : 'Xem nghĩa'}
             </button>
-            <button
-              type="button"
-              className="btn btn--danger"
-              data-testid={TID.vocabDontKnow}
-              onClick={() => record(false)}
-            >
-              Chưa thuộc <kbd>1</kbd>
-            </button>
-            <button
-              type="button"
-              className="btn btn--primary"
-              data-testid={TID.vocabKnow}
-              onClick={() => record(true)}
-            >
-              Đã thuộc <kbd>2</kbd>
-            </button>
+            {/*
+              Bốn mức tự đánh giá thay cho hai nút "chưa thuộc / đã thuộc".
+
+              Vì sao: hai nút gộp mất hai trạng thái rất khác nhau — "hơi hơi nhớ"
+              và "quá dễ". Gộp lại thì từ đã chắc chắn vẫn bị hẹn ôn sớm (phiên
+              học dài vô ích), còn từ mới nhớ mang máng lại được đẩy xa quá nhanh.
+              Bốn mức theo thang Anki xử lý đúng cả hai.
+
+              Giữ `data-testid` cũ trên hai nút đầu để bộ kiểm hiện có không gãy.
+            */}
+            <div className="vocab-grades" role="group" aria-label="Mức độ nhớ từ">
+              {VOCAB_GRADES.map((grade) => {
+                const meta = VOCAB_GRADE_META[grade]
+                const testId =
+                  grade === 'again'
+                    ? TID.vocabDontKnow
+                    : grade === 'good'
+                      ? TID.vocabKnow
+                      : TID.vocabGrade(grade)
+                return (
+                  <button
+                    key={grade}
+                    type="button"
+                    className="vocab-grade"
+                    data-tone={meta.tone}
+                    data-testid={testId}
+                    title={meta.hint}
+                    onClick={() => record(grade)}
+                  >
+                    <span className="vocab-grade__label">{meta.label}</span>
+                    <kbd>{meta.key}</kbd>
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </section>
       )}
     </div>
   )
 }
+
+
+
+
 
 
 

@@ -17,7 +17,7 @@
  * nhìn thấy cùng một con số.
  */
 import { useCallback, useEffect, useState } from 'react'
-import type { VocabProgress } from '../../types-vocab'
+import type { VocabGrade, VocabProgress } from '../../types-vocab'
 import { loadProgress, recordAnswer, saveProgress } from '../../lib/vocab'
 import { VOCAB_STORAGE_KEYS } from '../../types-vocab'
 
@@ -56,7 +56,7 @@ export function useVocabProgress() {
     return () => window.removeEventListener('storage', onStorage)
   }, [])
 
-  const answer = useCallback((wordId: string, known: boolean) => {
+  const answer = useCallback((wordId: string, grade: VocabGrade) => {
     const stamp = readNow()
     setProgress((previous) => {
       /*
@@ -72,7 +72,7 @@ export function useVocabProgress() {
        * phản ánh mọi lần bấm trong tab), rồi chỉ THÊM những khoá mà tab khác có
        * mà tab này chưa có.
        */
-      const fromThisTab = recordAnswer(previous, wordId, known, stamp)
+      const fromThisTab = recordAnswer(previous, wordId, grade, stamp)
 
       const stored = loadProgress()
       const merged: VocabProgress = { ...fromThisTab }
@@ -100,4 +100,5 @@ export function useVocabProgress() {
 
   return { progress, answer, reload, reset, now }
 }
+
 

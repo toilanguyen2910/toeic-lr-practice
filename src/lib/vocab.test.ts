@@ -158,7 +158,7 @@ describe('pickDueWords', () => {
 
 describe('recordAnswer', () => {
   it('đúng lần đầu → hộp 2, hẹn 3 ngày', () => {
-    const next = recordAnswer({}, 'v-0001', true, NOW)
+    const next = recordAnswer({}, 'v-0001', 'good', NOW)
     const entry = next['v-0001']!
     expect(entry.box).toBe(2)
     expect(entry.nextReviewAt).toBe(NOW + BOX_INTERVAL_DAYS[2] * DAY)
@@ -170,7 +170,7 @@ describe('recordAnswer', () => {
     const start: VocabProgress = {
       'v-0001': { box: 4, nextReviewAt: NOW, correct: 8, wrong: 1, lastSeenAt: NOW - DAY },
     }
-    const next = recordAnswer(start, 'v-0001', false, NOW)
+    const next = recordAnswer(start, 'v-0001', 'again', NOW)
     const entry = next['v-0001']!
     expect(entry.box).toBe(1)
     expect(entry.wrong).toBe(2)
@@ -180,7 +180,7 @@ describe('recordAnswer', () => {
   it('đúng liên tục thì lên hộp, tối đa hộp 5', () => {
     let progress: VocabProgress = {}
     for (let i = 0; i < 10; i += 1) {
-      progress = recordAnswer(progress, 'v-0001', true, NOW + i * DAY)
+      progress = recordAnswer(progress, 'v-0001', 'good', NOW + i * DAY)
     }
     expect(progress['v-0001']!.box).toBe(5)
     expect(progress['v-0001']!.correct).toBe(10)
@@ -191,14 +191,67 @@ describe('recordAnswer', () => {
       'v-0001': { box: 2, nextReviewAt: NOW, correct: 1, wrong: 0, lastSeenAt: NOW },
     }
     const before = JSON.stringify(start)
-    recordAnswer(start, 'v-0001', true, NOW)
+    recordAnswer(start, 'v-0001', 'good', NOW)
     expect(JSON.stringify(start)).toBe(before)
   })
 
   it('từ chưa có trong tiến độ vẫn ghi được', () => {
-    const next = recordAnswer({}, 'v-9999', false, NOW)
+    const next = recordAnswer({}, 'v-9999', 'again', NOW)
     expect(next['v-9999']!.box).toBe(1)
     expect(next['v-9999']!.wrong).toBe(1)
+  })
+
+  it('bốn mức cho bốn kết quả khác nhau', () => {
+    // `again` về hộp 1; `hard`/`good` lên 1 hộp; `easy` lên 2 hộp.
+    const base: VocabProgress = {
+      'v-0001': { box: 2, nextReviewAt: NOW, correct: 1, wrong: 0, lastSeenAt: NOW },
+    }
+    expect(recordAnswer(base, 'v-0001', 'again', NOW)['v-0001']!.box).toBe(1)
+    expect(recordAnswer(base, 'v-0001', 'hard', NOW)['v-0001']!.box).toBe(3)
+    expect(recordAnswer(base, 'v-0001', 'good', NOW)['v-0001']!.box).toBe(3)
+    expect(recordAnswer(base, 'v-0001', 'easy', NOW)['v-0001']!.box).toBe(4)
+  })
+
+  it('hard hẹn xa gấp đôi good dù cùng hộp', () => {
+    const base: VocabProgress = {
+      'v-0001': { box: 2, nextReviewAt: NOW, correct: 1, wrong: 0, lastSeenAt: NOW },
+    }
+    const hard = recordAnswer(base, 'v-0001', 'hard', NOW)['v-0001']!
+    const good = recordAnswer(base, 'v-0001', 'good', NOW)['v-0001']!
+    expect(hard.box).toBe(good.box)
+    expect(hard.nextReviewAt).toBeGreaterThan(good.nextReviewAt)
+    // Đúng gấp đôi: hộp 3 = 7 ngày → hard = 14 ngày.
+    expect(hard.nextReviewAt - NOW).toBe((good.nextReviewAt - NOW) * 2)
+  })
+
+  it('easy lên thẳng gần hộp tối đa, tối đa là 5', () => {
+    let progress: VocabProgress = {}
+    progress = recordAnswer(progress, 'v-0001', 'easy', NOW)
+    expect(progress['v-0001']!.box).toBe(3) // 1 + 2
+    progress = recordAnswer(progress, 'v-0001', 'easy', NOW + DAY)
+    expect(progress['v-0001']!.box).toBe(5) // 3 + 2, kẹp 5
+    progress = recordAnswer(progress, 'v-0001', 'easy', NOW + 2 * DAY)
+    expect(progress['v-0001']!.box).toBe(5) // vẫn 5, không vượt
+  })
+
+  it('again xoá đà tiến bộ nhưng giữ lịch sử đúng', () => {
+    let progress: VocabProgress = {}
+    for (let i = 0; i < 4; i += 1) {
+      progress = recordAnswer(progress, 'v-0001', 'good', NOW + i * DAY)
+    }
+    expect(progress['v-0001']!.box).toBe(5)
+    progress = recordAnswer(progress, 'v-0001', 'again', NOW + 5 * DAY)
+    expect(progress['v-0001']!.box).toBe(1)
+    expect(progress['v-0001']!.correct).toBe(4) // không mất
+    expect(progress['v-0001']!.wrong).toBe(1)
+  })
+
+  it('hard và good đều tính là trả lời đúng', () => {
+    let progress: VocabProgress = {}
+    progress = recordAnswer(progress, 'v-0001', 'hard', NOW)
+    progress = recordAnswer(progress, 'v-0001', 'good', NOW + DAY)
+    expect(progress['v-0001']!.correct).toBe(2)
+    expect(progress['v-0001']!.wrong).toBe(0)
   })
 })
 
@@ -332,3 +385,4 @@ describe('filterWords', () => {
     expect(filterWords(bank, progress, { query: 'không tồn tại xyz' })).toEqual([])
   })
 })
+

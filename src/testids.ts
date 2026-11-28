@@ -227,6 +227,7 @@ export const TID = {
   vocabCardBack: 'vocab-card-back',
   vocabFlipButton: 'vocab-flip-button',
   vocabKnow: 'vocab-know',
+  vocabGrade: (grade: string) => `vocab-grade-${grade}`,
   vocabDontKnow: 'vocab-dont-know',
   vocabStudyProgress: 'vocab-study-progress',
   vocabStudyCounter: 'vocab-study-counter',
@@ -252,5 +253,6 @@ export const TID = {
   vocabQuizProgress: 'vocab-quiz-progress',
   vocabQuizDone: 'vocab-quiz-done',
 } as const
+
 
 

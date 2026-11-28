@@ -83,8 +83,13 @@ export function VocabQuizPage() {
       if (!current || picked !== null || lockRef.current) return
       lockRef.current = true
       setPicked(choice.wordId)
-      // Trắc nghiệm cũng là một lần trả lời: đúng lên hộp, sai về hộp 1.
-      answer(current.word.id, choice.correct)
+      /*
+       * Trắc nghiệm cũng là một lần trả lời, nhưng KHÔNG có bốn mức — người học
+       * chọn đáp án chứ không tự đánh giá. Ánh xạ: đúng → `good`, sai → `again`.
+       * Dùng `good` chứ không `easy` vì chọn đúng một câu chưa chứng minh là quá
+       * dễ; muốn đẩy nhanh thì sang màn ôn thẻ bấm mức "Dễ".
+       */
+      answer(current.word.id, choice.correct ? 'good' : 'again')
       setScore((previous) => ({
         right: previous.right + (choice.correct ? 1 : 0),
         wrong: previous.wrong + (choice.correct ? 0 : 1),

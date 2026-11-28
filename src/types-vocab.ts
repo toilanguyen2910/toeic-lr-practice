@@ -173,6 +173,63 @@ export const BOX_INTERVAL_DAYS: Record<LeitnerBox, number> = {
   5: 60,
 }
 
+/**
+ * Bốn mức tự đánh giá sau khi lật thẻ — theo thang của Anki.
+ *
+ * Vì sao bốn mức chứ không phải hai: "đã thuộc / chưa thuộc" gộp mất hai trạng
+ * thái rất khác nhau — "hơi hơi nhớ" và "quá dễ". Gộp chúng lại thì những từ
+ * mình đã chắc chắn vẫn bị hẹn ôn lại sớm, làm phiên học dài vô ích; còn từ mới
+ * nhớ mang máng lại được đẩy xa quá nhanh.
+ *
+ * `again` coi như trả lời sai. `hard` lên hộp nhưng chậm hơn. `good` là bình
+ * thường. `easy` lên thẳng hộp 5.
+ */
+export type VocabGrade = 'again' | 'hard' | 'good' | 'easy'
+
+export const VOCAB_GRADES: VocabGrade[] = ['again', 'hard', 'good', 'easy']
+
+export interface VocabGradeMeta {
+  id: VocabGrade
+  label: string
+  /** Phím tắt, dùng cho bàn phím. */
+  key: string
+  /** Mô tả một dòng cho trình đọc màn hình. */
+  hint: string
+  /** Tông màu, dùng cho CSS (`--tone`). */
+  tone: 'bad' | 'warn' | 'ok' | 'accent'
+}
+
+export const VOCAB_GRADE_META: Record<VocabGrade, VocabGradeMeta> = {
+  again: {
+    id: 'again',
+    label: 'Chưa thuộc',
+    key: '1',
+    hint: 'Quên hoàn toàn, hẹn ôn lại ngày mai',
+    tone: 'bad',
+  },
+  hard: {
+    id: 'hard',
+    label: 'Hơi hơi',
+    key: '2',
+    hint: 'Nhớ mang máng, cần gặp lại sớm',
+    tone: 'warn',
+  },
+  good: {
+    id: 'good',
+    label: 'Cũng thuộc',
+    key: '3',
+    hint: 'Nhớ được, ôn theo nhịp bình thường',
+    tone: 'ok',
+  },
+  easy: {
+    id: 'easy',
+    label: 'Dễ',
+    key: '4',
+    hint: 'Quá dễ, hẹn ôn lại rất lâu',
+    tone: 'accent',
+  },
+}
+
 export interface WordProgress {
   /** Hộp hiện tại. */
   box: LeitnerBox
@@ -250,10 +307,15 @@ export interface VocabApi {
    * `known = true` → lên hộp (tối đa 5). `false` → về hộp 1.
    * Trả về tiến độ MỚI, không sửa tiến độ truyền vào.
    */
+  /**
+   * Ghi nhận một lượt trả lời với bốn mức tự đánh giá.
+   *
+   * Trả về tiến độ MỚI, không sửa tiến độ truyền vào.
+   */
   recordAnswer: (
     progress: VocabProgress,
     wordId: string,
-    known: boolean,
+    grade: VocabGrade,
     now: number,
   ) => VocabProgress
 

@@ -7,6 +7,7 @@
  */
 import type {
   LeitnerBox,
+  VocabGrade,
   VocabBank,
   VocabProgress,
   VocabSettings,
@@ -125,26 +126,44 @@ export function pickDueWords(
 }
 
 /**
- * Ghi nhận kết quả một từ.
+ * Ghi nhận kết quả một từ với bốn mức tự đánh giá.
  *
- * Trả về tiến độ MỚI. `known = true` lên một hộp; `false` về hộp 1. Không sửa
- * object truyền vào — nhờ vậy React so sánh tham chiếu là biết cần render lại.
+ * Trả về tiến độ MỚI. Không sửa object truyền vào — nhờ vậy React so sánh tham
+ * chiếu là biết cần render lại.
+ *
+ * Ánh xạ mức → hộp:
+ * - `again` (quên)  → về hộp 1, hẹn lại sau 1 ngày.
+ * - `hard` (hơi nhớ) → LÊN một hộp nhưng chờ GẤP ĐÔI khoảng cách. Tức là từ đã
+ *   lên hộp 2 nhưng không được coi là chắc chắn — gặp lại sau 6 ngày thay vì 3.
+ * - `good` (nhớ được) → lên một hộp, chờ đúng khoảng của hộp đó.
+ * - `easy` (quá dễ) → lên HAI hộp, chờ theo hộp mới. Nhờ vậy từ đã chắc chắn
+ *   không quay lại làm phiên học dài vô ích.
+ *
+ * Vì sao `hard` vẫn lên hộp: nếu giữ nguyên hộp cũ thì người học bấm "hơi hơi"
+ * mãi mà không bao giờ thoát khỏi vòng lặp; lên hộp nhưng chờ lâu hơn vẫn giữ
+ * được ý "chưa chắc".
  */
 export function recordAnswer(
   progress: VocabProgress,
   wordId: string,
-  known: boolean,
+  grade: VocabGrade,
   now: number,
 ): VocabProgress {
   const previous = progress[wordId] ?? freshProgress(now)
-  const nextBox: LeitnerBox = known ? clampBox(previous.box + 1) : MIN_BOX
-  const intervalDays = BOX_INTERVAL_DAYS[nextBox]
+
+  const step = grade === 'easy' ? 2 : grade === 'again' ? 0 : 1
+  const nextBox: LeitnerBox = grade === 'again' ? MIN_BOX : clampBox(previous.box + step)
+
+  const intervalDays =
+    grade === 'hard' ? BOX_INTERVAL_DAYS[nextBox] * 2 : BOX_INTERVAL_DAYS[nextBox]
+
+  const passed = grade !== 'again'
 
   const next: WordProgress = {
     box: nextBox,
     nextReviewAt: now + intervalDays * MS_PER_DAY,
-    correct: previous.correct + (known ? 1 : 0),
-    wrong: previous.wrong + (known ? 0 : 1),
+    correct: previous.correct + (passed ? 1 : 0),
+    wrong: previous.wrong + (passed ? 0 : 1),
     lastSeenAt: now,
   }
 
@@ -352,3 +371,4 @@ export function loadVocabSettings(): VocabSettings {
 export function saveVocabSettings(settings: VocabSettings): void {
   writeRaw(VOCAB_STORAGE_KEYS.settings, JSON.stringify(settings))
 }
+

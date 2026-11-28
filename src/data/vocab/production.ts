@@ -224,7 +224,7 @@ export const PRODUCTION_WORDS: VocabWord[] = [
     exampleVi: 'Mỗi sản phẩm cần sự phê duyệt của nhóm chất lượng.',
     topic: 'production', difficulty: 3 },
   { id: 'v-0387', word: 'certification', phonetic: '/ˌsɜːrtɪfɪˈkeɪʃn/', partOfSpeech: 'n',
-    meaningVi: 'chứng nhận',
+    meaningVi: 'giấy chứng nhận',
     definitionEn: 'an official document proving a standard has been met',
     exampleEn: 'The plant obtained certification for its quality system in May.',
     exampleVi: 'Nhà máy đạt chứng nhận cho hệ thống chất lượng vào tháng Năm.',
@@ -308,3 +308,4 @@ export const PRODUCTION_WORDS: VocabWord[] = [
     exampleVi: 'Mỗi công nhân vận hành ghi lại trọng lượng đầu và cuối đợt chạy.',
     topic: 'production', difficulty: 2 },
 ]
+

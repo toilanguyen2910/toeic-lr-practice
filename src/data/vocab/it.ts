@@ -170,7 +170,7 @@ export const IT_WORDS: VocabWord[] = [
     exampleVi: 'Mỗi nhân viên mới nhận một tài khoản ngay ngày đầu.',
     topic: 'it', difficulty: 1 },
   { id: 'v-0528', word: 'permission', phonetic: '/pərˈmɪʃn/', partOfSpeech: 'n',
-    meaningVi: 'quyền truy cập',
+    meaningVi: 'sự cho phép',
     definitionEn: 'the right to open or change particular files',
     exampleEn: 'Ask the administrator to grant permission for the folder.',
     exampleVi: 'Nhờ quản trị viên cấp quyền truy cập cho thư mục.',
@@ -236,7 +236,7 @@ export const IT_WORDS: VocabWord[] = [
     exampleVi: 'Mã hoá ổ máy tính xách tay trước khi mang ra khỏi văn phòng.',
     topic: 'it', difficulty: 3 },
   { id: 'v-0539', word: 'access', phonetic: '/ˈækses/', partOfSpeech: 'n',
-    meaningVi: 'quyền truy cập',
+    meaningVi: 'khả năng truy cập',
     definitionEn: 'the ability to open or use something',
     exampleEn: 'Remote access requires a second code on your phone.',
     exampleVi: 'Truy cập từ xa cần thêm một mã thứ hai trên điện thoại.',
@@ -308,3 +308,4 @@ export const IT_WORDS: VocabWord[] = [
     exampleVi: 'Sự cố mất kết nối kéo dài bốn mươi phút ở cả hai văn phòng.',
     topic: 'it', difficulty: 3 },
 ]
+
